@@ -52,6 +52,8 @@ for row in data_array:
 # Getting 196 dummies for the classes because Keras reads data in this format
 data = pd.DataFrame({'fname': l6, 'bbox_x1': l1, 'bbox_y1': l2, 'bbox_x2': l3, 'bbox_y2': l4, 'class': l5})
 
+# TODO: Separare label preparation (from mat to csv) dall'ingestion (splitting train, validation, test)
+# TODO: Adding some global parameters (train, validation and test size)
 # Splitting train, validation, test
 X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
                                                               data['class'],
@@ -107,7 +109,6 @@ for index in indexes.keys():
 
 
 # Code for visualization
-
 # index = np.random.randint(0,len(data))
 # fname = data.loc[index,'fname']
 # im = np.array(Image.open(r'C:\Users\Edoardo\PycharmProjects\Car_Prediction\data\cars_train\{fname}'.format(fname=fname)), dtype=np.uint8)

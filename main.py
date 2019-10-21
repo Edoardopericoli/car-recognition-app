@@ -11,22 +11,10 @@ from math import ceil
 import yaml
 import os
 
-df = pd.read_csv("data/labels/labels.csv")
-percentage_train = 0.8
-percentage_validation = 0.1
-percentage_test = 0.05
+train = pd.read_csv("data/labels/train_labels.csv")
+validation = pd.read_csv("data/labels/validation_labels.csv")
+test = pd.read_csv("data/labels/test_labels.csv")
 
-# TODO: changing the setting fro train test split --> using a predetermined function, POSSIBLY STRATIFYING THEM
-##############################################################################
-seed = 100
-train_index = np.random.randint(0, len(df), round(percentage_train*len(df), 0), seed=seed)
-validation_index = np.random.randint(0, len(df), round(percentage_validation*len(df), 0), seed=seed)
-test_index = np.random.randint(0, len(df), round(percentage_test*len(df), 0), seed=seed)
-
-df_train = df[train_index]
-df_validation = df[validation_index]
-df_test = df[test_index]
-##############################################################################
 
 classes = np.arange(1, 197)
 
