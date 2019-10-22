@@ -1,9 +1,6 @@
 import pandas as pd
 from scipy.io import loadmat
 from sklearn.model_selection import train_test_split
-from PIL import Image
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
 import numpy as np
 import os
 import shutil
@@ -89,6 +86,9 @@ train.drop('class', axis=1, inplace=True)
 validation.drop('class', axis=1, inplace=True)
 test.drop('class', axis=1, inplace=True)
 
+# Testing that the split has been executed correctly
+assert len(data) == len(train) + len(validation) + len(test)
+
 # Writing boxes data and class names data into csv files and writing a csv for each of train, validation and split
 train.to_csv('data/labels/train_labels.csv')
 validation.to_csv('data/labels/validation_labels.csv')
@@ -105,15 +105,3 @@ for index in indexes.keys():
         full_file_name = os.path.join(src, file_name)
         if os.path.isfile(full_file_name):
             shutil.copy(full_file_name, dest)
-
-
-
-# Code for visualization
-# index = np.random.randint(0,len(data))
-# fname = data.loc[index,'fname']
-# im = np.array(Image.open(r'C:\Users\Edoardo\PycharmProjects\Car_Prediction\data\cars_train\{fname}'.format(fname=fname)), dtype=np.uint8)
-# fig, ax = plt.subplots(1)
-# ax.imshow(im)
-# rect = patches.Rectangle((data.iloc[index,1],data.iloc[index,2]),data.iloc[index,3]-data.iloc[index,1],data.iloc[index,4]-data.iloc[index,2],linewidth=1,edgecolor='r',facecolor='none')
-# ax.add_patch(rect)
-# plt.show()

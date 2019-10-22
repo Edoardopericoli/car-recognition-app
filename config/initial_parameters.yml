@@ -1,0 +1,8 @@
+classes : np.arange(1, 197)
+seed : 42
+train_batch_size : 32
+validation_batch_size : 32
+test_batch_size : 32
+epochs : 2
+IMG_HEIGHT : 100
+IMG_WIDTH : 100
