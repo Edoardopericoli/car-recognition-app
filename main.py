@@ -92,7 +92,6 @@ def main(initial_parameters_path, username):
 
     model.summary()
 
-# TODO: Agiungere file per fare evaluation finale
 # TODO: Creare setting per scegliere se fare gridsearch
 
     logging.info('Fitting the model')
