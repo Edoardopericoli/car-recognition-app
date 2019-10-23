@@ -17,12 +17,14 @@ import logging
 import os
 import yaml
 from utils.main_utils import asserting_batch_size
+import sys
 
 
 @click.command()
 @click.option('--initial_parameters_path', default=r"config\initial_parameters.yml", help='config file containing initial parameters', type=str)
 @click.option('--username', help='username to be used for model saving', type=str)
-def main(initial_parameters_path, username):
+@click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
+def main(initial_parameters_path, username, shows_only_summary):
     logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
 
@@ -77,12 +79,12 @@ def main(initial_parameters_path, username):
 
     # Model
     model = Sequential([
-        Conv2D(2, 4, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
-        MaxPooling2D((8, 8)),
-        Conv2D(1, 8, padding='same', activation='relu'),
-        MaxPooling2D((8, 8)),
+        Conv2D(40, 4, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
+        MaxPooling2D((4, 4)),
+        Conv2D(8, 4, padding='same', activation='relu'),
+        MaxPooling2D((4, 4)),
         Flatten(),
-        Dense(32, activation='relu'),
+        Dense(64, activation='relu'),
         Dense(len(classes), activation='softmax')
     ])
 
@@ -92,6 +94,8 @@ def main(initial_parameters_path, username):
 
     model.summary()
 
+    if shows_only_summary:
+        sys.exit()
 # TODO: Creare setting per scegliere se fare gridsearch
 
     logging.info('Fitting the model')
