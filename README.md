@@ -10,5 +10,5 @@ and model fitting of the train data. Finally aims to evaluate the model
 using the validation data and saving the model, the architecture, the initial parameters
 and the score into a subfolder inside the folder "models". Each of the
 subfolder will be named in chronological order, so we can have a history 
-of the models run. The main file can be executed using from UNIX Shell.
+of the models run. The main file can be executed using UNIX Shell.
 
