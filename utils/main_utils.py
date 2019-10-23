@@ -11,10 +11,6 @@ def asserting_batch_size(length_data, batch_size):
     Returns:
     An error in case the batch hav not all the same batch size
     """
-    try:
-        assert length_data % batch_size == 0
-
-    except AssertionError as error:
-        logging.logger.exception("batch_size must be chosen among the following: {batch_size_values}" \
-                                 .format(batch_size_values=[value for value in range(1, length_data) if length_data % value == 0]))
-        raise error
+    assert length_data % batch_size == 0, \
+        logging.exception("batch_size must be chosen among the following: {batch_size_values}"
+                          .format(batch_size_values=[value for value in range(1, length_data) if length_data % value == 0]))

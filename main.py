@@ -20,16 +20,17 @@ from utils.main_utils import asserting_batch_size
 
 
 @click.command()
-@click.option('--initial_parameters_path', default=r"config\initial_parameters.yml", help='config file containing initial parameters')
-def main(initial_parameters_path):
+@click.option('--initial_parameters_path', default=r"config\initial_parameters.yml", help='config file containing initial parameters', type=str)
+@click.option('--username', help='username to be used for model saving', type=str)
+def main(initial_parameters_path, username):
     logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
 
     # Asserting that dimensions of train, validation and test are consistent
-    full_data_length = len(os.listdir('../data/raw_data/cars_train'))
-    train_length = len(os.listdir('../data/train'))
-    validation_length = len(os.listdir('../data/validation'))
-    test_length = len(os.listdir('../data/test'))
+    full_data_length = len(os.listdir('data/raw_data/cars_train'))
+    train_length = len(os.listdir('data/train'))
+    validation_length = len(os.listdir('data/validation'))
+    test_length = len(os.listdir('data/test'))
     assert full_data_length == train_length + validation_length + test_length
 
     logging.info('Loading data')
@@ -48,11 +49,13 @@ def main(initial_parameters_path):
     train_image_generator = ImageDataGenerator(rescale=1./255)
     validation_image_generator = ImageDataGenerator(rescale=1./255)
 
+    classes = np.arange(1, 197)
+    classes = [str(i) for i in classes]
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
         directory="data/train",
         x_col="fname",
-        y_col=initial_parameters['classes'],
+        y_col=classes,
         batch_size=initial_parameters['train_batch_size'],
         seed=initial_parameters['seed'],
         shuffle=True,
@@ -64,7 +67,7 @@ def main(initial_parameters_path):
         dataframe=validation_df,
         directory="data/validation",
         x_col="fname",
-        y_col=initial_parameters['classes'],
+        y_col=classes,
         batch_size=initial_parameters['validation_batch_size'],
         seed=initial_parameters['seed'],
         shuffle=True,
@@ -80,7 +83,7 @@ def main(initial_parameters_path):
         MaxPooling2D((8, 8)),
         Flatten(),
         Dense(32, activation='relu'),
-        Dense(len(initial_parameters['classes']), activation='softmax')
+        Dense(len(classes), activation='softmax')
     ])
 
     model.compile(optimizer='adam',
@@ -97,13 +100,14 @@ def main(initial_parameters_path):
         train_generator,
         epochs=initial_parameters['epochs'],
         validation_data=validation_generator,
-        steps_per_epoch=ceil(len(train_df) / initial_parameters['train_batch_size'])
+        steps_per_epoch=ceil(len(train_df) / initial_parameters['train_batch_size']),
+        validation_steps=ceil(len(train_df) / initial_parameters['validation_batch_size'])
      )
 
     # Saving model
-    model_names = [name for name in os.listdir('data/models')]
+    model_names = [name for name in os.listdir('data/models') if name.startswith(username)]
     if len(model_names) == 0:
-        model_name = '1'
+        model_name = username + '_' + '1'
         logging.info('Saving: model, initial parameters and architecture into {model_directory}'.format(
             model_directory='data/models/' + model_name))
         os.mkdir('data/models/' + model_name)
@@ -116,7 +120,7 @@ def main(initial_parameters_path):
         # Saving estimator
         model.save('data/models/' + model_name + '/model.h5')
     else:
-        model_name = str(int(model_names[-1])+1)
+        model_name = username + '_' + str(int(model_names[-1].split('_')[-1]) + 1)
         logging.info('Saving: model, initial parameters and architecture into {model_directory}'.format(
             model_directory='data/models/' + model_name))
         os.mkdir('data/models/' + model_name)
@@ -132,28 +136,35 @@ def main(initial_parameters_path):
 
     # Model Performance
     train_accuracy = history.history['acc']
-    validation_accuracy = history.history['val_accuracy']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']
 
-    rows = zip(train_accuracy, validation_accuracy, train_loss, validation_loss)
+    list_epochs = np.arange(1, initial_parameters['epochs'] + 1)
+    list_epochs = [str(epoch) for epoch in list_epochs]
+    rows = zip(list_epochs, train_accuracy, validation_accuracy, train_loss, validation_loss)
+    headers = ['Epoch', 'Train Accuracy', 'Validation Accuracy', 'Train Loss', 'Validation Loss']
     if len(model_names) == 0:
-        model_name = '1'
+        model_name = username + '_' + '1'
         logging.info('Saving: model performance into {model_directory}'.format(
             model_directory='data/models/' + model_name))
         with open('data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
-            writer = csv.writer(outfile)
+            writer = csv.writer(outfile, delimiter='|')
+            writer.writerow(headers)
             for row in rows:
                 writer.writerow(row)
     else:
-        model_name = str(int(model_names[-1]) + 1)
+        model_name = username + '_' + str(int(model_names[-1].split('_')[-1]) + 1)
         logging.info('Saving: model performance into {model_directory}'.format(
             model_directory='data/models/' + model_name))
         with open('data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
-            writer = csv.writer(outfile)
+            writer = csv.writer(outfile, delimiter='|')
+            writer.writerow(headers)
             for row in rows:
                 writer.writerow(row)
+
+    logging.info('Process finished')
 
 
 if __name__ == '__main__':
