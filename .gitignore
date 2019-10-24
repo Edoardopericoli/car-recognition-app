@@ -87,6 +87,7 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+env_Car_Prediction
 env/
 venv/
 ENV/
