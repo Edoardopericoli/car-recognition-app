@@ -21,7 +21,7 @@ import sys
 
 
 @click.command()
-@click.option('--initial_parameters_path', default=r"config\initial_parameters.yml", help='config file containing initial parameters', type=str)
+@click.option('--initial_parameters_path', default=r"config/initial_parameters.yml", help='config file containing initial parameters', type=str)
 @click.option('--username', help='username to be used for model saving', type=str)
 @click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
 def main(initial_parameters_path, username, shows_only_summary):
