@@ -38,9 +38,14 @@ def main(initial_parameters_path, username, shows_only_summary):
     logging.info('Loading data')
     train_df = pd.read_csv("data/labels/train_labels.csv")
     validation_df = pd.read_csv("data/labels/validation_labels.csv")
+    print(len(train_df))
+    print(len(validation_df))
 
     with open(initial_parameters_path) as file:
         initial_parameters = yaml.load(file)
+
+    print(initial_parameters['train_batch_size'])
+    print(initial_parameters['validation_batch_size'])
 
     logging.info('Asserting batch sizes')
     # Asserting dimensions of batch sizes
