@@ -51,6 +51,7 @@ data = pd.DataFrame({'fname': l6, 'bbox_x1': l1, 'bbox_y1': l2, 'bbox_x2': l3, '
 
 # TODO: Separare label preparation (from mat to csv) dall'ingestion (splitting train, validation, test)
 # TODO: Adding some global parameters (train, validation and test size)
+
 # Splitting train, validation, test
 X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
                                                               data['class'],
