@@ -2,6 +2,6 @@ seed : 42
 train_batch_size : 1303
 validation_batch_size : 163
 test_batch_size : 32
-epochs : 2
+epochs : 10
 IMG_HEIGHT : 150
 IMG_WIDTH : 150

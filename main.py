@@ -25,6 +25,7 @@ import sys
 @click.option('--username', help='username to be used for model saving', type=str)
 @click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
 def main(initial_parameters_path, username, shows_only_summary):
+    logging.basicConfig(filename='example.log', level=logging.DEBUG)
     logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
 
@@ -171,5 +172,4 @@ def main(initial_parameters_path, username, shows_only_summary):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(filename='example.log', level=logging.DEBUG)
     main()
