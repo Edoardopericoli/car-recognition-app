@@ -171,4 +171,5 @@ def main(initial_parameters_path, username, shows_only_summary):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(filename='example.log', level=logging.DEBUG)
     main()
