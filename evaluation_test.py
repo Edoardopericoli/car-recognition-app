@@ -11,3 +11,9 @@
 # rect = patches.Rectangle((data.iloc[index,1],data.iloc[index,2]),data.iloc[index,3]-data.iloc[index,1],data.iloc[index,4]-data.iloc[index,2],linewidth=1,edgecolor='r',facecolor='none')
 # ax.add_patch(rect)
 # plt.show()
+
+from keras.models import load_model
+
+# load model
+model = load_model('data/models/pericoli_1/model.h5')
+model.predict_classes()

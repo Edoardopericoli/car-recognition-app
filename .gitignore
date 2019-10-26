@@ -9,6 +9,9 @@ __pycache__/
 # Data
 data
 
+# Pericoli Local Configurations
+.initial_parameters_sample.yml
+
 # Distribution / packaging
 .Python
 build/
