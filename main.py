@@ -83,12 +83,14 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     # Model
     model = Sequential([
-        Conv2D(5, 8, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
-        MaxPooling2D((8, 8)),
-        Conv2D(2, 4, padding='same', activation='relu'),
+        Conv2D(30, 4, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
         MaxPooling2D((4, 4)),
+        Dropout(0.1, seed=initial_parameters['seed']),
+        Conv2D(5, 4, padding='same', activation='relu'),
+        MaxPooling2D((4, 4)),
+        Dropout(0.1, seed=initial_parameters['seed']),
         Flatten(),
-        Dense(32, activation='relu'),
+        Dense(64, activation='relu'),
         Dense(len(classes), activation='softmax')
     ])
 

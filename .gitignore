@@ -10,7 +10,7 @@ __pycache__/
 data
 
 # Pericoli Local Configurations
-.initial_parameters_sample.yml
+initial_parameters_sample.yml
 
 # Distribution / packaging
 .Python
