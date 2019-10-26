@@ -25,7 +25,10 @@ import sys
 @click.option('--username', help='username to be used for model saving', type=str)
 @click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
 def main(initial_parameters_path, username, shows_only_summary):
-    logging.basicConfig(filename='example.log', level=logging.DEBUG)
+    logging.basicConfig()
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+
     logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
 
@@ -139,8 +142,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['acc']
-    validation_accuracy = history.history['val_acc']
+    train_accuracy = history.history["acc"]
+    validation_accuracy = history.history["val_acc"]
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']
