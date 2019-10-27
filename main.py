@@ -102,6 +102,7 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     if shows_only_summary:
         sys.exit()
+
 # TODO: Creare setting per scegliere se fare gridsearch
 
     logging.info('Fitting the model')
