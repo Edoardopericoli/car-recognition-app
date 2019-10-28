@@ -2,10 +2,9 @@
 
 The process of the project is the following:
 1.  _label_preparation.py_: this file transforms the format of the data 
-from a mat file to csv and splits the data into train, validation and test
-according to some sizes. Files and images are splitted and inserted in the "data" 
-folder.
-2.  _main.py_: this file performs the loading of data, the model creation
+from a mat file to csv. 
+2. _splitting_data.py_: this file splits the data in train, validation ad test sets.
+3.  _main.py_: this file performs the loading of data, the model creation
 and model fitting of the train data. Finally aims to evaluate the model
 using the validation data and saving the model, the architecture, the initial parameters
 and the score into a subfolder inside the folder "models". Each of the
