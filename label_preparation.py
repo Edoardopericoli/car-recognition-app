@@ -14,6 +14,7 @@ data_array2 = data_array2.transpose(1, 0)
 
 # Getting a list of separate words for each observation
 data2 = [data_array2[i][0][0].split(' ') for i in range(len(data_array2))]
+##
 
 # Extrapolating brand, model and year from the previous list
 brand = []
