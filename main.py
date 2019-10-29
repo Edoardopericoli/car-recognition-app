@@ -123,7 +123,7 @@ def main(initial_parameters_path, username, shows_only_summary):
         os.mkdir('data/models/' + model_name)
         yaml_string = model.to_yaml()
         with open('data/models/' + model_name + '/architecture.yml', 'w') as outfile:
-            yaml.dump(yaml_string, outfile, default_flow_style=False)
+            outfile.write(yaml_string)
         # Saving global parameters
         with open('data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
@@ -137,7 +137,7 @@ def main(initial_parameters_path, username, shows_only_summary):
         # Saving architecture
         yaml_string = model.to_yaml()
         with open('data/models/' + model_name + '/architecture.yml', 'w') as outfile:
-            yaml.dump(yaml_string, outfile, default_flow_style=False)
+            outfile.write(yaml_string)
         # Saving global parameters
         with open('data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
