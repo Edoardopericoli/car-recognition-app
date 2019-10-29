@@ -21,7 +21,7 @@ import sys
 
 
 @click.command()
-@click.option('--initial_parameters_path', default=r"config/initial_parameters.yml", help='config file containing initial parameters', type=str)
+@click.option('--initial_parameters_path', default=r"../config/initial_parameters.yml", help='config file containing initial parameters', type=str)
 @click.option('--username', help='username to be used for model saving', type=str)
 @click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
 def main(initial_parameters_path, username, shows_only_summary):
@@ -33,15 +33,15 @@ def main(initial_parameters_path, username, shows_only_summary):
     logging.info('Asserting dimensions of train, validation and test')
 
     # Asserting that dimensions of train, validation and test are consistent
-    full_data_length = len(os.listdir('data/raw_data/cars_train'))
-    train_length = len(os.listdir('data/train'))
-    validation_length = len(os.listdir('data/validation'))
-    test_length = len(os.listdir('data/test'))
+    full_data_length = len(os.listdir('../data/raw_data/cars_train'))
+    train_length = len(os.listdir('../data/train'))
+    validation_length = len(os.listdir('../data/validation'))
+    test_length = len(os.listdir('../data/test'))
     assert full_data_length == train_length + validation_length + test_length
 
     logging.info('Loading data')
-    train_df = pd.read_csv("data/labels/train_labels.csv")
-    validation_df = pd.read_csv("data/labels/validation_labels.csv")
+    train_df = pd.read_csv("../data/labels/train_labels.csv")
+    validation_df = pd.read_csv("../data/labels/validation_labels.csv")
 
     with open(initial_parameters_path) as file:
         initial_parameters = yaml.load(file)
@@ -59,7 +59,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     classes = [str(i) for i in classes]
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
-        directory="data/train",
+        directory="../data/train",
         x_col="fname",
         y_col=classes,
         batch_size=initial_parameters['train_batch_size'],
@@ -74,7 +74,7 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     validation_generator = validation_image_generator.flow_from_dataframe(
         dataframe=validation_df,
-        directory="data/validation",
+        directory="../data/validation",
         x_col="fname",
         y_col=classes,
         batch_size=initial_parameters['validation_batch_size'],
@@ -118,34 +118,34 @@ def main(initial_parameters_path, username, shows_only_summary):
      )
 
     # Saving model
-    model_names = [name for name in os.listdir('data/models') if name.startswith(username)]
+    model_names = [name for name in os.listdir('../data/models') if name.startswith(username)]
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model, initial parameters and architecture into {model_directory}'.format(
-            model_directory='data/models/' + model_name))
-        os.mkdir('data/models/' + model_name)
+            model_directory='../data/models/' + model_name))
+        os.mkdir('../data/models/' + model_name)
         yaml_string = model.to_yaml()
-        with open('data/models/' + model_name + '/architecture.yml', 'w') as outfile:
+        with open('../data/models/' + model_name + '/architecture.yml', 'w') as outfile:
             outfile.write(yaml_string)
         # Saving global parameters
-        with open('data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
+        with open('../data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save('data/models/' + model_name + '/model.h5')
+        model.save('../data/models/' + model_name + '/model.h5')
     else:
         model_name = username + '_' + str(int(model_names[-1].split('_')[-1]) + 1)
         logging.info('Saving: model, initial parameters and architecture into {model_directory}'.format(
             model_directory='data/models/' + model_name))
-        os.mkdir('data/models/' + model_name)
+        os.mkdir('../data/models/' + model_name)
         # Saving architecture
         yaml_string = model.to_yaml()
-        with open('data/models/' + model_name + '/architecture.yml', 'w') as outfile:
+        with open('../data/models/' + model_name + '/architecture.yml', 'w') as outfile:
             outfile.write(yaml_string)
         # Saving global parameters
-        with open('data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
+        with open('../data/models/' + model_name + '/initial_parameters.yml', 'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save('data/models/' + model_name + '/model.h5')
+        model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
     train_accuracy = history.history['accuracy']
@@ -161,8 +161,8 @@ def main(initial_parameters_path, username, shows_only_summary):
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory='data/models/' + model_name))
-        with open('data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
+            model_directory='../data/models/' + model_name))
+        with open('../data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow(headers)
             for row in rows:
@@ -170,8 +170,8 @@ def main(initial_parameters_path, username, shows_only_summary):
     else:
         model_name = username + '_' + str(int(model_names[-1].split('_')[-1]) + 1)
         logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory='data/models/' + model_name))
-        with open('data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
+            model_directory='../data/models/' + model_name))
+        with open('../data/models/' + model_name + '/evaluation.csv', 'w') as outfile:
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow(headers)
             for row in rows:
