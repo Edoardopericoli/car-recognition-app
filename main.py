@@ -66,7 +66,10 @@ def main(initial_parameters_path, username, shows_only_summary):
         seed=initial_parameters['seed'],
         shuffle=True,
         class_mode="other",
-        target_size=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'])
+        target_size=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH']),
+        channel_shift_range=0.3,
+        horizontal_flip=True,
+        vertical_flip=True
     )
 
     validation_generator = validation_image_generator.flow_from_dataframe(
