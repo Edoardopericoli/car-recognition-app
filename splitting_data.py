@@ -53,6 +53,7 @@ train.to_csv('data/labels/train_labels.csv')
 validation.to_csv('data/labels/validation_labels.csv')
 test.to_csv('data/labels/test_labels.csv')
 
+#TODO: mettere one-hot encoding delle classi nel main
 
 # Sending images to train, validation and test folders
 indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
