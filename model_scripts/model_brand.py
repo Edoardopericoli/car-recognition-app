@@ -12,7 +12,7 @@ import logging
 import os
 import yaml
 import sys
-from model_scripts.utils.main_utils import asserting_batch_size
+from utils.main_utils import asserting_batch_size
 
 
 @click.command()
