@@ -1,22 +1,17 @@
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPooling2D
 from keras.preprocessing.image import ImageDataGenerator
 import pandas as pd
 from keras_preprocessing.image import ImageDataGenerator
-from keras.layers import Dense, Activation, Flatten, Dropout, BatchNormalization
+from keras.layers import Dense, Flatten, Dropout
 from keras.layers import Conv2D, MaxPooling2D
-from keras import regularizers, optimizers
-import tensorflow as tf
-import keras
-from matplotlib import pyplot as plt
 import csv
 from math import ceil
 import click
 import logging
 import os
 import yaml
-from utils.main_utils import asserting_batch_size
+from model_scripts.utils.main_utils import asserting_batch_size
 import sys
 
 
