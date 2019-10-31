@@ -24,7 +24,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
-    logging.info('Starting the process')
+    logging.info('Starting th process')
     logging.info('Asserting dimensions of train, validation and test')
 
     # Asserting that dimensions of train, validation and test are consistent
