@@ -46,7 +46,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     # Asserting dimensions of batch sizes
     #asserting_batch_size(length_data=len(train_df), batch_size=initial_parameters['train_batch_size'])
     #asserting_batch_size(length_data=len(validation_df), batch_size=initial_parameters['validation_batch_size'])
-
+    #
     logging.info('Transforming data using ImageDataGenerator')
 
     # Manipulating data
