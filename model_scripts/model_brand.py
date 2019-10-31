@@ -16,8 +16,10 @@ import click
 import logging
 import os
 import yaml
-from utils.main_utils import asserting_batch_size
 import sys
+sys.path.append(os.path.abspath(os.path.join('..', 'utils')))
+from utils.main_utils import asserting_batch_size
+
 
 
 @click.command()
