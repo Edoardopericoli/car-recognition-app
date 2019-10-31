@@ -12,7 +12,7 @@ import logging
 import os
 import yaml
 import sys
-from utils.main_utils import asserting_batch_size
+#from utils.main_utils import asserting_batch_size
 
 
 @click.command()
@@ -44,8 +44,8 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     logging.info('Asserting batch sizes')
     # Asserting dimensions of batch sizes
-    asserting_batch_size(length_data=len(train_df), batch_size=initial_parameters['train_batch_size'])
-    asserting_batch_size(length_data=len(validation_df), batch_size=initial_parameters['validation_batch_size'])
+    #asserting_batch_size(length_data=len(train_df), batch_size=initial_parameters['train_batch_size'])
+    #asserting_batch_size(length_data=len(validation_df), batch_size=initial_parameters['validation_batch_size'])
 
     logging.info('Transforming data using ImageDataGenerator')
 
