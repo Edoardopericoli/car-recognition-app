@@ -100,7 +100,7 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
-                  metrics=['accuracy'], optimizer=sgd)
+                  metrics=['accuracy'])
 
     model.summary()
 
