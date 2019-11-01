@@ -93,14 +93,14 @@ def main(initial_parameters_path, username, shows_only_summary):
     )
 
     # Model
-    model = keras.applications.resnet.ResNet50(include_top=True, weights='imagenet', input_tensor=None,
-                                       input_shape=(224,224,3),
-                                       pooling=None, classes=1000)
+    model = keras.applications.resnet.ResNet50( input_tensor=None,
+                                       input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3),
+                                       pooling=None, classes=len(classes_brand))
 
 
     model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
-                  metrics=['accuracy'])
+                  metrics=['accuracy'], optimizer=sgd)
 
     model.summary()
 
