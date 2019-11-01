@@ -12,7 +12,7 @@ import logging
 import os
 import yaml
 import sys
-
+from keras import optimizers
 
 @click.command()
 @click.option('--initial_parameters_path', default=r"../config/initial_parameters.yml", help='config file containing initial parameters', type=str)
@@ -94,20 +94,20 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     # Model
     model = Sequential([
-        Conv2D(20, 2, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
+        Conv2D(40, 2, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
         MaxPooling2D((4, 4)),
         Dropout(0.1, seed=initial_parameters['seed']),
         Conv2D(5, 4, padding='same', activation='relu'),
         MaxPooling2D((4, 4)),
-        Dropout(0.1, seed=initial_parameters['seed']),
         Flatten(),
         Dense(80, activation='relu'),
         Dense(len(classes_brand), activation='softmax')
     ])
 
-    model.compile(optimizer='adam',
+    sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
+    model.compile(
                   loss='categorical_crossentropy',
-                  metrics=['accuracy'])
+                  metrics=['accuracy'], optimizer=sgd)
 
     model.summary()
 
