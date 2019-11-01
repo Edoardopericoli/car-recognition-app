@@ -11,7 +11,7 @@ import click
 import logging
 import os
 import yaml
-from model_scripts.utils.main_utils import asserting_batch_size
+from utils import asserting_batch_size
 import sys
 
 

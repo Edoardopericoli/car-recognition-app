@@ -12,19 +12,18 @@ import logging
 import os
 import yaml
 import sys
-#from utils.main_utils import asserting_batch_size
 
 
 @click.command()
 @click.option('--initial_parameters_path', default=r"../config/initial_parameters.yml", help='config file containing initial parameters', type=str)
-@click.option('--username', help='username to be used for model saving', type=str)
+@click.option('--username', default=os.path.basename(__file__), help='username to be used for model saving', type=str)
 @click.option('--shows_only_summary', default=False, help='if True the program stops after having shown the model summary', type=bool)
 def main(initial_parameters_path, username, shows_only_summary):
     logging.basicConfig()
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
-    logging.info('Starting th process')
+    logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
 
     # Asserting that dimensions of train, validation and test are consistent
@@ -43,9 +42,6 @@ def main(initial_parameters_path, username, shows_only_summary):
         initial_parameters = yaml.load(file)
 
     logging.info('Asserting batch sizes')
-    # Asserting dimensions of batch sizes
-    #asserting_batch_size(length_data=len(train_df), batch_size=initial_parameters['train_batch_size'])
-    #asserting_batch_size(length_data=len(validation_df), batch_size=initial_parameters['validation_batch_size'])
     #
     logging.info('Transforming data using ImageDataGenerator')
 
