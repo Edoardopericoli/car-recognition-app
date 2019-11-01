@@ -93,7 +93,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     )
 
     # Model
-    model = keras.applications.resnet.ResNet50( input_tensor=None,
+    model = keras.applications.resnet.ResNet50(include_top=False,input_tensor=None,
                                        input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3),
                                        pooling=None, classes=len(classes_brand))
 
