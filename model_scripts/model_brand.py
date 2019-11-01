@@ -12,7 +12,7 @@ import logging
 import os
 import yaml
 import sys
-from keras import optimizers
+import keras
 
 @click.command()
 @click.option('--initial_parameters_path', default=r"../config/initial_parameters.yml", help='config file containing initial parameters', type=str)
@@ -93,21 +93,14 @@ def main(initial_parameters_path, username, shows_only_summary):
     )
 
     # Model
-    model = Sequential([
-        Conv2D(40, 2, activation='relu', input_shape=(initial_parameters['IMG_HEIGHT'], initial_parameters['IMG_WIDTH'], 3)),
-        MaxPooling2D((4, 4)),
-        Dropout(0.1, seed=initial_parameters['seed']),
-        Conv2D(5, 4, padding='same', activation='relu'),
-        MaxPooling2D((4, 4)),
-        Flatten(),
-        Dense(80, activation='relu'),
-        Dense(len(classes_brand), activation='softmax')
-    ])
+    model = keras.applications.resnet.ResNet50(include_top=True, weights='imagenet', input_tensor=None,
+                                       input_shape=(224,224,3),
+                                       pooling=None, classes=1000)
 
-    sgd = optimizers.SGD(lr=0.01, decay=1e-6, momentum=0.9, nesterov=True)
-    model.compile(
+
+    model.compile(optimizer='adam',
                   loss='categorical_crossentropy',
-                  metrics=['accuracy'], optimizer=sgd)
+                  metrics=['accuracy'])
 
     model.summary()
 
@@ -156,8 +149,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['accuracy']
-    validation_accuracy = history.history['val_accuracy']
+    train_accuracy = history.history['acc']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']
