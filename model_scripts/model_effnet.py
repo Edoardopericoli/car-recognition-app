@@ -15,6 +15,8 @@ from keras import Model
 import efficientnet.keras as efn
 from keras import backend as K
 import pandas as pd
+from math import ceil
+
 
 @click.command()
 @click.option('--initial_parameters_path', default=r"../config/initial_parameters.yml", help='config file containing initial parameters', type=str)
@@ -97,13 +99,13 @@ def main(initial_parameters_path, username, shows_only_summary):
         sys.exit()
 
     history = model.fit_generator(generator=train_generator,
-                    steps_per_epoch=train_generator.samples // initial_parameters['train_batch_size'] + 1 ,
-                    validation_data=validation_generator,
-                    validation_steps=validation_generator.samples // initial_parameters['validation_batch_size'] + 1,
-                    epochs=10,                           
-                    workers=8,             
-                    max_queue_size=32,             
-                    verbose=1)
+                                  steps_per_epoch=ceil(len(train_df) / initial_parameters['train_batch_size']),
+                                  validation_steps=ceil(len(train_df) / initial_parameters['validation_batch_size']),
+                                validation_data=validation_generator,
+                                epochs=10,
+                                workers=8,
+                                max_queue_size=32,
+                                verbose=1)
 
 
     # Saving model
