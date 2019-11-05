@@ -43,6 +43,8 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     train_df = pd.read_csv("../data/labels/train_labels.csv")
     validation_df = pd.read_csv("../data/labels/validation_labels.csv")
+    train_df.reset_index(inplace=True)
+    validation_df.reset_index(inplace=True)
 
     train_image_generator = ImageDataGenerator(
                             rescale=1. / 255,
@@ -57,7 +59,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     classes = [str(i) for i in classes]
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
-        directory=r"../data/train",
+        directory=r"..\data\train",
         x_col="fname",
         y_col='class',
         batch_size=initial_parameters['train_batch_size'],
@@ -68,7 +70,7 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     validation_generator = validation_image_generator.flow_from_dataframe(
         dataframe=validation_df,
-        directory=r"../data/validation",
+        directory=r"..\data\validation",
         x_col="fname",
         y_col='class',
         batch_size=initial_parameters['validation_batch_size'],
