@@ -41,9 +41,9 @@ train = train.merge(dummies, how='inner', left_index=True, right_index=True)
 validation = validation.merge(dummies, how='inner', left_index=True, right_index=True)
 test = test.merge(dummies, how='inner', left_index=True, right_index=True)
 
-train.drop('class', axis=1, inplace=True)
-validation.drop('class', axis=1, inplace=True)
-test.drop('class', axis=1, inplace=True)
+#train.drop('class', axis=1, inplace=True)
+#validation.drop('class', axis=1, inplace=True)
+#test.drop('class', axis=1, inplace=True)
 
 # Testing that the split has been executed correctly
 assert len(data) == len(train) + len(validation) + len(test)

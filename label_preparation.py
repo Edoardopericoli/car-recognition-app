@@ -49,6 +49,3 @@ data = pd.DataFrame({'fname': l6, 'bbox_x1': l1, 'bbox_y1': l2, 'bbox_x2': l3, '
 
 data.to_csv('data/labels/all_labels.csv')
 labels.to_csv('data/labels/labels_info.csv')
-
-
-
