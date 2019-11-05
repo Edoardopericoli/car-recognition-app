@@ -46,6 +46,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     train_df.reset_index(inplace=True)
     validation_df.reset_index(inplace=True)
 
+
     train_image_generator = ImageDataGenerator(
                             rescale=1. / 255,
                             zoom_range=0.2,
@@ -59,7 +60,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     classes = [str(i) for i in classes]
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
-        directory=r"..\data\train",
+        directory="../data/train/",
         x_col="fname",
         y_col='class',
         batch_size=initial_parameters['train_batch_size'],
@@ -70,7 +71,7 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     validation_generator = validation_image_generator.flow_from_dataframe(
         dataframe=validation_df,
-        directory=r"..\data\validation",
+        directory="../data/validation/",
         x_col="fname",
         y_col='class',
         batch_size=initial_parameters['validation_batch_size'],
