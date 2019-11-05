@@ -26,7 +26,7 @@ def main(initial_parameters_path, username, shows_only_summary):
     logging.basicConfig()
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
-#    K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads=2, inter_op_parallelism_threads=2)))
+    #K.set_session(K.tf.Session(config=K.tf.ConfigProto(intra_op_parallelism_threads=8, inter_op_parallelism_threads=8)))
 
     logging.info('Starting the process')
     logging.info('Asserting dimensions of train, validation and test')
@@ -46,12 +46,12 @@ def main(initial_parameters_path, username, shows_only_summary):
     train_df.reset_index(inplace=True)
     validation_df.reset_index(inplace=True)
 
-
     train_image_generator = ImageDataGenerator(
                             rescale=1. / 255,
                             zoom_range=0.2,
                             rotation_range=5,
                             horizontal_flip=True)
+
     validation_image_generator = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
 
     train_df['class'] = train_df['class'].astype('str')
