@@ -1,5 +1,5 @@
 import numpy as np
-from keras.layers import Dense, Flatten, Dropout
+from keras.layers import Dense, Dropout
 from keras.preprocessing.image import ImageDataGenerator
 from keras.layers import Activation
 from keras import optimizers
