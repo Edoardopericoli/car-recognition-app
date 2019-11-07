@@ -145,8 +145,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['accuracy']
-    validation_accuracy = history.history['val_accuracy']
+    train_accuracy = history.history['acc']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']

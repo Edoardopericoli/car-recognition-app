@@ -82,7 +82,6 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     logging.info('Transforming data using ImageDataGenerator')
 
-
     base_model = efn.EfficientNetB1(weights='imagenet', include_top=False)
     x = GlobalAveragePooling2D()(base_model.output)
     predictions = Dense(len(train_generator.class_indices), activation='softmax')(x)
@@ -142,8 +141,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['accuracy']
-    validation_accuracy = history.history['val_accuracy']
+    train_accuracy = history.history['acc']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']
