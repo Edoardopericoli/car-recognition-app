@@ -7,14 +7,17 @@ import click
 import pandas as pd
 import yaml
 
-
-
+# /home/edoardo/Desktop/University/Cars_Classification/Car_Prediction/trial_model
+# /home/edoardo/Desktop/University/Cars_Classification/Car_Prediction/trial_images
+# /home/edoardo/Desktop/University/Cars_Classification/Car_Prediction/data/labels_info.csv
 @click.command()
 @click.option('--execution_path', default=r"./", help='config model path',
               type=str)
 @click.option('--images_path', default=r"./",
               help='path of images (file or directory)', type=str)
-def main(execution_path, images_path):
+@click.option('--labels_info_path', default=r"./",
+              help='path of images (file or directory)', type=str)
+def main(execution_path, images_path, labels_info_path):
     # Loading paths and model information
     initial_parameters_path = execution_path + '/initial_parameters.yml'
     with open(initial_parameters_path) as f:
@@ -46,6 +49,9 @@ def main(execution_path, images_path):
     classes = model.predict_classes(images)
 
     output_df = pd.DataFrame({'filename': filenames, 'class': classes})
+    labels_df = pd.read_csv(labels_info_path)
+    output_df = output_df.merge(labels_df, left_on='class', right_on='label') \
+                         .drop(columns=['class'])
     print(output_df)
 
 
