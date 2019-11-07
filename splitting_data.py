@@ -7,7 +7,7 @@ import click
 
 @click.command()
 @click.option('--train_size', default=0.8, help='size of the train', type=float)
-@click.option('--target_variable', help='target variable by which the dataframe is stratified', type=str)
+@click.option('--target_variable', default='brand', help='target variable by which the dataframe is stratified', type=str)
 def main(train_size, target_variable):
 
     assert target_variable in ['brand', 'model']
@@ -31,7 +31,7 @@ def main(train_size, target_variable):
 
         X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
                                                                       test_temp['brand'],
-                                                                      test_size=(1-train_size)/2,
+                                                                      test_size=0.5,
                                                                       random_state=89,
                                                                       stratify=test_temp['brand']
                                                                       )
@@ -50,7 +50,7 @@ def main(train_size, target_variable):
 
         X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
                                                                       test_temp['class'],
-                                                                      test_size=(1 - train_size) / 2,
+                                                                      test_size=0.5,
                                                                       random_state=89,
                                                                       stratify=test_temp['class']
                                                                       )
