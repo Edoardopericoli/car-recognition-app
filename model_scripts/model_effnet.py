@@ -52,17 +52,16 @@ def main(initial_parameters_path, username, shows_only_summary):
                             rotation_range=5,
                             horizontal_flip=True)
 
-    validation_image_generator = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
+    validation_image_generator = ImageDataGenerator(rescale=1. / 255)
 
-    train_df['class'] = train_df['class'].astype('str')
-    validation_df['class'] = validation_df['class'].astype('str')
-    classes = np.arange(1, 197)
-    classes = [str(i) for i in classes]
+    target_variable = 'model_label'
+    train_df[target_variable] = train_df[target_variable].astype('str')
+    validation_df[target_variable] = validation_df[target_variable].astype('str')
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
         directory="../data/train/",
         x_col="fname",
-        y_col='class',
+        y_col=target_variable,
         batch_size=initial_parameters['train_batch_size'],
         seed=initial_parameters['seed'],
         class_mode="categorical",
@@ -73,7 +72,7 @@ def main(initial_parameters_path, username, shows_only_summary):
         dataframe=validation_df,
         directory="../data/validation/",
         x_col="fname",
-        y_col='class',
+        y_col=target_variable,
         batch_size=initial_parameters['validation_batch_size'],
         seed=initial_parameters['seed'],
         class_mode="categorical",
@@ -81,7 +80,6 @@ def main(initial_parameters_path, username, shows_only_summary):
     )
 
     logging.info('Transforming data using ImageDataGenerator')
-
 
     base_model = efn.EfficientNetB1(weights='imagenet', include_top=False)
     x = GlobalAveragePooling2D()(base_model.output)
@@ -104,11 +102,11 @@ def main(initial_parameters_path, username, shows_only_summary):
     history = model.fit_generator(generator=train_generator,
                                   steps_per_epoch=ceil(len(train_df) / initial_parameters['train_batch_size']),
                                   validation_steps=ceil(len(train_df) / initial_parameters['validation_batch_size']),
-                                validation_data=validation_generator,
-                                epochs=10,
-                                workers=8,
-                                max_queue_size=32,
-                                verbose=1)
+                                  validation_data=validation_generator,
+                                  epochs=10,
+                                  workers=8,
+                                  max_queue_size=32,
+                                  verbose=1)
 
 
     # Saving model
@@ -142,8 +140,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['accuracy']
-    validation_accuracy = history.history['val_accuracy']
+    train_accuracy = history.history['acc']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']

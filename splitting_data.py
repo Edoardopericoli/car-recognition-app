@@ -7,52 +7,50 @@ import click
 
 @click.command()
 @click.option('--train_size', default=0.8, help='size of the train', type=float)
-@click.option('--target_variable', help='target variable by which the dataframe is stratified', type=str)
+@click.option('--target_variable', default='brand', help='target variable by which the dataframe is stratified', type=str)
 def main(train_size, target_variable):
 
     assert target_variable in ['brand', 'model']
 
     # Reading data
     data = pd.read_csv('data/labels/all_labels.csv')
-    labels_info = pd.read_csv('data/labels/labels_info.csv')
-    data = data.merge(labels_info, left_on='class', right_on='label')
 
     if target_variable == 'brand':
         # Splitting train, validation, test
         X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
-                                                                      data['brand'],
+                                                                      data['brand_label'],
                                                                       test_size=1-train_size,
                                                                       random_state=89,
-                                                                      stratify=data['brand']
+                                                                      stratify=data['brand_label']
                                                                       )
 
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
         X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
-                                                                      test_temp['brand'],
-                                                                      test_size=(1-train_size)/2,
+                                                                      test_temp['brand_label'],
+                                                                      test_size=0.5,
                                                                       random_state=89,
-                                                                      stratify=test_temp['brand']
+                                                                      stratify=test_temp['brand_label']
                                                                       )
 
     elif target_variable == 'model':
         # Splitting train, validation, test
         X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
-                                                                      data['class'],
+                                                                      data['model_label'],
                                                                       test_size=1 - train_size,
                                                                       random_state=89,
-                                                                      stratify=data['class']
+                                                                      stratify=data['model_label']
                                                                       )
 
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
         X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
-                                                                      test_temp['class'],
-                                                                      test_size=(1 - train_size) / 2,
+                                                                      test_temp['model_label'],
+                                                                      test_size=0.5,
                                                                       random_state=89,
-                                                                      stratify=test_temp['class']
+                                                                      stratify=test_temp['model_label']
                                                                       )
 
     validation = pd.DataFrame(X_validation).merge(pd.DataFrame(y_validation), left_index=True, right_index=True)
@@ -62,17 +60,6 @@ def main(train_size, target_variable):
     train.set_index('fname', inplace=True)
     validation.set_index('fname', inplace=True)
     test.set_index('fname', inplace=True)
-
-    #dummies = pd.get_dummies(data['class'])
-    #data = data.merge(dummies, how='inner', left_index=True, right_index=True)
-
-    #train = train.merge(dummies, how='inner', left_index=True, right_index=True)
-    #validation = validation.merge(dummies, how='inner', left_index=True, right_index=True)
-    #test = test.merge(dummies, how='inner', left_index=True, right_index=True)
-
-    #train.drop('class', axis=1, inplace=True)
-    #validation.drop('class', axis=1, inplace=True)
-    #test.drop('class', axis=1, inplace=True)
 
     # Testing that the split has been executed correctly
     assert len(data) == len(train) + len(validation) + len(test)

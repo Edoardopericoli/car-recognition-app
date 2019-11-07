@@ -44,12 +44,9 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     train_df = pd.read_csv("../data/labels/train_labels.csv")
     validation_df = pd.read_csv("../data/labels/validation_labels.csv")
-    labels_info = pd.read_csv("../data/labels/labels_info.csv")
+
     train_df.reset_index(inplace=True)
     validation_df.reset_index(inplace=True)
-
-    train_df = train_df.merge(labels_info, left_on='class', right_on='label')
-    validation_df = validation_df.merge(labels_info, left_on='class', right_on='label')
 
     train_image_generator = ImageDataGenerator(
         rescale=1. / 255,
@@ -59,15 +56,14 @@ def main(initial_parameters_path, username, shows_only_summary):
 
     validation_image_generator = tf.keras.preprocessing.image.ImageDataGenerator(rescale=1. / 255)
 
-    train_df['class'] = train_df['class'].astype('str')
-    validation_df['class'] = validation_df['class'].astype('str')
-    classes = np.arange(1, 197)
-    classes = [str(i) for i in classes]
+    target_variable = 'brand_label'
+    train_df[target_variable] = train_df[target_variable].astype('str')
+    validation_df[target_variable] = validation_df[target_variable].astype('str')
     train_generator = train_image_generator.flow_from_dataframe(
         dataframe=train_df,
         directory="../data/train/",
         x_col="fname",
-        y_col='brand',
+        y_col=target_variable,
         batch_size=initial_parameters['train_batch_size'],
         seed=initial_parameters['seed'],
         class_mode="categorical",
@@ -78,7 +74,7 @@ def main(initial_parameters_path, username, shows_only_summary):
         dataframe=validation_df,
         directory="../data/validation/",
         x_col="fname",
-        y_col='brand',
+        y_col=target_variable,
         batch_size=initial_parameters['validation_batch_size'],
         seed=initial_parameters['seed'],
         class_mode="categorical",
@@ -145,8 +141,8 @@ def main(initial_parameters_path, username, shows_only_summary):
         model.save('../data/models/' + model_name + '/model.h5')
 
     # Model Performance
-    train_accuracy = history.history['accuracy']
-    validation_accuracy = history.history['val_accuracy']
+    train_accuracy = history.history['acc']
+    validation_accuracy = history.history['val_acc']
 
     train_loss = history.history['loss']
     validation_loss = history.history['val_loss']
