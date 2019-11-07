@@ -14,7 +14,6 @@ data_array2 = data_array2.transpose(1, 0)
 
 # Getting a list of separate words for each observation
 data2 = [data_array2[i][0][0].split(' ') for i in range(len(data_array2))]
-##
 
 # Extrapolating brand, model and year from the previous list
 brand = []
@@ -25,11 +24,13 @@ for labels in data2:
     model.append(' '.join(labels[1:-1]))
     year.append(labels[-1])
 
-# Creating a DataFrame with brand, model and year for each class names (from 1 to 196)
-labels = pd.DataFrame({'label': np.arange(1,len(data2)+1), 'brand': brand, 'model': model, 'year': year})
-labels.set_index('label', inplace=True)
+# Creating a DataFrame with brand, model and year for each label names (from 1 to 196)
+models = pd.DataFrame({'model_label': np.arange(1, len(data2)+1), 'brand': brand, 'model': model, 'year': year})
+brands_unique = models['brand'].unique()
+brands = pd.DataFrame({'brand_label': np.arange(1, len(brands_unique)+1), 'brand': brands_unique})
 
-# Extrapolating and transferring information about: bounding-boxes corners, name of photos and class names into a df
+
+# Extrapolating and transferring information about: bounding-boxes corners, name of photos and label names into a df
 l1 = []
 l2 = []
 l3 = []
@@ -44,8 +45,16 @@ for row in data_array:
     l5.append(row[0][4][0][0])
     l6.append(row[0][5][0])
 
-# Getting 196 dummies for the classes because Keras reads data in this format
-data = pd.DataFrame({'fname': l6, 'bbox_x1': l1, 'bbox_y1': l2, 'bbox_x2': l3, 'bbox_y2': l4, 'class': l5})
+data = pd.DataFrame({'fname': l6, 'bbox_x1': l1, 'bbox_y1': l2, 'bbox_x2': l3, 'bbox_y2': l4, 'model_label': l5})
+data_temp = data.merge(models, left_on='model_label', right_on='model_label')
+data_temp = data_temp.merge(brands, left_on='brand', right_on='brand')
+data_final = data_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2', 'model_label', 'brand_label']]
+data = data_final.sort_values('fname')
+
+models.set_index('model_label', inplace=True)
+brands.set_index('brand_label', inplace=True)
+data.set_index('fname', inplace=True)
 
 data.to_csv('data/labels/all_labels.csv')
-labels.to_csv('data/labels/labels_info.csv')
+models.to_csv('data/labels/models_info.csv')
+brands.to_csv('data/labels/brands_info.csv')
