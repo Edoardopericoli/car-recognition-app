@@ -15,11 +15,16 @@ from Car_Prediction import efficientnet_pipeline
 @click.option('--bounding_cpu', default=False,
               help='if True the program will use 8 threads',
               type=bool)
-def main(initial_parameters_path, username, shows_only_summary, bounding_cpu):
+@click.option('--prepare_data', default=True,
+              help='if True data will be splitted accordingly',
+              type=bool)
+def main(initial_parameters_path, username, shows_only_summary,
+         bounding_cpu, prepare_data=True):
     summary = efficientnet_pipeline.run(initial_parameters_path,
                                         username,
                                         shows_only_summary,
-                                        bounding_cpu=bounding_cpu)
+                                        bounding_cpu=bounding_cpu,
+                                        prepare_data=prepare_data)
     print(summary)
 
 

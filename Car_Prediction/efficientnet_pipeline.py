@@ -1,16 +1,22 @@
-from Car_Prediction import model_utils
+from Car_Prediction import model_utils, data, label
 import logging
 
 
 def run(initial_parameters_path, username, shows_only_summary,
-        bounding_cpu=False):
+        bounding_cpu=False, prepare_data=True):
+
     model_utils.setting_log()
+
+    if prepare_data:
+        logging.info('Starting splitting and preparing processes')
+        label.prepare()
+        data.split()
+        logging.info('Splitting ended successfully')   
 
     if bounding_cpu:
         model_utils.bound_cpu(n_threads=8)
 
     logging.info('Starting the process')
-    logging.info('Asserting dimensions of train, validation and test')
     initial_parameters = model_utils.load_parameters(initial_parameters_path)
     train_df, validation_df = model_utils.load_labels_dfs()
     train_image_generator, validation_image_generator = model_utils.get_image_generators()
