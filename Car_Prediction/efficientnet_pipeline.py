@@ -9,7 +9,7 @@ def run(initial_parameters_path, username, shows_only_summary,
 
     if prepare_data:
         logging.info('Starting splitting and preparing processes')
-        label.prepare()
+        #label.prepare() #todo:   label preparation si fa solo la prima volta, non dovrebbe essere nella pipeline
         data.split()
         logging.info('Splitting ended successfully')   
 
