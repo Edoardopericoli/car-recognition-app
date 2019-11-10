@@ -9,8 +9,8 @@ def run(initial_parameters_path, username, shows_only_summary,
 
     if prepare_data:
         logging.info('Starting splitting and preparing processes')
-        label.prepare() #todo:   label preparation si fa solo la prima volta, non dovrebbe essere nella pipeline
-        data.split()
+        label.prepare() #todo: label preparation si fa solo la prima volta, non dovrebbe essere nella pipeline
+        data.split() #todo: inserire vtarget variable secondo cui splittare
         logging.info('Splitting ended successfully')   
 
     if bounding_cpu:
