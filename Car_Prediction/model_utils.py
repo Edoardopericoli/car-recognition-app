@@ -175,7 +175,8 @@ def save_model_performance(username, history, initial_parameters):
                train_loss, validation_loss)
     headers = ['Epoch', 'Train Accuracy', 'Validation Accuracy',
                'Train Loss', 'Validation Loss']
-    model_names = [name for name in os.listdir(path + '/../data/models')
+
+    model_names = [name for name in os.listdir(path)
                    if name.startswith(username)]
 
     if len(model_names) == 0:
