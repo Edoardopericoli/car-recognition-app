@@ -36,7 +36,10 @@ def get_path(r):
 
 
 def get_make(r):
-    img = f'{str(r).zfill(5)}.jpg'
+    if len(r) == 5:
+        img = f'{str(r).zfill(6)}.jpg'
+    else:
+        img = f'{str(r).zfill(5)}.jpg'
     labels_path = str(os.path.join(STATIC_FOLDER, 'images/')) + 'labels_prova.csv'
     labels = pd.read_csv(labels_path)
     make = labels[labels.name == img]['make'][labels[labels.name == img]['make'].index[0]]
