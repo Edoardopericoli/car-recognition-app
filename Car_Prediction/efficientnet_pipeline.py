@@ -1,16 +1,18 @@
-from Car_Prediction import model_utils, data, label
+from Car_Prediction import model_utils, splitter, label
 import logging
 
 
 def run(initial_parameters_path, username, shows_only_summary,
-        bounding_cpu=False, prepare_data=True):
+        bounding_cpu=False, prepare_labels=False, split_data=True, target_variable='model'):
 
     model_utils.setting_log()
 
-    if prepare_data:
+    if prepare_labels:
+        label.prepare()
+
+    if split_data:
         logging.info('Starting splitting and preparing processes')
-        label.prepare() #todo: label preparation si fa solo la prima volta, non dovrebbe essere nella pipeline
-        data.split() #todo: inserire vtarget variable secondo cui splittare
+        splitter.split(target_variable=target_variable)
         logging.info('Splitting ended successfully')   
 
     if bounding_cpu:
@@ -38,8 +40,10 @@ def run(initial_parameters_path, username, shows_only_summary,
     base_model = model_utils.setup_base_model()
     model = model_utils.setup_final_layers(base_model, train_generator)
 
+    model.summary()
+
     if shows_only_summary:
-        return model.summary()
+        return
 
     history = model_utils.train_model(train_generator, validation_generator,
                                       initial_parameters, train_df, model)
@@ -47,4 +51,4 @@ def run(initial_parameters_path, username, shows_only_summary,
     model_utils.save_model_architecture(username, model, initial_parameters)
     model_utils.save_model_performance(username, history, initial_parameters)
     logging.info('Process finished')
-    return model.summary()
+

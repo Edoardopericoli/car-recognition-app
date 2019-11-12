@@ -2,14 +2,15 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 import os
 import shutil
+from pathlib import Path
 
 
 def split(train_size=0.8, target_variable='model'):
-    file_path = os.path.dirname(os.path.abspath(__file__)) + '/..'
+    file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
     assert target_variable in ['brand', 'model']
 
     # Reading data
-    data = pd.read_csv(file_path + '/data/labels/all_labels.csv')
+    data = pd.read_csv(file_path / 'data/labels/all_labels.csv')
 
     if target_variable == 'brand':
         # Splitting train, validation, test
@@ -61,17 +62,17 @@ def split(train_size=0.8, target_variable='model'):
     assert len(data) == len(train) + len(validation) + len(test)
 
     # Writing boxes data and class names data into csv files and writing a csv for each of train, validation and test
-    train.to_csv(file_path + '/data/labels/train_labels.csv')
-    validation.to_csv(file_path + '/data/labels/validation_labels.csv')
-    test.to_csv(file_path + '/data/labels/test_labels.csv')
+    train.to_csv(file_path / 'data/labels/train_labels.csv')
+    validation.to_csv(file_path / 'data/labels/validation_labels.csv')
+    test.to_csv(file_path / 'data/labels/test_labels.csv')
 
     # Sending images to train, validation and test folders
     indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
-    src = file_path + '/data/raw_data/cars_train'
+    src = file_path / 'data/raw_data/cars_train'
 
     for index in indexes.keys():
         dest = 'data/{index}'.format(index=index)
         for file_name in indexes[index]:
-            full_file_name = os.path.join(src, file_name)
-            if os.path.isfile(full_file_name):
+            full_file_name = src / file_name
+            if full_file_name.is_file():
                 shutil.copy(full_file_name, dest)

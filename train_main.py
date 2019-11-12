@@ -1,5 +1,5 @@
 import click
-from Car_Prediction import efficientnet_pipeline
+from Car_Prediction import prototype_pipeline
 
 
 @click.command()
@@ -15,17 +15,25 @@ from Car_Prediction import efficientnet_pipeline
 @click.option('--bounding_cpu', default=False,
               help='if True the program will use 8 threads',
               type=bool)
-@click.option('--prepare_data', default=True,
+@click.option('--prepare_labels', default=False,
+              help='if True labels will be prepared accordingly',
+              type=bool)
+@click.option('--split_data', default=True,
               help='if True data will be splitted accordingly',
               type=bool)
+@click.option('--target_variable', default='model',
+              help='target variable of the model',
+              type=str)
 def main(initial_parameters_path, username, shows_only_summary,
-         bounding_cpu, prepare_data=True):
-    summary = efficientnet_pipeline.run(initial_parameters_path,
+         bounding_cpu, prepare_labels, split_data, target_variable):
+    prototype_pipeline.run(initial_parameters_path,
                                         username,
                                         shows_only_summary,
                                         bounding_cpu=bounding_cpu,
-                                        prepare_data=prepare_data)
-    print(summary)
+                                        prepare_labels=prepare_labels,
+                                        split_data=split_data,
+                                        target_variable=target_variable)
+
 
 
 if __name__ == "__main__":

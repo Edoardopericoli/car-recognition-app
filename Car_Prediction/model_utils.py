@@ -12,7 +12,7 @@ from keras.layers import GlobalAveragePooling2D, BatchNormalization
 from keras import Model
 import efficientnet.keras as efn
 from math import ceil
-
+from pathlib import Path
 
 def setting_log():
     logging.basicConfig()
@@ -34,9 +34,9 @@ def load_parameters(parameters_path):
 
 
 def load_labels_dfs():
-    file_path = os.path.dirname(os.path.abspath(__file__))
-    train_df = pd.read_csv(file_path + "/../data/labels/train_labels.csv")
-    validation_df = pd.read_csv(file_path + "/../data/labels/validation_labels.csv")
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+    train_df = pd.read_csv(file_path / "../data/labels/train_labels.csv")
+    validation_df = pd.read_csv(file_path / "../data/labels/validation_labels.csv")
     train_df.reset_index(inplace=True)
     validation_df.reset_index(inplace=True)
     target_variable = 'model_label'
@@ -62,8 +62,8 @@ def get_generator(imagedatagenerator, labels_df, directory,
     else:
         batch_size = initial_parameters['validation_batch_size']
 
-    file_path = os.path.dirname(os.path.abspath(__file__))
-    directory = file_path + '/' + directory
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+    directory = file_path / directory
     train_generator = imagedatagenerator.flow_from_dataframe(
         dataframe=labels_df,
         directory=directory,
@@ -112,7 +112,7 @@ def train_model(train_generator, validation_generator, initial_parameters,
                                                         ['validation_batch_size']
                                                         ),
                                   validation_data=validation_generator,
-                                  epochs=10,
+                                  epochs=initial_parameters['epochs'],
                                   workers=8,
                                   max_queue_size=32,
                                   verbose=1)
@@ -120,61 +120,61 @@ def train_model(train_generator, validation_generator, initial_parameters,
 
 
 def save_model_architecture(username, model, initial_parameters):
-    file_path = os.path.dirname(os.path.abspath(__file__))
-    path = file_path + '/../data/models'
-    model_names = [name for name in os.listdir(path)
-                   if name.startswith(username)]
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+    path = file_path / '../data/models'
+    model_names = [str(name) for name in path.glob('**/' + username + '*')]
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model, initial parameters \
                       and architecture into {model_directory}'.format(
-                      model_directory=path + '/' + model_name))
-        os.mkdir(path + '/' + model_name)
+                      model_directory=path / model_name))
+        path = path / model_name
+        path.mkdir()
         yaml_string = model.to_yaml()
-        with open(path + '/' + model_name + '/architecture.yml',
+        with open(path / 'architecture.yml',
                   'w') as outfile:
             outfile.write(yaml_string)
         # Saving global parameters
-        with open(path + '/' + model_name + '/initial_parameters.yml',
+        with open(path / 'initial_parameters.yml',
                   'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save(path + '/' + model_name + '/model.h5')
+        model.save(path / 'model.h5')
     else:
         model_name = username + '_' + str(int(model_names[-1].split('_')[-1])
                                           + 1)
         logging.info('Saving: model, initial parameters and \
                       architecture into {model_directory}'.format(
-                      model_directory='data/models/' + model_name))
-        os.mkdir(path + '/' + model_name)
+                      model_directory=path / model_name))
+        path = path / model_name
+        path.mkdir()
         # Saving architecture
         yaml_string = model.to_yaml()
-        with open(path + '/' + model_name + '/architecture.yml',
+        with open(path / 'architecture.yml',
                   'w') as outfile:
             outfile.write(yaml_string)
         # Saving global parameters
-        with open(path + '/' + model_name + '/initial_parameters.yml',
+        with open(path / 'initial_parameters.yml',
                   'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save(path + '/' + model_name + '/model.h5')
+        model.save(path / 'model.h5')
 
 
 def save_model_performance(username, history, initial_parameters):
-    file_path = os.path.dirname(os.path.abspath(__file__))
-    path = file_path + '/../data/models'
-    train_accuracy = history.history['acc']
-    validation_accuracy = history.history['val_acc']
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+    path = file_path / '../data/models'
+    train_accuracy = history.history[list(history.history.keys())[0]]
+    validation_accuracy = history.history[list(history.history.keys())[1]]
 
-    train_loss = history.history['loss']
-    validation_loss = history.history['val_loss']
+    train_loss = history.history[list(history.history.keys())[2]]
+    validation_loss = history.history[list(history.history.keys())[3]]
 
     list_epochs = np.arange(1, initial_parameters['epochs'] + 1)
     list_epochs = [str(epoch) for epoch in list_epochs]
     rows = zip(list_epochs, train_accuracy, validation_accuracy,
                train_loss, validation_loss)
-    headers = ['Epoch', 'Train Accuracy', 'Validation Accuracy',
-               'Train Loss', 'Validation Loss']
+    headers = ['Epoch'] + list(history.history.keys())
 
     model_names = [name for name in os.listdir(path)
                    if name.startswith(username)]
@@ -182,8 +182,8 @@ def save_model_performance(username, history, initial_parameters):
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory=path + '/' + model_name))
-        with open(path + '/' + model_name + '/evaluation.csv',
+            model_directory=path / model_name))
+        with open(path / model_name / 'evaluation.csv',
                   'w') as outfile:
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow(headers)
@@ -193,10 +193,11 @@ def save_model_performance(username, history, initial_parameters):
         model_name = username + '_' + str(int(model_names[-1].split('_')[-1])
                                           + 1)
         logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory=path + '/' + model_name))
-        with open(path + '/' + model_name + '/evaluation.csv',
+            model_directory=path / model_name))
+        with open(path / model_name / 'evaluation.csv',
                   'w') as outfile:
             writer = csv.writer(outfile, delimiter='|')
             writer.writerow(headers)
             for row in rows:
                 writer.writerow(row)
+

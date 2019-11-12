@@ -2,13 +2,14 @@ import pandas as pd
 from scipy.io import loadmat
 import numpy as np
 import os
-
+from pathlib import Path
 
 def prepare():
     # Getting data from the mat files
-    file_path = os.path.dirname(os.path.abspath(__file__)) + '/..'
-    data_dict = loadmat(file_path + '/data/raw_data/devkit/cars_train_annos.mat')
-    data_dict2 = loadmat(file_path + '/data/raw_data/devkit/cars_meta.mat')
+    file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
+    print(file_path)
+    data_dict = loadmat(file_path / 'data/raw_data/devkit/cars_train_annos.mat')
+    data_dict2 = loadmat(file_path / 'data/raw_data/devkit/cars_meta.mat')
 
     data_array = data_dict['annotations']
     data_array = data_array.transpose(1, 0)
@@ -58,6 +59,6 @@ def prepare():
     brands.set_index('brand_label', inplace=True)
     data.set_index('fname', inplace=True)
 
-    data.to_csv(file_path + '/data/labels/all_labels.csv')
-    models.to_csv(file_path + '/data/labels/models_info.csv')
-    brands.to_csv(file_path + '/data/labels/brands_info.csv')
+    data.to_csv(file_path / 'data/labels/all_labels.csv')
+    models.to_csv(file_path / 'data/labels/models_info.csv')
+    brands.to_csv(file_path / 'data/labels/brands_info.csv')
