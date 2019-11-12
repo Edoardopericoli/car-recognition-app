@@ -12,3 +12,7 @@ import click
 def main(execution_path, test_images_path, test_labels_path):
     accuracy = evaluation(execution_path, test_images_path, test_labels_path)
     print(f'Accuracy: {accuracy:.2f}')
+
+
+if __name__ == "__main__":
+    main()

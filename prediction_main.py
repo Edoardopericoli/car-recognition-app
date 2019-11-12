@@ -12,3 +12,7 @@ import click
 def main(execution_path, images_path, labels_info_path):
     out_df = prediction(execution_path, images_path, labels_info_path)
     print(out_df)
+
+
+if __name__ == "__main__":
+    main()

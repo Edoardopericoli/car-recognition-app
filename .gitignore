@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Data
-data
+data/
 
 # Pericoli Local Configurations
 initial_parameters_sample.yml
@@ -36,9 +36,6 @@ MANIFEST
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
 *.manifest
 *.spec
-
-# git lfs
-.gitattributes
 
 # Installer logs
 pip-log.txt
