@@ -1,5 +1,5 @@
 import click
-from Car_Prediction import prototype_pipeline
+from Car_Prediction import efficientnet_pipeline
 
 
 @click.command()
@@ -26,14 +26,13 @@ from Car_Prediction import prototype_pipeline
               type=str)
 def main(initial_parameters_path, username, shows_only_summary,
          bounding_cpu, prepare_labels, split_data, target_variable):
-    prototype_pipeline.run(initial_parameters_path,
+    efficientnet_pipeline.run(initial_parameters_path,
                                         username,
                                         shows_only_summary,
                                         bounding_cpu=bounding_cpu,
                                         prepare_labels=prepare_labels,
                                         split_data=split_data,
                                         target_variable=target_variable)
-
 
 
 if __name__ == "__main__":
