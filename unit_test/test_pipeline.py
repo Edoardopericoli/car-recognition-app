@@ -1,4 +1,4 @@
-from Car_Prediction.prototype import Prototype
+from Car_Prediction.models import Prototype
 from Car_Prediction import pipeline
 
 

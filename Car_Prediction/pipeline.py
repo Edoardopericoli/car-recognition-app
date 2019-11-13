@@ -1,5 +1,5 @@
 from Car_Prediction import utils, splitter, label
-from Car_Prediction.effnet import Effnet
+from Car_Prediction.models import Effnet
 import logging
 
 
@@ -50,6 +50,6 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
     history = utils.train_model(train_generator, validation_generator,
                                 initial_parameters, train_df, model)
 
-    utils.save_architecture(username, model, initial_parameters)
-    utils.save_performance(username, history, initial_parameters)
+    utils.save_model_architecture(username, model, initial_parameters)
+    utils.save_model_performance(username, history, initial_parameters)
     logging.info('Process finished')

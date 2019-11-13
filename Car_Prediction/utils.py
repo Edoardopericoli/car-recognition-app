@@ -7,6 +7,7 @@ import csv
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 from pathlib import Path
+from math import ceil
 
 
 def setting_log():
