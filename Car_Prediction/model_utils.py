@@ -119,10 +119,12 @@ def train_model(train_generator, validation_generator, initial_parameters,
     return history
 
 
-def save_model_architecture(username, model, initial_parameters):
+def save_model_info(username, model, initial_parameters, history):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
     path = file_path / '../data/models'
     model_names = [str(name) for name in path.glob('**/' + username + '*')]
+    model_names = [int(i.split('_')[-1]) for i in model_names]
+
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model, initial parameters \
@@ -141,8 +143,8 @@ def save_model_architecture(username, model, initial_parameters):
         # Saving estimator
         model.save(path / 'model.h5')
     else:
-        model_name = username + '_' + str(int(model_names[-1].split('_')[-1])
-                                          + 1)
+        model_name = username + '_' + str(max(model_names)+1)
+
         logging.info('Saving: model, initial parameters and \
                       architecture into {model_directory}'.format(
                       model_directory=path / model_name))
@@ -160,8 +162,6 @@ def save_model_architecture(username, model, initial_parameters):
         # Saving estimator
         model.save(path / 'model.h5')
 
-
-def save_model_performance(username, history, initial_parameters):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
     path = file_path / '../data/models'
     train_accuracy = history.history[list(history.history.keys())[0]]
@@ -176,9 +176,6 @@ def save_model_performance(username, history, initial_parameters):
                train_loss, validation_loss)
     headers = ['Epoch'] + list(history.history.keys())
 
-    model_names = [name for name in os.listdir(path)
-                   if name.startswith(username)]
-
     if len(model_names) == 0:
         model_name = username + '_' + '1'
         logging.info('Saving: model performance into {model_directory}'.format(
@@ -190,8 +187,7 @@ def save_model_performance(username, history, initial_parameters):
             for row in rows:
                 writer.writerow(row)
     else:
-        model_name = username + '_' + str(int(model_names[-1].split('_')[-1])
-                                          + 1)
+        model_name = username + '_' + str(max(model_names)+1)
         logging.info('Saving: model performance into {model_directory}'.format(
             model_directory=path / model_name))
         with open(path / model_name / 'evaluation.csv',
