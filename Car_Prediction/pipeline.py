@@ -40,7 +40,7 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
 
     logging.info('Transforming data using ImageDataGenerator')
 
-    model_net = net(train_generator)
+    model_net = net(train_generator, initial_parameters)
     model = model_net.model
     model.summary()
 
