@@ -3,14 +3,20 @@ from sklearn.model_selection import train_test_split
 import os
 import shutil
 from pathlib import Path
+import logging
 
 
-def split(train_size=0.8, target_variable='model', origin_data_path='data/labels/all_labels.csv'):
+def split(train_size=0.8, target_variable='model', origin_data_path='../data/labels/all_labels.csv', get_cropped_data_stanford=False):
     file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
     assert target_variable in ['brand', 'model']
 
     # Reading data
     data = pd.read_csv(file_path / origin_data_path)
+
+    if get_cropped_data_stanford:
+        print('Data are no longer taken from ' + origin_data_path)
+        print('If get_cropped_data_stanford is True data are taken from the path in which cropped images are located')
+        data = pd.read_csv('../data/object_detection_data/output_images_cropped')
 
     if target_variable == 'brand':
         # Splitting train, validation, test
