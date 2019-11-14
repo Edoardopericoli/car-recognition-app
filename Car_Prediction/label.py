@@ -4,6 +4,7 @@ import numpy as np
 import os
 from pathlib import Path
 
+
 def prepare():
     # Getting data from the mat files
     file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
