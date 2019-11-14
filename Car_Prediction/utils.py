@@ -6,13 +6,9 @@ import os
 import csv
 from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
-from keras.layers import Dense
-from keras import optimizers
-from keras.layers import GlobalAveragePooling2D, BatchNormalization
-from keras import Model
-import efficientnet.keras as efn
-from math import ceil
 from pathlib import Path
+from math import ceil
+
 
 def setting_log():
     logging.basicConfig()
@@ -76,29 +72,6 @@ def get_generator(imagedatagenerator, labels_df, directory,
                      initial_parameters['IMG_WIDTH']),
     )
     return train_generator
-
-
-def setup_base_model():
-    base_model = efn.EfficientNetB1(weights='imagenet', include_top=False)
-    # fix the feature extraction part of the model
-    for layer in base_model.layers:
-        if isinstance(layer, BatchNormalization):
-            layer.trainable = True
-        else:
-            layer.trainable = False
-    return base_model
-
-
-def setup_final_layers(base_model, train_generator):
-    x = GlobalAveragePooling2D()(base_model.output)
-    predictions = Dense(len(train_generator.class_indices),
-                        activation='softmax')(x)
-    model = Model(inputs=base_model.input, outputs=predictions)
-    model.compile(optimizer=optimizers.Adam(lr=0.01),
-                  loss='categorical_crossentropy',
-                  metrics=['acc'])
-
-    return model
 
 
 def train_model(train_generator, validation_generator, initial_parameters,

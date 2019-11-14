@@ -1,5 +1,6 @@
 import click
-from Car_Prediction import prototype_pipeline
+from Car_Prediction import pipeline
+from Car_Prediction import models
 
 
 @click.command()
@@ -12,6 +13,9 @@ from Car_Prediction import prototype_pipeline
               help='if True the program stops after having shown \
                     the model summary',
               type=bool)
+@click.option('--net', default='effnet',
+              help='the model you want to use',
+              type=str)
 @click.option('--bounding_cpu', default=False,
               help='if True the program will use 8 threads',
               type=bool)
@@ -24,17 +28,25 @@ from Car_Prediction import prototype_pipeline
 @click.option('--target_variable', default='model',
               help='target variable of the model',
               type=str)
-def main(initial_parameters_path, username, shows_only_summary,
+def main(initial_parameters_path, username, shows_only_summary, net,
          bounding_cpu, prepare_labels, split_data, target_variable):
-            prototype_pipeline.run(initial_parameters_path,
-            username,
-            shows_only_summary,
-            bounding_cpu=bounding_cpu,
-            prepare_labels=prepare_labels,
-            split_data=split_data,
-            target_variable=target_variable)
 
+    if net == 'effnet':
+        net = models.Effnet
+    if net == 'prototype':
+        net = models.Prototype
+
+    pipeline.run(initial_parameters_path,
+                                        username,
+                                        shows_only_summary,
+                                        bounding_cpu=bounding_cpu,
+                                        net=net,
+                                        prepare_labels=prepare_labels,
+                                        split_data=split_data,
+                                        target_variable=target_variable)
 
 
 if __name__ == "__main__":
     main()
+
+#todo: nel merge ricordarsi di tenere i cambiamenti di pericoli edoardo per il model saving
