@@ -59,6 +59,9 @@ def prepare():
     brands.set_index('brand_label', inplace=True)
     data.set_index('fname', inplace=True)
 
+    if not os.path.exists(file_path / 'data/labels'):
+        os.makedirs(file_path / 'data/labels')
+
     data.to_csv(file_path / 'data/labels/all_labels.csv')
     models.to_csv(file_path / 'data/labels/models_info.csv')
     brands.to_csv(file_path / 'data/labels/brands_info.csv')
