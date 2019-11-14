@@ -72,6 +72,8 @@ def split(train_size=0.8, target_variable='model'):
 
     for index in indexes.keys():
         dest = 'data/{index}'.format(index=index)
+        if not os.path.exists(file_path / dest):
+            os.makedirs(file_path / dest)
         for file_name in indexes[index]:
             full_file_name = src / file_name
             if full_file_name.is_file():

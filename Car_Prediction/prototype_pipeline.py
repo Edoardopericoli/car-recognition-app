@@ -60,6 +60,5 @@ def run(initial_parameters_path, username, shows_only_summary,
     history = model_utils.train_model(train_generator, validation_generator,
                                       initial_parameters, train_df, model)
 
-    model_utils.save_model_architecture(username, model, initial_parameters)
-    model_utils.save_model_performance(username, history, initial_parameters)
+    model_utils.save_model_info(username, model, initial_parameters, history=history)
     logging.info('Process finished')
