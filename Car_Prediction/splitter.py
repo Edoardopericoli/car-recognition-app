@@ -5,12 +5,12 @@ import shutil
 from pathlib import Path
 
 
-def split(train_size=0.8, target_variable='model'):
+def split(train_size=0.8, target_variable='model', origin_data_path='data/labels/all_labels.csv'):
     file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
     assert target_variable in ['brand', 'model']
 
     # Reading data
-    data = pd.read_csv(file_path / 'data/labels/all_labels.csv')
+    data = pd.read_csv(file_path / origin_data_path)
 
     if target_variable == 'brand':
         # Splitting train, validation, test
