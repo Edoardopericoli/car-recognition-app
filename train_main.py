@@ -48,3 +48,5 @@ def main(initial_parameters_path, username, shows_only_summary, net,
 
 if __name__ == "__main__":
     main()
+
+#todo: nel merge ricordarsi di tenere i cambiamenti di pericoli edoardo per il model saving
