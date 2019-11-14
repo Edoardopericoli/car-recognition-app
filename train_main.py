@@ -28,8 +28,11 @@ from Car_Prediction import models
 @click.option('--target_variable', default='model',
               help='target variable of the model',
               type=str)
+@click.option('--origin_data_path', default='data/labels/all_labels.csv',
+              help='path from which getting images',
+              type=str)
 def main(initial_parameters_path, username, shows_only_summary, net,
-         bounding_cpu, prepare_labels, split_data, target_variable):
+         bounding_cpu, prepare_labels, split_data, target_variable, origin_data_path):
 
     if net == 'effnet':
         net = models.Effnet
@@ -43,7 +46,8 @@ def main(initial_parameters_path, username, shows_only_summary, net,
                                         net=net,
                                         prepare_labels=prepare_labels,
                                         split_data=split_data,
-                                        target_variable=target_variable)
+                                        target_variable=target_variable,
+                                        origin_data_path=origin_data_path)
 
 
 if __name__ == "__main__":
