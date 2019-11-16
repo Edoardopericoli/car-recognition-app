@@ -74,7 +74,10 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
 
     # Sending images to train, validation and test folders
     indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
-    src = file_path / 'data/raw_data/cars_train'
+    if origin_data_path == 'data/labels/all_labels.csv':
+        src = file_path / 'data/raw_data/cars_train'
+    elif origin_data_path == 'data/labels/all_labels_new.csv':
+        src = file_path / 'data/raw_data/cars_train'
 
     for index in indexes.keys():
         dest = 'data/{index}'.format(index=index)
