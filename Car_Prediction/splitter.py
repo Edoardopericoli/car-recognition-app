@@ -20,7 +20,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
 
     if target_variable == 'brand':
         # Splitting train, validation, test
-        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
                                                                       data['brand_label'],
                                                                       test_size=1-train_size,
                                                                       random_state=89,
@@ -30,7 +30,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
-        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname']],
                                                                       test_temp['brand_label'],
                                                                       test_size=0.5,
                                                                       random_state=89,
@@ -39,7 +39,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
 
     elif target_variable == 'model':
         # Splitting train, validation, test
-        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
                                                                       data['model_label'],
                                                                       test_size=1 - train_size,
                                                                       random_state=89,
@@ -49,7 +49,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
-        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname']],
                                                                       test_temp['model_label'],
                                                                       test_size=0.5,
                                                                       random_state=89,
