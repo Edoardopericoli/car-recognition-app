@@ -77,7 +77,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
     if origin_data_path == 'data/labels/all_labels.csv':
         src = file_path / 'data/raw_data/cars_train'
     elif origin_data_path == 'data/labels/all_labels_new.csv':
-        src = file_path / 'data/raw_data/cars_train'
+        src = file_path / 'data/raw_data/cars_train_new'
 
     for index in indexes.keys():
         dest = 'data/{index}'.format(index=index)
