@@ -58,7 +58,7 @@ def get_generator(imagedatagenerator, labels_df, directory,
     else:
         batch_size = initial_parameters['validation_batch_size']
 
-    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     directory = file_path / directory
     train_generator = imagedatagenerator.flow_from_dataframe(
         dataframe=labels_df,
@@ -92,9 +92,11 @@ def train_model(train_generator, validation_generator, initial_parameters,
     return history
 
 
-def save_model_info(username, model, initial_parameters, history):
+def save_model_architecture(username, model, initial_parameters):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
     path = file_path / '../data/models'
+    if not path.is_dir():
+        path.mkdir()
     model_names = [str(name) for name in path.glob('**/' + username + '*')]
     model_names = [int(i.split('_')[-1]) for i in model_names]
 
@@ -135,8 +137,12 @@ def save_model_info(username, model, initial_parameters, history):
         # Saving estimator
         model.save(path / 'model.h5')
 
-    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
+
+def save_model_performance(username, history, initial_parameters):
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     path = file_path / '../data/models'
+    model_names = [str(name) for name in path.glob('**/' + username + '*')]
+    model_names = [int(i.split('_')[-1]) for i in model_names]
     train_accuracy = history.history[list(history.history.keys())[0]]
     validation_accuracy = history.history[list(history.history.keys())[1]]
 
@@ -149,24 +155,17 @@ def save_model_info(username, model, initial_parameters, history):
                train_loss, validation_loss)
     headers = ['Epoch'] + list(history.history.keys())
 
-    if len(model_names) == 0:
-        model_name = username + '_' + '1'
-        logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory=path / model_name))
-        with open(path / model_name / 'evaluation.csv',
-                  'w') as outfile:
-            writer = csv.writer(outfile, delimiter='|')
-            writer.writerow(headers)
-            for row in rows:
-                writer.writerow(row)
-    else:
-        model_name = username + '_' + str(max(model_names)+1)
-        logging.info('Saving: model performance into {model_directory}'.format(
-            model_directory=path / model_name))
-        with open(path / model_name / 'evaluation.csv',
-                  'w') as outfile:
-            writer = csv.writer(outfile, delimiter='|')
-            writer.writerow(headers)
-            for row in rows:
-                writer.writerow(row)
+    model_name = username + '_' + str(max(model_names))
+    logging.info('Saving: model performance into {model_directory}'.format(
+        model_directory=path / model_name))
+    with open(path / model_name / 'evaluation.csv',
+              'w') as outfile:
+        writer = csv.writer(outfile, delimiter='|')
+        writer.writerow(headers)
+        for row in rows:
+            writer.writerow(row)
 
+
+def save_model_info(username, model, initial_parameters, history):
+    save_model_architecture(username, model, initial_parameters)
+    save_model_performance(username, history, initial_parameters)

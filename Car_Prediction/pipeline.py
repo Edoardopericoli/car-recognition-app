@@ -50,6 +50,5 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
     history = utils.train_model(train_generator, validation_generator,
                                 initial_parameters, train_df, model)
 
-    utils.save_model_architecture(username, model, initial_parameters)
-    utils.save_model_performance(username, history, initial_parameters)
+    utils.save_model_info(username, model, initial_parameters, history)
     logging.info('Process finished')
