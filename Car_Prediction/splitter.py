@@ -6,7 +6,7 @@ from pathlib import Path
 import logging
 
 
-def split(train_size=0.8, target_variable='model', origin_data_path='/data/labels/all_labels.csv', get_cropped_data_stanford=False):
+def split(train_size=0.8, target_variable='model', origin_data_path='data/labels/all_labels.csv', get_cropped_data_stanford=False):
     file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
     assert target_variable in ['brand', 'model']
 

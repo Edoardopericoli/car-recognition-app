@@ -28,7 +28,7 @@ from Car_Prediction import models
 @click.option('--target_variable', default='model',
               help='target variable of the model',
               type=str)
-@click.option('--origin_data_path', default='../data/labels/all_labels.csv',
+@click.option('--origin_data_path', default='data/labels/all_labels.csv',
               help='path from which getting images',
               type=str)
 @click.option('--get_cropped_data_stanford', default=False,
