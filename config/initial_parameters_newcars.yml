@@ -1,0 +1,7 @@
+seed : 42
+train_batch_size : 64
+validation_batch_size : 64
+test_batch_size : 64
+epochs : 12
+IMG_HEIGHT : 240
+IMG_WIDTH : 240
