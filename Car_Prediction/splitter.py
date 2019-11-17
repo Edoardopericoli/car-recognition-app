@@ -16,7 +16,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
     if get_cropped_data_stanford:
         print('Data are no longer taken from ' + origin_data_path)
         print('If get_cropped_data_stanford is True data are taken from the path in which cropped images are located')
-        data = pd.read_csv('../data/object_detection_data/output_images_cropped')
+        data = pd.read_csv(file_path / 'data/labels/all_labels.csv')
 
     if target_variable == 'brand':
         # Splitting train, validation, test
@@ -78,6 +78,8 @@ def split(train_size=0.8, target_variable='model', origin_data_path='data/labels
         src = file_path / 'data/raw_data/cars_train'
     elif origin_data_path == 'data/labels/all_labels_new.csv':
         src = file_path / 'data/raw_data/cars_train_new'
+    elif get_cropped_data_stanford:
+        src = file_path / 'data/object_detection_data/output_images_cropped'
 
     for index in indexes.keys():
         dest = 'data/{index}'.format(index=index)
