@@ -29,10 +29,10 @@ def load_parameters(parameters_path):
     return initial_parameters
 
 
-def load_labels_dfs():
-    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
-    train_df = pd.read_csv(file_path / "../data/labels/train_labels.csv")
-    validation_df = pd.read_csv(file_path / "../data/labels/validation_labels.csv")
+def load_labels_dfs(initial_parameters):
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
+    train_df = pd.read_csv(file_path / ".." / initial_parameters['data_path'] / "labels/train_labels.csv")
+    validation_df = pd.read_csv(file_path / ".." / initial_parameters['data_path'] / "labels/validation_labels.csv")
     train_df.reset_index(inplace=True)
     validation_df.reset_index(inplace=True)
     target_variable = 'model_label'
@@ -94,7 +94,7 @@ def train_model(train_generator, validation_generator, initial_parameters,
 
 def save_model_architecture(username, model, initial_parameters):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
-    path = file_path / '../data/models'
+    path = file_path / '..' / initial_parameters['data_path'] / 'models'
     if not path.is_dir():
         path.mkdir()
     model_names = [str(name) for name in path.glob('**/' + username + '*')]
@@ -140,7 +140,7 @@ def save_model_architecture(username, model, initial_parameters):
 
 def save_model_performance(username, history, initial_parameters):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
-    path = file_path / '../data/models'
+    path = file_path / '..' / initial_parameters['data_path'] / 'models'
     model_names = [str(name) for name in path.glob('**/' + username + '*')]
     model_names = [int(i.split('_')[-1]) for i in model_names]
     train_accuracy = history.history[list(history.history.keys())[0]]

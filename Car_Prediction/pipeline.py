@@ -6,18 +6,18 @@ import logging
 def run(initial_parameters_path="./config/initial_parameters.yml",
         username="rrr", shows_only_summary=False, net=Effnet,
         bounding_cpu=False, prepare_labels=False,
-        split_data=True, target_variable='model', origin_data_path='data/labels/all_labels.csv',
+        split_data=True, target_variable='model',
         get_cropped_data_stanford=True):
 
     utils.setting_log()
+    initial_parameters = utils.load_parameters(initial_parameters_path)
 
     if prepare_labels:
         label.prepare()
 
     if split_data:
         logging.info('Starting splitting and preparing processes')
-        splitter.split(target_variable=target_variable,
-                       origin_data_path=origin_data_path,
+        splitter.split(initial_parameters, target_variable=target_variable,
                        get_cropped_data_stanford=get_cropped_data_stanford)
         logging.info('Splitting ended successfully')
 
@@ -25,19 +25,20 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
         utils.bound_cpu(n_threads=8)
 
     logging.info('Starting the process')
-    initial_parameters = utils.load_parameters(initial_parameters_path)
-    train_df, validation_df = utils.load_labels_dfs()
+    train_path = "../" + initial_parameters['data_path'] + "/train/"
+    validation_path = "../" + initial_parameters['data_path'] + "/validation/"
+    train_df, validation_df = utils.load_labels_dfs(initial_parameters)
     train_image_generator, validation_image_generator = utils.get_image_generators()
 
     train_generator = utils.get_generator(train_image_generator,
-                                                train_df, "../data/train/",
+                                                train_df, train_path,
                                                 initial_parameters,
                                                 train=True)
 
     validation_generator = utils.get_generator(
                                        validation_image_generator,
                                        validation_df,
-                                       "../data/validation/",
+                                       validation_path,
                                        initial_parameters,
                                        train=False)
 

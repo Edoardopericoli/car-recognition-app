@@ -68,7 +68,7 @@ class Prototype(Net):
             Conv2D(5, 4, padding='same', activation='relu'),
             Flatten(),
             Dense(50, activation='relu'),
-            Dense(196, activation='softmax')
+            Dense(len(self.train_generator.class_indices), activation='softmax')
             ])
 
         model.compile(optimizer='adam',

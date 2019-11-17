@@ -5,3 +5,4 @@ test_batch_size : 64
 epochs : 60
 IMG_HEIGHT : 240
 IMG_WIDTH : 240
+data_path : 'data'

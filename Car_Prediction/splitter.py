@@ -3,12 +3,14 @@ from sklearn.model_selection import train_test_split
 import os
 import shutil
 from pathlib import Path
-import logging
 
 
-def split(train_size=0.8, target_variable='model', origin_data_path='../data/labels/all_labels.csv', get_cropped_data_stanford=False):
-    file_path = Path((os.path.dirname(os.path.abspath(__file__)) + '/..').replace('\\','/'))
+def split(initial_parameters, train_size=0.8, target_variable='model', get_cropped_data_stanford=False):
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     assert target_variable in ['brand', 'model']
+
+    data_path = Path('../' + initial_parameters['data_path'])
+    origin_data_path = data_path / 'labels/all_labels.csv'
 
     # Reading data
     data = pd.read_csv(file_path / origin_data_path)
@@ -16,7 +18,7 @@ def split(train_size=0.8, target_variable='model', origin_data_path='../data/lab
     if get_cropped_data_stanford:
         print('Data are no longer taken from ' + origin_data_path)
         print('If get_cropped_data_stanford is True data are taken from the path in which cropped images are located')
-        data = pd.read_csv('../data/object_detection_data/output_images_cropped')
+        data = pd.read_csv(data_path / 'object_detection_data/output_images_cropped')
 
     if target_variable == 'brand':
         # Splitting train, validation, test
@@ -68,16 +70,16 @@ def split(train_size=0.8, target_variable='model', origin_data_path='../data/lab
     assert len(data) == len(train) + len(validation) + len(test)
 
     # Writing boxes data and class names data into csv files and writing a csv for each of train, validation and test
-    train.to_csv(file_path / 'data/labels/train_labels.csv')
-    validation.to_csv(file_path / 'data/labels/validation_labels.csv')
-    test.to_csv(file_path / 'data/labels/test_labels.csv')
+    train.to_csv(file_path / data_path / 'labels/train_labels.csv')
+    validation.to_csv(file_path / data_path / 'labels/validation_labels.csv')
+    test.to_csv(file_path / data_path / 'labels/test_labels.csv')
 
     # Sending images to train, validation and test folders
     indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
-    src = file_path / 'data/raw_data/cars_train'
+    src = file_path / data_path / 'raw_data/cars_train'
 
     for index in indexes.keys():
-        dest = 'data/{index}'.format(index=index)
+        dest = file_path / data_path / str(index)
         if not os.path.exists(file_path / dest):
             os.makedirs(file_path / dest)
         for file_name in indexes[index]:
