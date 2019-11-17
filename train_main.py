@@ -1,11 +1,13 @@
 import click
+import os
+from pathlib import Path
 from Car_Prediction import pipeline
 from Car_Prediction import models
 
 
 @click.command()
-@click.option('--initial_parameters_path',
-              default=r"./config/initial_parameters.yml",
+@click.option('--params_file',
+              default=r"initial_parameters.yml",
               help='config file containing initial parameters', type=str)
 @click.option('--username', default=r"trial",
               help='username to be used for model saving',
@@ -20,23 +22,17 @@ from Car_Prediction import models
 @click.option('--bounding_cpu', default=False,
               help='if True the program will use 8 threads',
               type=bool)
-@click.option('--prepare_labels', default=False,
-              help='if True labels will be prepared accordingly',
-              type=bool)
 @click.option('--split_data', default=True,
               help='if True data will be splitted accordingly',
               type=bool)
-@click.option('--target_variable', default='model',
-              help='target variable of the model',
-              type=str)
 @click.option('--data_type', default='old',
               help='type of images',
               type=str)
 @click.option('--get_cropped_data_stanford', default=False,
               help='if True takes data cropped from stanford dataset',
               type=bool)
-def main(initial_parameters_path, username, shows_only_summary, net,
-         bounding_cpu, prepare_labels, split_data, target_variable, data_type, 
+def main(params_file, username, shows_only_summary, net,
+         bounding_cpu, split_data, data_type,
          get_cropped_data_stanford):
 
     if net == 'effnetb1':
@@ -46,14 +42,15 @@ def main(initial_parameters_path, username, shows_only_summary, net,
     elif net == 'prototype':
         net = models.Prototype
 
+    file_path = Path((os.path.dirname(os.path.abspath(__file__))))
+    initial_parameters_path = file_path / 'config' / params_file
+
     pipeline.run(initial_parameters_path,
                  username,
                  shows_only_summary,
                  bounding_cpu=bounding_cpu,
                  net=net,
-                 prepare_labels=prepare_labels,
                  split_data=split_data,
-                 target_variable=target_variable,
                  data_type=data_type,
                  get_cropped_data_stanford=get_cropped_data_stanford)
 
