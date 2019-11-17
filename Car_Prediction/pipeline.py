@@ -1,10 +1,10 @@
 from Car_Prediction import utils, splitter, label
-from Car_Prediction.models import Effnet
+from Car_Prediction.models import EffnetB1
 import logging
 
 
 def run(initial_parameters_path="./config/initial_parameters.yml",
-        username="rrr", shows_only_summary=False, net=Effnet,
+        username="trial", shows_only_summary=False, net=EffnetB1,
         bounding_cpu=False, prepare_labels=False,
         split_data=True, target_variable='model', data_type='old',
         get_cropped_data_stanford=True):

@@ -7,13 +7,14 @@ from Car_Prediction import models
 @click.option('--initial_parameters_path',
               default=r"./config/initial_parameters.yml",
               help='config file containing initial parameters', type=str)
-@click.option('--username', help='username to be used for model saving',
+@click.option('--username', default=r"trial",
+              help='username to be used for model saving',
               type=str)
 @click.option('--shows_only_summary', default=False,
               help='if True the program stops after having shown \
                     the model summary',
               type=bool)
-@click.option('--net', default='effnet',
+@click.option('--net', default='effnetb1',
               help='the model you want to use',
               type=str)
 @click.option('--bounding_cpu', default=False,
@@ -35,23 +36,26 @@ from Car_Prediction import models
               help='if True takes data cropped from stanford dataset',
               type=bool)
 def main(initial_parameters_path, username, shows_only_summary, net,
-         bounding_cpu, prepare_labels, split_data, target_variable, data_type, get_cropped_data_stanford):
+         bounding_cpu, prepare_labels, split_data, target_variable, data_type, 
+         get_cropped_data_stanford):
 
-    if net == 'effnet':
-        net = models.Effnet
-    if net == 'prototype':
+    if net == 'effnetb1':
+        net = models.EffnetB1
+    elif net == 'effnetb7':
+        net = models.EffnetB7
+    elif net == 'prototype':
         net = models.Prototype
 
     pipeline.run(initial_parameters_path,
-                                        username,
-                                        shows_only_summary,
-                                        bounding_cpu=bounding_cpu,
-                                        net=net,
-                                        prepare_labels=prepare_labels,
-                                        split_data=split_data,
-                                        target_variable=target_variable,
-                                        data_type=data_type,
-                                        get_cropped_data_stanford=get_cropped_data_stanford)
+                 username,
+                 shows_only_summary,
+                 bounding_cpu=bounding_cpu,
+                 net=net,
+                 prepare_labels=prepare_labels,
+                 split_data=split_data,
+                 target_variable=target_variable,
+                 data_type=data_type,
+                 get_cropped_data_stanford=get_cropped_data_stanford)
 
 
 if __name__ == "__main__":
