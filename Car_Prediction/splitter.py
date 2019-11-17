@@ -5,12 +5,15 @@ import shutil
 from pathlib import Path
 
 
-def split(initial_parameters, train_size=0.8, target_variable='model', get_cropped_data_stanford=False):
+def split(initial_parameters, train_size=0.8, target_variable='model', get_cropped_data_stanford=False, data_type='old'):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     assert target_variable in ['brand', 'model']
 
     data_path = Path('../' + initial_parameters['data_path'])
-    origin_data_path = data_path / 'labels/all_labels.csv'
+    if data_type == 'old':
+        origin_data_path = data_path / 'labels/all_labels.csv'
+    elif data_type == 'new':
+        origin_data_path = data_path / 'labels/all_labels_new.csv'
 
     # Reading data
     data = pd.read_csv(file_path / origin_data_path)
@@ -22,7 +25,7 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
 
     if target_variable == 'brand':
         # Splitting train, validation, test
-        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
                                                                       data['brand_label'],
                                                                       test_size=1-train_size,
                                                                       random_state=89,
@@ -32,7 +35,7 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
-        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname']],
                                                                       test_temp['brand_label'],
                                                                       test_size=0.5,
                                                                       random_state=89,
@@ -41,7 +44,7 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
 
     elif target_variable == 'model':
         # Splitting train, validation, test
-        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
                                                                       data['model_label'],
                                                                       test_size=1 - train_size,
                                                                       random_state=89,
@@ -51,7 +54,7 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
         train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
         test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
 
-        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname', 'bbox_x1', 'bbox_y1', 'bbox_x2', 'bbox_y2']],
+        X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname']],
                                                                       test_temp['model_label'],
                                                                       test_size=0.5,
                                                                       random_state=89,
@@ -76,7 +79,11 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
 
     # Sending images to train, validation and test folders
     indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
-    src = file_path / data_path / 'raw_data/cars_train'
+
+    if data_type == 'old':
+        src = file_path / data_path / 'raw_data/cars_train'
+    elif data_type == 'new':
+        src = file_path / 'data/raw_data/cars_train_new'
 
     for index in indexes.keys():
         dest = file_path / data_path / str(index)

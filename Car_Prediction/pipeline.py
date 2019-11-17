@@ -6,7 +6,7 @@ import logging
 def run(initial_parameters_path="./config/initial_parameters.yml",
         username="rrr", shows_only_summary=False, net=Effnet,
         bounding_cpu=False, prepare_labels=False,
-        split_data=True, target_variable='model',
+        split_data=True, target_variable='model', data_type='old',
         get_cropped_data_stanford=True):
 
     utils.setting_log()
@@ -18,6 +18,7 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
     if split_data:
         logging.info('Starting splitting and preparing processes')
         splitter.split(initial_parameters, target_variable=target_variable,
+                       data_type=data_type,
                        get_cropped_data_stanford=get_cropped_data_stanford)
         logging.info('Splitting ended successfully')
 

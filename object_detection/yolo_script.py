@@ -4,6 +4,7 @@ import shutil
 import os
 import re
 import click
+import logging
 
 # todo: to be transferred in the pipeline of the model
 #  --> creating a script "cropper" with the function crop
@@ -24,6 +25,7 @@ def main(origin_images_path="../data/raw_data/cars_train",
     if not os.path.exists(destination_images_path):
         os.makedirs(destination_images_path)
 
+    logging.info('Starting detecting objects')
     detector = ObjectDetection()
     detector.setModelTypeAsYOLOv3()
     detector.setModelPath("../data/raw_data/YOLO_weights/yolo.h5")
@@ -37,7 +39,8 @@ def main(origin_images_path="../data/raw_data/cars_train",
         detector.detectObjectsFromImage(input_image=origin_images_path + '/' + i,
                                         output_image_path=destination_images_path + "/new_{}".format(i),
                                         extract_detected_objects=True)
-
+    logging.info('Finished detecting objects')
+    logging.info('Starting assigining objects to folder output_image_cropped')
    # Keep only the biggest cut car
     dirs = list(filter(os.path.isdir, [destination_images_path + '/' + i for i in os.listdir(destination_images_path)]))
 
@@ -90,6 +93,6 @@ def main(origin_images_path="../data/raw_data/cars_train",
             destination = str(final_images_path + "/output_images_cropped") + str("/") + file
             shutil.copyfile(start, destination)
 
-
+    logging.info('Finished entire process')
 if __name__ == "__main__":
     main()

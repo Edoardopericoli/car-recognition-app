@@ -28,14 +28,14 @@ from Car_Prediction import models
 @click.option('--target_variable', default='model',
               help='target variable of the model',
               type=str)
-@click.option('--origin_data_path', default='../data/labels/all_labels.csv',
-              help='path from which getting images',
+@click.option('--data_type', default='old',
+              help='type of images',
               type=str)
 @click.option('--get_cropped_data_stanford', default=False,
-              help='if True takes data cropped from stanford dataset and origin_data_path is ignored',
+              help='if True takes data cropped from stanford dataset',
               type=bool)
 def main(initial_parameters_path, username, shows_only_summary, net,
-         bounding_cpu, prepare_labels, split_data, target_variable, origin_data_path, get_cropped_data_stanford):
+         bounding_cpu, prepare_labels, split_data, target_variable, data_type, get_cropped_data_stanford):
 
     if net == 'effnet':
         net = models.Effnet
@@ -50,11 +50,9 @@ def main(initial_parameters_path, username, shows_only_summary, net,
                                         prepare_labels=prepare_labels,
                                         split_data=split_data,
                                         target_variable=target_variable,
-                                        origin_data_path=origin_data_path,
+                                        data_type=data_type,
                                         get_cropped_data_stanford=get_cropped_data_stanford)
 
 
 if __name__ == "__main__":
     main()
-
-#todo: nel merge ricordarsi di tenere i cambiamenti di pericoli edoardo per il model saving
