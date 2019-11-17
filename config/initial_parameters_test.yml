@@ -5,4 +5,4 @@ test_batch_size : 32
 epochs : 2
 IMG_HEIGHT : 100
 IMG_WIDTH : 100
-data_path : 'tests/data'
+data_path : 'tests/data_test'
