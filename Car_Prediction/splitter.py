@@ -24,11 +24,11 @@ def split(initial_parameters, train_size=0.8, get_cropped_data_stanford=False, d
 
     # Splitting train, validation, test
     X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
-                                                                    data['model_label'],
-                                                                    test_size=1 - train_size,
-                                                                    random_state=89,
-                                                                    stratify=data['model_label']
-                                                                    )
+                                                                  data['model_label'],
+                                                                  test_size=1 - train_size,
+                                                                  random_state=89,
+                                                                  stratify=data['model_label']
+                                                                 )
 
     train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)
     test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)
@@ -62,9 +62,9 @@ def split(initial_parameters, train_size=0.8, get_cropped_data_stanford=False, d
     if data_type == 'old':
         src = file_path / data_path / 'raw_data/cars_train'
     elif data_type == 'new':
-        src = file_path / 'data/raw_data/cars_train_new'
+        src = file_path / data_path / 'raw_data/cars_train_new'
     elif get_cropped_data_stanford:
-        src = file_path / 'data/object_detection_data/output_images_cropped'
+        src = file_path / data_path / 'object_detection_data/output_images_cropped'
 
     for index in indexes.keys():
         dest = file_path / data_path / str(index)
