@@ -84,6 +84,8 @@ def split(initial_parameters, train_size=0.8, target_variable='model', get_cropp
         src = file_path / data_path / 'raw_data/cars_train'
     elif data_type == 'new':
         src = file_path / 'data/raw_data/cars_train_new'
+    elif get_cropped_data_stanford:
+        src = file_path / 'data/object_detection_data/output_images_cropped'
 
     for index in indexes.keys():
         dest = file_path / data_path / str(index)
