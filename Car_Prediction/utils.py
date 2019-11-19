@@ -116,7 +116,7 @@ def save_model_architecture(username, model, initial_parameters):
                   'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save(path / 'model.h5')
+        model.save(str(path / 'model.h5'))
     else:
         model_name = username + '_' + str(max(model_names)+1)
 
@@ -135,7 +135,7 @@ def save_model_architecture(username, model, initial_parameters):
                   'w') as outfile:
             yaml.dump(initial_parameters, outfile, default_flow_style=False)
         # Saving estimator
-        model.save(path / 'model.h5')
+        model.save(str(path / 'model.h5'))
 
 
 def save_model_performance(username, history, initial_parameters):
