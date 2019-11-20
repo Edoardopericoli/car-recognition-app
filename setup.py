@@ -1,6 +1,6 @@
 import setuptools
 
-setuptools.setup(name='car_prediction',
+setuptools.setup(name='CarModelClassifier',
                  version='0.1',
                  description='Car prediction model',
                  url='https://github.com/Edoardopericoli/Car_Prediction.git',

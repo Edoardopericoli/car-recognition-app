@@ -1,5 +1,5 @@
-from Car_Prediction import utils, splitter, yolo
-from Car_Prediction.models import EffnetB1
+from CarModelClassifier import utils, splitter, yolo
+from CarModelClassifier.models import EffnetB1
 import logging
 
 

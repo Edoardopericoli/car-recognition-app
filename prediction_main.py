@@ -1,4 +1,4 @@
-from Car_Prediction.estimation import prediction
+from CarModelClassifier.estimation import prediction
 import click
 
 

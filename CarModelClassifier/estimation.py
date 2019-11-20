@@ -1,3 +1,9 @@
+"""
+Find and drop columns according to different criteria.
+
+List of functions
+-----------------
+"""
 from keras.models import load_model
 from cv2 import cv2
 import numpy as np
