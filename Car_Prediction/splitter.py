@@ -5,7 +5,7 @@ import shutil
 from pathlib import Path
 
 
-def split(initial_parameters, train_size=0.8, get_cropped_data_stanford=False, data_type='old'):
+def split(initial_parameters, train_size=0.8, crop_images=False, data_type='old'):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
 
     data_path = Path('../' + initial_parameters['data_path'])
@@ -17,10 +17,8 @@ def split(initial_parameters, train_size=0.8, get_cropped_data_stanford=False, d
     # Reading data
     data = pd.read_csv(file_path / origin_data_path)
 
-    if get_cropped_data_stanford:
-        print('Data are no longer taken from ' + origin_data_path)
-        print('If get_cropped_data_stanford is True data are taken from the path in which cropped images are located')
-        data = pd.read_csv(data_path / 'object_detection_data/output_images_cropped')
+    if crop_images:
+        data = pd.read_csv(file_path / data_path / 'labels/all_labels_new.csv')
 
     # Splitting train, validation, test
     X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],
@@ -63,14 +61,21 @@ def split(initial_parameters, train_size=0.8, get_cropped_data_stanford=False, d
         src = file_path / data_path / 'raw_data/cars_train'
     elif data_type == 'new':
         src = file_path / data_path / 'raw_data/cars_train_new'
-    elif get_cropped_data_stanford:
+    if crop_images:
         src = file_path / data_path / 'object_detection_data/output_images_cropped'
 
+    length_all_folders = []
     for index in indexes.keys():
         dest = file_path / data_path / str(index)
-        if not os.path.exists(file_path / dest):
-            os.makedirs(file_path / dest)
+        if os.path.exists(dest):
+            shutil.rmtree(dest, ignore_errors=True)
+        os.mkdir(dest)
         for file_name in indexes[index]:
             full_file_name = src / file_name
             if full_file_name.is_file():
                 shutil.copy(full_file_name, dest)
+
+        length_folder = len(os.listdir(dest))
+        length_all_folders.append(length_folder)
+
+    assert len(data) == sum(length_all_folders)

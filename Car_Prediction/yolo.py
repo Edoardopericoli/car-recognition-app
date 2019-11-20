@@ -3,34 +3,23 @@ from PIL import Image
 import shutil
 import os
 import re
-import click
 import logging
 
-# Requred tensorflow 1.15.0
-# todo: to be transferred in the pipeline of the model
-#  --> creating a script "cropper" with the function crop
-#  inside the directory Car_Prediction
+
+def crop(sample=False):
+    file_path = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
+    origin_images_path = file_path + "/../data/raw_data/cars_train_new"
+    destination_images_path = file_path + "/../data/object_detection_data/output_images_YOLO"
+    final_images_path = file_path + "/../data/object_detection_data"
 
 
-@click.command()
-@click.option('--origin_images_path', default=r"../data/raw_data/cars_train", help='folder from which detecting images',
-              type=str)
-@click.option('--destination_images_path', default=r"../data/object_detection_data/output_images_YOLO",
-              help='folder from which detecting images', type=str)
-@click.option('--sample', default=False,
-              help='if True detects only a sample of the images', type=bool)
-def main(origin_images_path="../data/raw_data/cars_train",
-         destination_images_path="../data/object_detection_data/output_images_YOLO",
-         final_images_path="../data/object_detection_data", sample=True):
-
-    file_path = (os.path.dirname(os.path.abspath(__file__))).replace('\\', '/')
     if not os.path.exists(destination_images_path):
         os.makedirs(destination_images_path)
 
     logging.info('Starting detecting objects')
     detector = ObjectDetection()
     detector.setModelTypeAsYOLOv3()
-    detector.setModelPath("../data/raw_data/YOLO_weights/yolo.h5")
+    detector.setModelPath(file_path + "/../data/raw_data/YOLO_weights/yolo.h5")
     detector.loadModel()
     images = os.listdir(origin_images_path)
 
@@ -43,7 +32,7 @@ def main(origin_images_path="../data/raw_data/cars_train",
                                         extract_detected_objects=True)
     logging.info('Finished detecting objects')
     logging.info('Starting assigining objects to folder output_image_cropped')
-   # Keep only the biggest cut car
+    # Keep only the biggest cut car
     dirs = list(filter(os.path.isdir, [destination_images_path + '/' + i for i in os.listdir(destination_images_path)]))
 
     for directory in dirs:
@@ -78,7 +67,7 @@ def main(origin_images_path="../data/raw_data/cars_train",
         files = os.listdir(directory)
         for file in files:
             number = re.search(r"[0-9]+", str(directory))
-            new_name = str(number.group())+".jpg"
+            new_name = str(number.group()) + ".jpg"
             start = directory + str("/") + file
             end = directory + str("/") + new_name
             os.rename(start, end)
@@ -96,5 +85,7 @@ def main(origin_images_path="../data/raw_data/cars_train",
             shutil.copyfile(start, destination)
 
     logging.info('Finished entire process')
+
+
 if __name__ == "__main__":
     main()
