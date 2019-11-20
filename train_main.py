@@ -1,8 +1,8 @@
 import click
 import os
 from pathlib import Path
-from Car_Prediction import pipeline
-from Car_Prediction import models
+from CarModelClassifier import pipeline
+from CarModelClassifier import models
 
 
 @click.command()
