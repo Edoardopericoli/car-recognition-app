@@ -28,12 +28,12 @@ from CarModelClassifier import models
 @click.option('--data_type', default='old',
               help='type of images',
               type=str)
-@click.option('--get_cropped_data_stanford', default=False,
-              help='if True takes data cropped from stanford dataset',
+@click.option('--crop_images', default=False,
+              help='if True detects car and crops the image',
               type=bool)
 def main(params_file, username, shows_only_summary, net,
          bounding_cpu, split_data, data_type,
-         get_cropped_data_stanford):
+         crop_images):
 
     if net == 'effnetb1':
         net = models.EffnetB1
@@ -52,7 +52,7 @@ def main(params_file, username, shows_only_summary, net,
                  net=net,
                  split_data=split_data,
                  data_type=data_type,
-                 get_cropped_data_stanford=get_cropped_data_stanford)
+                 crop_images=crop_images)
 
 
 if __name__ == "__main__":

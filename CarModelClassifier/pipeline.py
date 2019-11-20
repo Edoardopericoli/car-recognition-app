@@ -1,4 +1,4 @@
-from CarModelClassifier import utils, splitter
+from CarModelClassifier import utils, splitter, yolo
 from CarModelClassifier.models import EffnetB1
 import logging
 
@@ -7,16 +7,18 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
         username="trial", shows_only_summary=False, net=EffnetB1,
         bounding_cpu=False, split_data=True,
         data_type='old',
-        get_cropped_data_stanford=True):
+        crop_images=False):
 
     utils.setting_log()
     initial_parameters = utils.load_parameters(initial_parameters_path)
 
+    if crop_images:
+        yolo.crop()
     if split_data:
         logging.info('Starting splitting and preparing processes')
         splitter.split(initial_parameters,
                        data_type=data_type,
-                       get_cropped_data_stanford=get_cropped_data_stanford)
+                       crop_images=crop_images)
         logging.info('Splitting ended successfully')
 
     if bounding_cpu:
