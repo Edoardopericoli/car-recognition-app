@@ -11,6 +11,7 @@ import os
 import glob
 import pandas as pd
 import yaml
+from CarModelClassifier.utils import swish
 
 
 def evaluation(execution_path, test_images_path, test_labels_path):
@@ -19,7 +20,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     with open(initial_parameters_path) as f:
         initial_parameters = yaml.load(f)
     model_path = execution_path + '/model.h5'
-    model = load_model(model_path)
+    model = load_model(model_path, custom_objects={'activate': swish})
 
     if os.path.isfile(test_images_path):
         img = cv2.imread(test_images_path)

@@ -169,3 +169,8 @@ def save_model_performance(username, history, initial_parameters):
 def save_model_info(username, model, initial_parameters, history):
     save_model_architecture(username, model, initial_parameters)
     save_model_performance(username, history, initial_parameters)
+
+
+def swish(x):
+    return K.tf.nn.swish(x)
+
