@@ -51,7 +51,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     classes = []
     for i in classes_lists:
         m = max(i)
-        cl = [x for x, j in enumerate(i) if j == m][0]
+        cl = [x for x, j in enumerate(i) if j == m][0] + 1
         classes.append(cl)
 
     #for image in images:
