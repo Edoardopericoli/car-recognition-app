@@ -52,7 +52,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     classes_lists = model.predict(images)
 
     class_n = np.argwhere(classes_lists == 1)[:, 1].tolist()
-    labels = [str(i) for i in range(21)]
+    labels = [str(i + 1) for i in range(21)]
     classes = []
     for el in class_n:
         classes.append(sorted(labels)[el])
