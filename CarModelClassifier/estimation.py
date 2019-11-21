@@ -49,7 +49,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
 
     classes_lists = model.predict(images)
 
-    classes = np.argwhere(classes_lists == 1)[:, 1] + 1
+    classes = np.argwhere(classes_lists == 1)[:, 1].index + 1
 
     #for image in images:
     #    class_image = model.predict(tf.expand_dims(image, 0), steps=1)[0]
