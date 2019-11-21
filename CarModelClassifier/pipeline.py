@@ -1,6 +1,7 @@
 from CarModelClassifier import utils, splitter, yolo
 from CarModelClassifier.models import EffnetB1
 import logging
+from CarModelClassifier.estimation import evaluation
 
 
 def run(initial_parameters_path="./config/initial_parameters.yml",
@@ -51,6 +52,9 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
 
     if shows_only_summary:
         return
+
+    evaluation(model=model, test_images_path='../data/test', test_labels_path='../data/labels/all_labels_new.csv')
+
 
     history = utils.train_model(train_generator, validation_generator,
                                 initial_parameters, train_df, model)
