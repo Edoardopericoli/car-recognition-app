@@ -172,5 +172,5 @@ def save_model_info(username, model, initial_parameters, history):
 
 
 def swish(x):
-    return K.tf.nn.swish(x)
+    return K.sigmoid(x)*x
 
