@@ -57,6 +57,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     labels_df = pd.read_csv(test_labels_path, sep=',')
     output_df = output_df.merge(labels_df, left_on='filename',
                                 right_on='fname')
+    print(output_df.head())
     accuracy = len(output_df.loc[output_df['predicted_class'] ==
                    output_df['model_label'], :]) / len(output_df)
     return accuracy
