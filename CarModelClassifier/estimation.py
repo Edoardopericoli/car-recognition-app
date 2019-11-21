@@ -23,7 +23,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
         initial_parameters = yaml.load(f)
     model_path = execution_path + '/model.h5'
     model = load_model(model_path, custom_objects={'swish': swish, 'FixedDropout': FixedDropout})
-
+    print(model)
     if os.path.isfile(test_images_path):
         img = cv2.imread(test_images_path)
         img = cv2.resize(img, (initial_parameters['IMG_HEIGHT'],
