@@ -51,6 +51,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     #for image in images:
     #    class_image = model.predict(tf.expand_dims(image, 0), steps=1)[0]
     #    classes.append(class_image)
+    print(classes)
 
     output_df = pd.DataFrame({'filename': filenames,
                               'predicted_class': classes})
