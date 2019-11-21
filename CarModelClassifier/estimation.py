@@ -47,7 +47,13 @@ def evaluation(execution_path, test_images_path, test_labels_path):
         filenames = [os.path.basename(img_path)
                      for img_path in test_images_path]
 
-    classes = model.predict(images)
+    classes_lists = model.predict(images)
+    classes = []
+    for i in classes_lists:
+        m = max(i)
+        cl = [x for x, j in enumerate(i) if j == m][0]
+        classes.append(cl)
+
     #for image in images:
     #    class_image = model.predict(tf.expand_dims(image, 0), steps=1)[0]
     #    classes.append(class_image)
