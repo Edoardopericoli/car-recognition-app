@@ -5,6 +5,7 @@ List of functions
 -----------------
 """
 from keras.models import load_model
+from keras import backend as K
 from cv2 import cv2
 import numpy as np
 import os
@@ -20,7 +21,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     with open(initial_parameters_path) as f:
         initial_parameters = yaml.load(f)
     model_path = execution_path + '/model.h5'
-    model = load_model(model_path)
+    model = load_model(model_path, custom_objects={'activation':  K.tf.nn.swish})
 
     if os.path.isfile(test_images_path):
         img = cv2.imread(test_images_path)
