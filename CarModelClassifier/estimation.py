@@ -93,6 +93,7 @@ def prediction(execution_path, images_path, labels_info_path):
 
         filenames = [os.path.basename(images_path)]
 
+
     elif os.path.isdir(images_path):
         images_path = glob.glob(images_path + "/*")
         images = [cv2.imread(f) for f in images_path]
@@ -105,6 +106,9 @@ def prediction(execution_path, images_path, labels_info_path):
                                      initial_parameters['IMG_WIDTH'], 3])
 
         filenames = [os.path.basename(img_path) for img_path in images_path]
+
+        print('---------------------------------')
+        print(filenames[:30])
     classes = model.predict_classes(images)
 
     output_df = pd.DataFrame({'filename': filenames, 'class': classes})
