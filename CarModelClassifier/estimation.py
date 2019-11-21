@@ -16,16 +16,19 @@ from CarModelClassifier.utils import swish, FixedDropout
 import tensorflow as tf
 
 
-def evaluation(model, test_images_path, test_labels_path):
+def evaluation(execution_path, test_images_path, test_labels_path):
     # Loading paths and model information
-
+    initial_parameters_path = execution_path + '/initial_parameters.yml'
+    with open(initial_parameters_path) as f:
+        initial_parameters = yaml.load(f)
+    model_path = execution_path + '/model.h5'
 
     if os.path.isfile(test_images_path):
         img = cv2.imread(test_images_path)
-        img = cv2.resize(img, (240,
-                               240))
-        images = np.reshape(img, [1, 240,
-                                  240, 3])
+        img = cv2.resize(img, (initial_parameters['IMG_HEIGHT'],
+                               initial_parameters['IMG_WIDTH']))
+        images = np.reshape(img, [1, initial_parameters['IMG_HEIGHT'],
+                                  initial_parameters['IMG_WIDTH'], 3])
 
         filenames = [os.path.basename(test_images_path)]
 
@@ -33,12 +36,12 @@ def evaluation(model, test_images_path, test_labels_path):
         test_images_path = glob.glob(test_images_path + "/*")
         images = [cv2.imread(f) for f in test_images_path]
         images = np.array([cv2.resize(img,
-                                      (240,
-                                       240))
+                                      (initial_parameters['IMG_HEIGHT'],
+                                       initial_parameters['IMG_WIDTH']))
                           for img in images])
         images = np.reshape(images, [len(test_images_path),
-                                     240,
-                                     240, 3])
+                                     initial_parameters['IMG_HEIGHT'],
+                                     initial_parameters['IMG_WIDTH'], 3])
 
         filenames = [os.path.basename(img_path)
                      for img_path in test_images_path]
