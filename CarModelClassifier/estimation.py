@@ -52,10 +52,10 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     classes_lists = model.predict(images)
 
     class_n = np.argwhere(classes_lists == 1)[:, 1].tolist()
-    labels = [str(i + 1) for i in range(21)]
+    labels = sorted([str(i + 1) for i in range(21)])
     classes = []
     for el in class_n:
-        classes.append(sorted(labels)[el])
+        classes.append(int(labels[el]))
 
     #for image in images:
     #    class_image = model.predict(tf.expand_dims(image, 0), steps=1)[0]
