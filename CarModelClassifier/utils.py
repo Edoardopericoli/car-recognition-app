@@ -8,6 +8,8 @@ from keras import backend as K
 from keras.preprocessing.image import ImageDataGenerator
 from pathlib import Path
 from math import ceil
+from keras import layers
+
 
 
 def setting_log():
@@ -175,7 +177,7 @@ def swish(x):
     return K.sigmoid(x)*x
 
 
-def FixedDropout(x):
+class FixedDropout(layers.Dropout):
     def _get_noise_shape(self, inputs):
         if self.noise_shape is None:
             return self.noise_shape
