@@ -47,8 +47,9 @@ def evaluation(execution_path, test_images_path, test_labels_path):
         filenames = [os.path.basename(img_path)
                      for img_path in test_images_path]
 
-
-
+    print('---------------------------------')
+    print(filenames[:30])
+    print('---------------------------------')
     classes_lists = model.predict(images)
     print(classes_lists[0])
 
@@ -107,8 +108,6 @@ def prediction(execution_path, images_path, labels_info_path):
 
         filenames = [os.path.basename(img_path) for img_path in images_path]
 
-        print('---------------------------------')
-        print(filenames[:30])
     classes = model.predict_classes(images)
 
     output_df = pd.DataFrame({'filename': filenames, 'class': classes})
