@@ -22,6 +22,7 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     with open(initial_parameters_path) as f:
         initial_parameters = yaml.load(f)
     model_path = execution_path + '/model.h5'
+    model = load_model(model_path, custom_objects={'swish': swish, 'FixedDropout': FixedDropout})
 
     if os.path.isfile(test_images_path):
         img = cv2.imread(test_images_path)
@@ -35,19 +36,18 @@ def evaluation(execution_path, test_images_path, test_labels_path):
     elif os.path.isdir(test_images_path):
         test_images_path = glob.glob(test_images_path + "/*")
         images = [cv2.imread(f) for f in test_images_path]
-        images = np.array([cv2.resize(img,
-                                      (initial_parameters['IMG_HEIGHT'],
-                                       initial_parameters['IMG_WIDTH']))
-                          for img in images])
+        images = [cv2.cvtColor(image, cv2.COLOR_BGR2RGB) for image in images]
+        images = [cv2.resize(img, (initial_parameters['IMG_HEIGHT'],
+                                   initial_parameters['IMG_WIDTH']))
+                  for img in images]
+        images = np.array([image.astype("float") / 255.0 for image in images])
         images = np.reshape(images, [len(test_images_path),
                                      initial_parameters['IMG_HEIGHT'],
                                      initial_parameters['IMG_WIDTH'], 3])
-
         filenames = [os.path.basename(img_path)
                      for img_path in test_images_path]
+        print('---------------------------------')
 
-    print('---------------------------------')
-    print(filenames[:30])
     print('---------------------------------')
     classes_lists = model.predict(images)
     print(classes_lists[0])
