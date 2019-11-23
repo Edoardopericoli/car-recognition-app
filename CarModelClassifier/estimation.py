@@ -50,9 +50,10 @@ def evaluation(execution_path, test_images_path, test_labels_path):
 
     print('---------------------------------')
     classes_lists = model.predict(images)
+    class_n = classes_lists.argmax(axis=1).tolist()
     print(classes_lists[0])
 
-    class_n = np.argwhere(classes_lists == 1)[:, 1].tolist()
+    #class_n = np.argwhere(classes_lists == 1)[:, 1].tolist()
     labels = sorted([str(i + 1) for i in range(21)])
     classes = []
     for el in class_n:
