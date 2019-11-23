@@ -25,14 +25,11 @@ from CarModelClassifier import models
 @click.option('--split_data', default=True,
               help='if True data will be splitted accordingly',
               type=bool)
-@click.option('--data_type', default='old',
-              help='type of images',
-              type=str)
 @click.option('--crop_images', default=False,
               help='if True detects car and crops the image',
               type=bool)
 def main(params_file, username, shows_only_summary, net,
-         bounding_cpu, split_data, data_type,
+         bounding_cpu, split_data,
          crop_images):
 
     if net == 'effnetb1':
@@ -51,7 +48,6 @@ def main(params_file, username, shows_only_summary, net,
                  bounding_cpu=bounding_cpu,
                  net=net,
                  split_data=split_data,
-                 data_type=data_type,
                  crop_images=crop_images)
 
 

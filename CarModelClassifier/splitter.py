@@ -5,14 +5,11 @@ import shutil
 from pathlib import Path
 
 
-def split(initial_parameters, train_size=0.8, crop_images=False, data_type='old'):
+def split(initial_parameters, train_size=0.8, crop_images=False):
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
 
     data_path = Path('../' + initial_parameters['data_path'])
-    if data_type == 'old':
-        origin_data_path = data_path / 'labels/all_labels.csv'
-    elif data_type == 'new':
-        origin_data_path = data_path / 'labels/all_labels_new.csv'
+    origin_data_path = data_path / 'labels/all_labels_new.csv'
 
     # Reading data
     data = pd.read_csv(file_path / origin_data_path)
@@ -57,10 +54,7 @@ def split(initial_parameters, train_size=0.8, crop_images=False, data_type='old'
     # Sending images to train, validation and test folders
     indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}
 
-    if data_type == 'old':
-        src = file_path / data_path / 'raw_data/cars_train'
-    elif data_type == 'new':
-        src = file_path / data_path / 'raw_data/cars_train_new'
+    src = file_path / data_path / 'raw_data/cars_train_new'
     if crop_images:
         src = file_path / data_path / 'object_detection_data/output_images_cropped'
 
