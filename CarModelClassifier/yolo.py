@@ -12,7 +12,6 @@ def crop(sample=False):
     destination_images_path = file_path + "/../data/object_detection_data/output_images_YOLO"
     final_images_path = file_path + "/../data/object_detection_data"
 
-
     if not os.path.exists(destination_images_path):
         os.makedirs(destination_images_path)
 
@@ -85,7 +84,3 @@ def crop(sample=False):
             shutil.copyfile(start, destination)
 
     logging.info('Finished entire process')
-
-
-if __name__ == "__main__":
-    main()
