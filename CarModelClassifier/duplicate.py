@@ -3,6 +3,19 @@ import hashlib
 
 
 def hashfile(path, blocksize=65536):
+    """
+    Get the hash of each file in a given path
+
+    Parameters
+    ----------
+    path : string
+        The path in which the has is performed
+    blocksize : int, optional
+        Parameter for hashing
+    Returns
+    -------
+    Hashes of files
+    """
     afile = open(path, 'rb')
     hasher = hashlib.md5()
     buf = afile.read(blocksize)
@@ -32,6 +45,17 @@ def findDup(parentFolder):
 
 
 def printResults(dict1):
+    """
+    Print the duplicate files
+    Parameters
+    ----------
+    dict1 : dict
+
+
+    Returns
+    -------
+
+    """
     results = list(filter(lambda x: len(x) > 1, dict1.values()))
     if len(results) > 0:
         print('Duplicates Found:')
@@ -47,6 +71,10 @@ def printResults(dict1):
 
 
 def find_duplicate_images():
+    """
+    Find duplicate images in the folder
+    "./data/raw_data/cars_train_new"
+    """
     path = "./data/raw_data/cars_train_new"
     res = findDup(path)
     printResults(res)
