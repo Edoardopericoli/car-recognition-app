@@ -1,3 +1,9 @@
+"""
+Utils module.
+
+List of functions
+-----------------
+"""
 import logging
 import numpy as np
 import pandas as pd
@@ -12,12 +18,23 @@ from math import ceil
 
 
 def setting_log():
+    """
+    Set basic log configuration.
+    """
     logging.basicConfig()
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
 
 
 def bound_cpu(n_threads=8):
+    """
+    Limit the CPU usage to a limited number of threads.
+    
+    Parameters
+    ----------
+    n_threads : int, optional
+        number of threads, by default 8
+    """
     K.set_session(K.tf.Session(
                    config=K.tf.ConfigProto
                    (intra_op_parallelism_threads=n_threads,
@@ -25,12 +42,38 @@ def bound_cpu(n_threads=8):
 
 
 def load_parameters(parameters_path):
+    """
+    Load the parameters from the config file.
+    
+    Parameters
+    ----------
+    parameters_path : string
+        path of the config file
+    
+    Returns
+    -------
+    dict
+        a dict containing parameters.
+    """
     with open(parameters_path) as f:
         initial_parameters = yaml.load(f)
     return initial_parameters
 
 
 def load_labels_dfs(initial_parameters):
+    """
+    Load the labels files for training.
+    
+    Parameters
+    ----------
+    initial_parameters : dict
+        a dict containing parameters.
+    
+    Returns
+    -------
+    Dataframes
+        train and test dataframes.
+    """
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     train_df = pd.read_csv(file_path / ".." / initial_parameters['data_path'] / "labels/train_labels.csv")
     validation_df = pd.read_csv(file_path / ".." / initial_parameters['data_path'] / "labels/validation_labels.csv")
@@ -43,6 +86,14 @@ def load_labels_dfs(initial_parameters):
 
 
 def get_image_generators():
+    """
+    Create image generators for train and validation.
+    
+    Returns
+    -------
+    ImageDataGenerators
+        ImageDataGenerator for train and validation.
+    """
     train_image_generator = ImageDataGenerator(
                             rescale=1. / 255,
                             zoom_range=0.2,
@@ -54,6 +105,28 @@ def get_image_generators():
 
 def get_generator(imagedatagenerator, labels_df, directory,
                   initial_parameters, train=True):
+    """
+    Build the generator from dataframe.
+    
+    Parameters
+    ----------
+    imagedatagenerator : ImageDataGenerator
+        ImageDataGenerator for the generator
+    labels_df : DataFrame
+        DataFrame containing labels.
+    directory : string
+        directory containing the images
+    initial_parameters : dict
+         a dict containing parameters.
+    train : bool, optional
+        if True is used for the training
+        dataset, by default True
+    
+    Returns
+    -------
+    TrainGenerator
+        the Train Generator.
+    """
     if train:
         batch_size = initial_parameters['train_batch_size']
     else:
@@ -61,7 +134,7 @@ def get_generator(imagedatagenerator, labels_df, directory,
 
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     directory = file_path / directory
-    train_generator = imagedatagenerator.flow_from_dataframe(
+    generator = imagedatagenerator.flow_from_dataframe(
         dataframe=labels_df,
         directory=directory,
         x_col='fname',
@@ -72,11 +145,32 @@ def get_generator(imagedatagenerator, labels_df, directory,
         target_size=(initial_parameters['IMG_HEIGHT'],
                      initial_parameters['IMG_WIDTH']),
     )
-    return train_generator
+    return generator
 
 
 def train_model(train_generator, validation_generator, initial_parameters,
                 train_df, model):
+    """
+    Perform the model training
+
+    Parameters
+    ----------
+    train_generator : Generator
+        Train Generator
+    validation_generator : Generator
+        Validation Generator
+    initial_parameters : dict
+        [description]
+    train_df : [type]
+        [description]
+    model : [type]
+        [description]
+
+    Returns
+    -------
+    [type]
+        [description]
+    """
     history = model.fit_generator(generator=train_generator,
                                   steps_per_epoch=ceil(len(train_df) /
                                                        initial_parameters
@@ -140,6 +234,18 @@ def save_model_architecture(username, model, initial_parameters):
 
 
 def save_model_performance(username, history, initial_parameters):
+    """
+    [summary]
+    
+    Parameters
+    ----------
+    username : [type]
+        [description]
+    history : [type]
+        [description]
+    initial_parameters : [type]
+        [description]
+    """
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     path = file_path / '..' / initial_parameters['data_path'] / 'models'
     model_names = [str(name) for name in path.glob('**/' + username + '*')]

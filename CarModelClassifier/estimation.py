@@ -1,5 +1,5 @@
 """
-Find and drop columns according to different criteria.
+Estimation module.
 
 List of functions
 -----------------
@@ -14,7 +14,31 @@ import yaml
 from CarModelClassifier.utils import swish, FixedDropout
 
 
-def evaluation(test=False):
+def evaluation(custom_images=False, test=False):
+    """Perform evaluation of the model.
+
+    Images to evaluate the model are taken from the folder
+    "custom_evaluation/images" while the labels of these images
+    are in the file "/custom_evaluation/test_labels.csv"
+
+    Parameters
+    ----------
+    custom_images : bool, optional
+        if True images to evaluate the model are taken from the folder
+        "custom_evaluation/images" while the labels of these images
+        are those in the file "/custom_evaluation/test_labels.csv".
+        if False images to evaluate the model are taken from the folder
+        "data/test" while the labels of these images
+        are those in the file "data/labels/test_labels.csv".
+    test : bool, optional
+        if True, test the correct working of the function, 
+        by default False
+    
+    Returns
+    -------
+    float
+        accuracy of the model.
+    """
     file_path = os.path.dirname(os.path.abspath(__file__))
     test_images_path = file_path + '/../custom_evaluation/images'
     execution_path = file_path + '/../data/models/final_model'
@@ -64,6 +88,22 @@ def evaluation(test=False):
 
 
 def prediction(test=False):
+    """Perform prediction of new images.
+
+    Images to evaluate the model are taken from the folder
+    "custom_evaluation/images".
+
+    Parameters
+    ----------
+    test : bool, optional
+        if True, used to test
+        the function, by default False
+
+    Returns
+    -------
+    DataFrame
+        The output dataframe.
+    """
     file_path = os.path.dirname(os.path.abspath(__file__))
     test_images_path = file_path + '/../custom_evaluation/images'
     execution_path = file_path + '/../data/models/final_model'
