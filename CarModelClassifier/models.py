@@ -8,6 +8,9 @@ import abc
 
 
 class Net(metaclass=abc.ABCMeta):
+    """
+    Abstract class that is the super class of all models  
+    """ 
 
     @abc.abstractmethod
     def setup_model(self):
@@ -15,7 +18,9 @@ class Net(metaclass=abc.ABCMeta):
 
 
 class EffnetB1(Net):
-
+    """
+    Efficient Net Version B1 implementation
+    """
     def __init__(self, train_generator, initial_parameters=None):
         if initial_parameters is None:
             self.initial_parameters = {}
@@ -25,10 +30,26 @@ class EffnetB1(Net):
         self.model = self.setup_model()
 
     def setup_model(self):
+        """
+        Build the complete Model.
+        
+        Returns
+        -------
+        Net
+            The complete Model.
+        """
         base_model = self._setup_base_model()
         return self._setup_final_layers(base_model)
 
     def _setup_base_model(self):
+        """
+        Build the EfficientNet layers
+        
+        Returns
+        -------
+        Net
+            Model composed by Efficient Net layers
+        """
         base_model = efn.EfficientNetB1(weights='imagenet', include_top=False)
         # fix the feature extraction part of the model
         for layer in base_model.layers:
@@ -39,6 +60,19 @@ class EffnetB1(Net):
         return base_model
 
     def _setup_final_layers(self, base_model):
+        """
+        Build the last layers
+        
+        Parameters
+        ----------
+        base_model : Net
+            Model composed by Efficient Net layers
+        
+        Returns
+        -------
+        Net
+            The complete model
+        """
         x = GlobalAveragePooling2D()(base_model.output)
         predictions = Dense(len(self.train_generator.class_indices),
                             activation='softmax')(x)
@@ -50,7 +84,9 @@ class EffnetB1(Net):
 
 
 class Prototype(Net):
-
+    """
+    Basic model used for baseline and test purposes.
+    """
     def __init__(self, train_generator, initial_parameters=None):
         if initial_parameters is None:
             self.initial_parameters = {}
@@ -78,6 +114,9 @@ class Prototype(Net):
 
 
 class EffnetB7(Net):
+    """
+    Efficient Net Version B1 implementation
+    """
 
     def __init__(self, train_generator, initial_parameters=None):
         if initial_parameters is None:
@@ -88,10 +127,26 @@ class EffnetB7(Net):
         self.model = self.setup_model()
 
     def setup_model(self):
+        """
+        Build the complete Model.
+        
+        Returns
+        -------
+        Net
+            The complete Model.
+        """
         base_model = self._setup_base_model()
         return self._setup_final_layers(base_model)
 
     def _setup_base_model(self):
+        """
+        Build the EfficientNet layers
+        
+        Returns
+        -------
+        Net
+            Model composed by Efficient Net layers
+        """
         base_model = efn.EfficientNetB7(weights='imagenet', include_top=False)
         # fix the feature extraction part of the model
         for layer in base_model.layers:
@@ -102,6 +157,19 @@ class EffnetB7(Net):
         return base_model
 
     def _setup_final_layers(self, base_model):
+        """
+        Build the last layers
+        
+        Parameters
+        ----------
+        base_model : Net
+            Model composed by Efficient Net layers
+        
+        Returns
+        -------
+        Net
+            The complete model
+        """
         x = GlobalAveragePooling2D()(base_model.output)
         predictions = Dense(len(self.train_generator.class_indices),
                             activation='softmax')(x)

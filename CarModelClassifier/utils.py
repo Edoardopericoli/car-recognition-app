@@ -107,7 +107,7 @@ def get_generator(imagedatagenerator, labels_df, directory,
                   initial_parameters, train=True):
     """
     Build the generator from dataframe.
-    
+
     Parameters
     ----------
     imagedatagenerator : ImageDataGenerator
@@ -121,7 +121,7 @@ def get_generator(imagedatagenerator, labels_df, directory,
     train : bool, optional
         if True is used for the training
         dataset, by default True
-    
+
     Returns
     -------
     TrainGenerator
@@ -160,16 +160,16 @@ def train_model(train_generator, validation_generator, initial_parameters,
     validation_generator : Generator
         Validation Generator
     initial_parameters : dict
-        [description]
-    train_df : [type]
-        [description]
-    model : [type]
-        [description]
+        a dict containing parameters
+    train_df : DataFrame
+        train DataFrame
+    model : Net
+        Model used for training
 
     Returns
     -------
-    [type]
-        [description]
+    DataFrame
+        history DataFrame
     """
     history = model.fit_generator(generator=train_generator,
                                   steps_per_epoch=ceil(len(train_df) /
@@ -188,6 +188,21 @@ def train_model(train_generator, validation_generator, initial_parameters,
 
 
 def save_model_architecture(username, model, initial_parameters):
+    """
+    Save the entire model in a .h5 file.
+
+    Save the model in a h5 file and the architecture in
+    a yml file
+    
+    Parameters
+    ----------
+    username : string
+        name of the folder in which put the saved the model
+    model : Net
+        the model used for training.
+    initial_parameters : dict
+        a dict containing parameters
+    """
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\','/'))
     path = file_path / '..' / initial_parameters['data_path'] / 'models'
     if not path.is_dir():
@@ -235,16 +250,16 @@ def save_model_architecture(username, model, initial_parameters):
 
 def save_model_performance(username, history, initial_parameters):
     """
-    [summary]
-    
+    Save model performance in a DataFrame.
+
     Parameters
     ----------
-    username : [type]
-        [description]
-    history : [type]
-        [description]
-    initial_parameters : [type]
-        [description]
+    username : string
+        name of the folder in which put the saved the model
+    history : DataFrame
+        History DataFrame
+    initial_parameters : dict
+        a dict containing parameters
     """
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
     path = file_path / '..' / initial_parameters['data_path'] / 'models'
@@ -274,16 +289,45 @@ def save_model_performance(username, history, initial_parameters):
 
 
 def save_model_info(username, model, initial_parameters, history):
+    """
+    Save model architecture and performance
+    
+    Parameters
+    ----------
+    username : string
+        name of the folder in which put the saved the model
+    model : Net
+        the model used for training.
+    initial_parameters : dict
+        a dict containing parameters
+    history : DataFrame
+        History DataFrame
+    """
     save_model_architecture(username, model, initial_parameters)
     save_model_performance(username, history, initial_parameters)
 
 
 def swish(x):
+    """
+    Custom activation function.
+    
+    Parameters
+    ----------
+    x : float
+        input float
+    
+    Returns
+    -------
+    float
+        the input number multiplied by the sigmoid function apply to it
+    """
     return K.sigmoid(x)*x
 
 
 class FixedDropout(layers.Dropout):
-
+    """
+    Fixed Dropout Layer
+    """
     def _get_noise_shape(self, inputs):
         if self.noise_shape is None:
             return self.noise_shape

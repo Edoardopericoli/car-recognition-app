@@ -10,10 +10,7 @@ Welcome to CarModelClassifier's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-CarModelClassifier main
-==============================================
-.. automodule:: train_main
-   :members:
+   README.md
 
 CarModelClassifier estimation
 ==============================================
