@@ -7,6 +7,30 @@ def run(initial_parameters_path="./config/initial_parameters.yml",
         username="trial", shows_only_summary=False, net=EffnetB1,
         bounding_cpu=False, split_data=True,
         crop_images=False):
+    """
+    Perform all the steps for training and saving the model.
+
+    Parameters
+    ----------
+    initial_parameters_path : string, optional
+        the name of the yaml file containing the initial
+        parameters.
+    username : string, optional
+        the name used to save the model in the folder
+        "data/models".
+    shows_only_summary : bool, optional
+        if True the script exits after having shown
+        the summary.
+    net : net, optional
+        specify the architecture to be used
+    bounding_cpu : bool, optional
+        if True, it limits the cpu usage
+    split_data : bool, optional
+        if True perform splitting
+    crop_images : bool, optional
+        if True, perform object detection and
+        cropping of images
+    """
 
     utils.setting_log()
     initial_parameters = utils.load_parameters(initial_parameters_path)

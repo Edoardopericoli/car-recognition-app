@@ -6,6 +6,32 @@ from pathlib import Path
 
 
 def split(initial_parameters, train_size=0.8, crop_images=False):
+    """
+    Perform splitting of the data.
+
+    It splits the data starting from the csv file
+    "data/labels/all_labels_new.csv" in a stratified
+    fashion. The folder from which the images are taken
+    dependes on the parameter "crop_images". Then it creates
+    3 new csv files in the same folder: "train_labels.csv",
+    "test_labels.csv", "validation_labels.csv".
+    Finally creates 3 folders in "data" called: "train", "test",
+    and "validation" containing the images splitted.
+
+    Parameters
+    ----------
+    initial_parameters : string
+        the name of the yaml file containing the initial
+        parameters.
+    train_size : float, optional
+        the size of the train when splitting is performed.
+        By default, the test and the validation will have
+        the same size.
+    crop_images : bool, optional
+        If True, the images to be splitted are taken from
+        the folder "data/object_detection_data/output_images_cropped",
+        otherwise they are taken from "data/raw_data/cars_train_new".
+    """
     file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\', '/'))
 
     data_path = Path('../' + initial_parameters['data_path'])

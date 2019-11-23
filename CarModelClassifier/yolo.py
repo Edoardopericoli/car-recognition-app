@@ -7,6 +7,22 @@ import logging
 
 
 def crop(sample=False):
+    """
+    Perform object detection and crop boxes.
+
+    Get data from "data/raw_data/cars_train_new", first uses
+    YOLO weights in "data/raw_data" to detect the car, then
+    crops the box in the image. The new images cropped have
+    the same name as the original ones and are placed into
+    a new folder "data/object_detection_data/output_images_cropped"
+
+    Parameters
+    ----------
+    sample : bool, optional
+        if True, the object detection and crop of images
+        is performed on the first 10 images in the folder
+        "data/raw_data/cars_train_new".
+    """
     file_path = os.path.dirname(os.path.abspath(__file__)).replace('\\', '/')
     origin_images_path = file_path + "/../data/raw_data/cars_train_new"
     destination_images_path = file_path + "/../data/object_detection_data/output_images_YOLO"
@@ -31,6 +47,7 @@ def crop(sample=False):
                                         extract_detected_objects=True)
     logging.info('Finished detecting objects')
     logging.info('Starting assigining objects to folder output_image_cropped')
+
     # Keep only the biggest cut car
     dirs = list(filter(os.path.isdir, [destination_images_path + '/' + i for i in os.listdir(destination_images_path)]))
 

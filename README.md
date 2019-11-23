@@ -1,4 +1,6 @@
 # CarModelClassifier
+This is a project of the _Deep Learning for Computer Vision_ course held by Professor
+__Gaia Rubera__ and __Francesco Grossetti__ at Bocconi university. 
 
 ## Getting Started
 This project allows to predict the model, the brand and the year of a car based
@@ -162,4 +164,12 @@ To perform the prediction on new images:
 2.   Launch from a terminal the script __prediction_main.py__ specifying the following parameters:
     *   __--test__: This parameter is True only when performing a test with pytest. Hence it should be
     False when performing prediction on new images.
+    
+## Running the tests
+
+## Authors
+*   __Martina Cioffi__ - https://github.com/martinacioffi
+*   __Edoardo Manieri__ - https://github.com/edoardomanieri
+*   __Valentina Parietti__ - https://github.com/ValentinaParietti
+*   __Edoardo Pericoli__ - https://github.com/Edoardopericoli
 
