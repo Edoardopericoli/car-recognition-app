@@ -140,7 +140,10 @@ def prediction(test=False):
                  for img_path in test_images_path]
 
     classes_lists = model.predict(images)
-    class_n = classes_lists.argmax(axis=1).tolist()
+    if len(images) == 1:
+        class_n = np.asarray(classes_lists).argmax().tolist()
+    else:
+        class_n = classes_lists.argmax(axis=1).tolist()
     labels = sorted([str(i + 1) for i in range(41)])
     classes = [int(labels[el]) for el in class_n]
 
@@ -149,3 +152,4 @@ def prediction(test=False):
     output_df = output_df.merge(labels_df, left_on='class', right_on='label') \
                          .drop(columns=['class'])
     return output_df
+
