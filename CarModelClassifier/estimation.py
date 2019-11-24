@@ -40,9 +40,13 @@ def evaluation(custom_images=False, test=False):
         accuracy of the model.
     """
     file_path = os.path.dirname(os.path.abspath(__file__))
-    test_images_path = file_path + '/../custom_evaluation/images'
+    test_images_path = file_path + '/../data/test'
     execution_path = file_path + '/../data/models/final_model'
-    test_labels_path = file_path + '/../custom_evaluation/test_labels.csv'
+    test_labels_path = file_path + '/../data/labels/test_labels.csv'
+    if custom_images:
+        test_images_path = file_path + '/../custom_evaluation/images'
+        execution_path = file_path + '/../data/models/final_model'
+        test_labels_path = file_path + '/../custom_evaluation/test_labels.csv'
     if test:
         execution_path = file_path + '/../tests/test_model'
         test_images_path = file_path + '/../tests/test_images/images'
@@ -71,7 +75,7 @@ def evaluation(custom_images=False, test=False):
                  for img_path in test_images_path]
 
     classes_lists = model.predict(images)
-    class_n = np.asarray(classes_lists).argmax(axis=1).tolist()
+    class_n = classes_lists.argmax(axis=1).tolist()
 
     labels = sorted([str(i + 1) for i in range(41)])
     classes = [int(labels[el]) for el in class_n]
