@@ -115,7 +115,7 @@ class Prototype(Net):
 
 class EffnetB7(Net):
     """
-    Efficient Net Version B1 implementation
+    Efficient Net Version B7 implementation
     """
 
     def __init__(self, train_generator, initial_parameters=None):
