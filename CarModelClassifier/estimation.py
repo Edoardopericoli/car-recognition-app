@@ -71,7 +71,7 @@ def evaluation(custom_images=False, test=False):
                  for img_path in test_images_path]
 
     classes_lists = model.predict(images)
-    class_n = np.array(classes_lists).argmax(axis=1).tolist()
+    class_n = np.asarray(classes_lists).argmax(axis=1).tolist()
 
     labels = sorted([str(i + 1) for i in range(41)])
     classes = [int(labels[el]) for el in class_n]
