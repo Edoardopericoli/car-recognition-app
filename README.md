@@ -13,7 +13,7 @@ To install all the requirement run the following command:
 pip install -r requirements.txt
 ```
 
-To install the package go to the root directoory and run the following command:
+To install the package go to the root directory and run the following command:
 
 ```
 pip install .
@@ -188,6 +188,12 @@ python3 prediction_main.py
         False when performing prediction on new images.
     
 ## Running the tests
+To test the most important modules of the project run the following command:
+
+```
+pytest
+```
+
 
 ## Authors
 *   __Martina Cioffi__ - https://github.com/martinacioffi
