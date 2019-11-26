@@ -22,7 +22,7 @@ sys.setrecursionlimit(1500)
 
 project = 'CarModelClassifier'
 copyright = '2019, Edoardo Manieri, Edoardo Pericoli, Valentina Parietti, Martina Cioffi'
-author = 'Edoardo Manieri, Edoardo Pericoli, Valentina Parietti, Martina Cioffi'
+author = 'Manieri, Pericoli, Parietti, Cioffi'
 
 # The full version, including alpha/beta/rc tags
 release = '0.0.1'
