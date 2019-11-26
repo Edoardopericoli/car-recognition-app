@@ -200,7 +200,7 @@ python3 prediction_main.py
     *   The folder _"data/models/final_model"_ and inside the files: 
         *   __model.h5__ 
         *   __initial_parameters.yml__
-    *   The file _"models_info.csv"_ inside the folder _"data/labels"_.
+    *   The file _"models_info_new.csv"_ inside the folder _"data/labels"_.
     *   The folder _"custom_evaluaton"_ containing:
             *   _"images"_ containing the new images.
             *   _"test_labels.csv"_ containing for each new image name the related class

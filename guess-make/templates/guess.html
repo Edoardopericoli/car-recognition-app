@@ -3,7 +3,6 @@
 
 {% block page_content %}
 <img src="{{ img_path }}" class="img-responsive center-block" alt="Car Image">
-      <p><small>Courtesy: <a href="https://ai.stanford.edu/~jkrause/cars/car_dataset.html">Stanford Car Dataset</a></small></p>
 	<form action="{{ url_for('guess') }}" class="form" method="post">
     {{ form.csrf_token }}	
     {{ wtf.form_field(form.make, autocomplete="on", autofocus="autofocus") }}
