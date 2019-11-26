@@ -43,6 +43,7 @@ def evaluation(custom_images=False, test=False):
     test_images_path = file_path + '/../data/test'
     execution_path = file_path + '/../data/models/final_model'
     test_labels_path = file_path + '/../data/labels/test_labels.csv'
+
     if custom_images:
         test_images_path = file_path + '/../custom_evaluation/images'
         execution_path = file_path + '/../data/models/final_model'
