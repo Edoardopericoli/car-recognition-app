@@ -1,0 +1,580 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Welcome to CarModelClassifier’s documentation! &mdash; CarModelClassifier 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="CarModelClassifier" href="README.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> CarModelClassifier
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">CarModelClassifier</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">CarModelClassifier</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Welcome to CarModelClassifier’s documentation!</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="welcome-to-carmodelclassifier-s-documentation">
+<h1>Welcome to CarModelClassifier’s documentation!<a class="headerlink" href="#welcome-to-carmodelclassifier-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="README.html">CarModelClassifier</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#project-organization">Project Organization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#using-the-model">Using the model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#running-the-tests">Running the tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="module-CarModelClassifier.estimation">
+<span id="carmodelclassifier-estimation"></span><h1>CarModelClassifier estimation<a class="headerlink" href="#module-CarModelClassifier.estimation" title="Permalink to this headline">¶</a></h1>
+<p>Estimation module.</p>
+<div class="section" id="list-of-functions">
+<h2>List of functions<a class="headerlink" href="#list-of-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="CarModelClassifier.estimation.evaluation">
+<code class="sig-prename descclassname">CarModelClassifier.estimation.</code><code class="sig-name descname">evaluation</code><span class="sig-paren">(</span><em class="sig-param">custom_images=False</em>, <em class="sig-param">test=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/estimation.html#evaluation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.estimation.evaluation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform evaluation of the model.</p>
+<p>Images to evaluate the model are taken from the folder
+“custom_evaluation/images” while the labels of these images
+are in the file “/custom_evaluation/test_labels.csv”</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>custom_images</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True images to evaluate the model are taken from the folder
+“custom_evaluation/images” while the labels of these images
+are those in the file “/custom_evaluation/test_labels.csv”.
+if False images to evaluate the model are taken from the folder
+“data/test” while the labels of these images
+are those in the file “data/labels/test_labels.csv”.</p></li>
+<li><p><strong>test</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, test the correct working of the function,
+by default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>accuracy of the model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.estimation.prediction">
+<code class="sig-prename descclassname">CarModelClassifier.estimation.</code><code class="sig-name descname">prediction</code><span class="sig-paren">(</span><em class="sig-param">test=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/estimation.html#prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.estimation.prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform prediction of new images.</p>
+<p>Images to evaluate the model are taken from the folder
+“custom_evaluation/images”.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>test</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, used to test
+the function, by default False</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The output dataframe.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-CarModelClassifier.models">
+<span id="carmodelclassifier-models"></span><h1>CarModelClassifier models<a class="headerlink" href="#module-CarModelClassifier.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="CarModelClassifier.models.EffnetB1">
+<em class="property">class </em><code class="sig-prename descclassname">CarModelClassifier.models.</code><code class="sig-name descname">EffnetB1</code><span class="sig-paren">(</span><em class="sig-param">train_generator</em>, <em class="sig-param">initial_parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/models.html#EffnetB1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.EffnetB1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficient Net Version B1 implementation</p>
+<dl class="method">
+<dt id="CarModelClassifier.models.EffnetB1.setup_model">
+<code class="sig-name descname">setup_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/models.html#EffnetB1.setup_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.EffnetB1.setup_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the complete Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The complete Model.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#CarModelClassifier.models.Net" title="CarModelClassifier.models.Net">Net</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CarModelClassifier.models.EffnetB7">
+<em class="property">class </em><code class="sig-prename descclassname">CarModelClassifier.models.</code><code class="sig-name descname">EffnetB7</code><span class="sig-paren">(</span><em class="sig-param">train_generator</em>, <em class="sig-param">initial_parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/models.html#EffnetB7"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.EffnetB7" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficient Net Version B7 implementation</p>
+<dl class="method">
+<dt id="CarModelClassifier.models.EffnetB7.setup_model">
+<code class="sig-name descname">setup_model</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/models.html#EffnetB7.setup_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.EffnetB7.setup_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the complete Model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The complete Model.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#CarModelClassifier.models.Net" title="CarModelClassifier.models.Net">Net</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="CarModelClassifier.models.Net">
+<em class="property">class </em><code class="sig-prename descclassname">CarModelClassifier.models.</code><code class="sig-name descname">Net</code><a class="reference internal" href="_modules/CarModelClassifier/models.html#Net"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.Net" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract class that is the super class of all models</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="CarModelClassifier.models.Prototype">
+<em class="property">class </em><code class="sig-prename descclassname">CarModelClassifier.models.</code><code class="sig-name descname">Prototype</code><span class="sig-paren">(</span><em class="sig-param">train_generator</em>, <em class="sig-param">initial_parameters=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/models.html#Prototype"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.models.Prototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic model used for baseline and test purposes.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CarModelClassifier.pipeline">
+<span id="carmodelclassifier-pipeline"></span><h1>CarModelClassifier pipeline<a class="headerlink" href="#module-CarModelClassifier.pipeline" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="CarModelClassifier.pipeline.run">
+<code class="sig-prename descclassname">CarModelClassifier.pipeline.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">initial_parameters_path='./config/initial_parameters.yml'</em>, <em class="sig-param">username='trial'</em>, <em class="sig-param">shows_only_summary=False</em>, <em class="sig-param">net=&lt;class 'CarModelClassifier.models.EffnetB1'&gt;</em>, <em class="sig-param">bounding_cpu=False</em>, <em class="sig-param">split_data=True</em>, <em class="sig-param">crop_images=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/pipeline.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.pipeline.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform all the steps for training and saving the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_parameters_path</strong> (<em>string</em><em>, </em><em>optional</em>) – the name of the yaml file containing the initial
+parameters.</p></li>
+<li><p><strong>username</strong> (<em>string</em><em>, </em><em>optional</em>) – the name used to save the model in the folder
+“data/models”.</p></li>
+<li><p><strong>shows_only_summary</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True the script exits after having shown
+the summary.</p></li>
+<li><p><strong>net</strong> (<em>net</em><em>, </em><em>optional</em>) – specify the architecture to be used</p></li>
+<li><p><strong>bounding_cpu</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, it limits the cpu usage</p></li>
+<li><p><strong>split_data</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True perform splitting</p></li>
+<li><p><strong>crop_images</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True, perform object detection and
+cropping of images</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CarModelClassifier.splitter">
+<span id="carmodelclassifier-splitter"></span><h1>CarModelClassifier splitter<a class="headerlink" href="#module-CarModelClassifier.splitter" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="CarModelClassifier.splitter.split">
+<code class="sig-prename descclassname">CarModelClassifier.splitter.</code><code class="sig-name descname">split</code><span class="sig-paren">(</span><em class="sig-param">initial_parameters</em>, <em class="sig-param">train_size=0.8</em>, <em class="sig-param">crop_images=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/splitter.html#split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.splitter.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform splitting of the data.</p>
+<p>It splits the data starting from the csv file
+“data/labels/all_labels_new.csv” in a stratified
+fashion. The folder from which the images are taken
+dependes on the parameter “crop_images”. Then it creates
+3 new csv files in the same folder: “train_labels.csv”,
+“test_labels.csv”, “validation_labels.csv”.
+Finally creates 3 folders in “data” called: “train”, “test”,
+and “validation” containing the images splitted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_parameters</strong> (<em>string</em>) – the name of the yaml file containing the initial
+parameters.</p></li>
+<li><p><strong>train_size</strong> (<em>float</em><em>, </em><em>optional</em>) – the size of the train when splitting is performed.
+By default, the test and the validation will have
+the same size.</p></li>
+<li><p><strong>crop_images</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, the images to be splitted are taken from
+the folder “data/object_detection_data/output_images_cropped”,
+otherwise they are taken from “data/raw_data/cars_train_new”.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-CarModelClassifier.utils">
+<span id="carmodelclassifier-utils"></span><h1>CarModelClassifier utils<a class="headerlink" href="#module-CarModelClassifier.utils" title="Permalink to this headline">¶</a></h1>
+<p>Utils module.</p>
+<div class="section" id="id1">
+<h2>List of functions<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="CarModelClassifier.utils.FixedDropout">
+<em class="property">class </em><code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">FixedDropout</code><span class="sig-paren">(</span><em class="sig-param">rate</em>, <em class="sig-param">noise_shape=None</em>, <em class="sig-param">seed=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#FixedDropout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.FixedDropout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fixed Dropout Layer</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.bound_cpu">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">bound_cpu</code><span class="sig-paren">(</span><em class="sig-param">n_threads=8</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#bound_cpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.bound_cpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Limit the CPU usage to a limited number of threads.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>n_threads</strong> (<em>int</em><em>, </em><em>optional</em>) – number of threads, by default 8</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.get_generator">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">get_generator</code><span class="sig-paren">(</span><em class="sig-param">imagedatagenerator</em>, <em class="sig-param">labels_df</em>, <em class="sig-param">directory</em>, <em class="sig-param">initial_parameters</em>, <em class="sig-param">train=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#get_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.get_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the generator from dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>imagedatagenerator</strong> (<em>ImageDataGenerator</em>) – ImageDataGenerator for the generator</p></li>
+<li><p><strong>labels_df</strong> (<em>DataFrame</em>) – DataFrame containing labels.</p></li>
+<li><p><strong>directory</strong> (<em>string</em>) – directory containing the images</p></li>
+<li><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters.</p></li>
+<li><p><strong>train</strong> (<em>bool</em><em>, </em><em>optional</em>) – if True is used for the training
+dataset, by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the Train Generator.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TrainGenerator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.get_image_generators">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">get_image_generators</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#get_image_generators"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.get_image_generators" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create image generators for train and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>ImageDataGenerator for train and validation.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ImageDataGenerators</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.load_labels_dfs">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">load_labels_dfs</code><span class="sig-paren">(</span><em class="sig-param">initial_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#load_labels_dfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.load_labels_dfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the labels files for training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>train and test dataframes.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dataframes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.load_parameters">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">load_parameters</code><span class="sig-paren">(</span><em class="sig-param">parameters_path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#load_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.load_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the parameters from the config file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parameters_path</strong> (<em>string</em>) – path of the config file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dict containing parameters.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.save_model_architecture">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">save_model_architecture</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">model</em>, <em class="sig-param">initial_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#save_model_architecture"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.save_model_architecture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the entire model in a .h5 file.</p>
+<p>Save the model in a h5 file and the architecture in
+a yml file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>string</em>) – name of the folder in which put the saved the model</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#CarModelClassifier.models.Net" title="CarModelClassifier.models.Net"><em>Net</em></a>) – the model used for training.</p></li>
+<li><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.save_model_info">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">save_model_info</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">model</em>, <em class="sig-param">initial_parameters</em>, <em class="sig-param">history</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#save_model_info"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.save_model_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save model architecture and performance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>string</em>) – name of the folder in which put the saved the model</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#CarModelClassifier.models.Net" title="CarModelClassifier.models.Net"><em>Net</em></a>) – the model used for training.</p></li>
+<li><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters</p></li>
+<li><p><strong>history</strong> (<em>DataFrame</em>) – History DataFrame</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.save_model_performance">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">save_model_performance</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">history</em>, <em class="sig-param">initial_parameters</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#save_model_performance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.save_model_performance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save model performance in a DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>username</strong> (<em>string</em>) – name of the folder in which put the saved the model</p></li>
+<li><p><strong>history</strong> (<em>DataFrame</em>) – History DataFrame</p></li>
+<li><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.setting_log">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">setting_log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#setting_log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.setting_log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set basic log configuration.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.swish">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">swish</code><span class="sig-paren">(</span><em class="sig-param">x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#swish"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.swish" title="Permalink to this definition">¶</a></dt>
+<dd><p>Custom activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>float</em>) – input float</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the input number multiplied by the sigmoid function apply to it</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="CarModelClassifier.utils.train_model">
+<code class="sig-prename descclassname">CarModelClassifier.utils.</code><code class="sig-name descname">train_model</code><span class="sig-paren">(</span><em class="sig-param">train_generator</em>, <em class="sig-param">validation_generator</em>, <em class="sig-param">initial_parameters</em>, <em class="sig-param">train_df</em>, <em class="sig-param">model</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/CarModelClassifier/utils.html#train_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#CarModelClassifier.utils.train_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform the model training</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_generator</strong> (<em>Generator</em>) – Train Generator</p></li>
+<li><p><strong>validation_generator</strong> (<em>Generator</em>) – Validation Generator</p></li>
+<li><p><strong>initial_parameters</strong> (<em>dict</em>) – a dict containing parameters</p></li>
+<li><p><strong>train_df</strong> (<em>DataFrame</em>) – train DataFrame</p></li>
+<li><p><strong>model</strong> (<a class="reference internal" href="#CarModelClassifier.models.Net" title="CarModelClassifier.models.Net"><em>Net</em></a>) – Model used for training</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>history DataFrame</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="README.html" class="btn btn-neutral float-right" title="CarModelClassifier" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Edoardo Manieri, Edoardo Pericoli, Valentina Parietti, Martina Cioffi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

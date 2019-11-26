@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CarModelClassifier.splitter &mdash; CarModelClassifier 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> CarModelClassifier
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../README.html">CarModelClassifier</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">CarModelClassifier</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>CarModelClassifier.splitter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for CarModelClassifier.splitter</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+
+<div class="viewcode-block" id="split"><a class="viewcode-back" href="../../index.html#CarModelClassifier.splitter.split">[docs]</a><span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">initial_parameters</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">crop_images</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Perform splitting of the data.</span>
+
+<span class="sd">    It splits the data starting from the csv file</span>
+<span class="sd">    &quot;data/labels/all_labels_new.csv&quot; in a stratified</span>
+<span class="sd">    fashion. The folder from which the images are taken</span>
+<span class="sd">    dependes on the parameter &quot;crop_images&quot;. Then it creates</span>
+<span class="sd">    3 new csv files in the same folder: &quot;train_labels.csv&quot;,</span>
+<span class="sd">    &quot;test_labels.csv&quot;, &quot;validation_labels.csv&quot;.</span>
+<span class="sd">    Finally creates 3 folders in &quot;data&quot; called: &quot;train&quot;, &quot;test&quot;,</span>
+<span class="sd">    and &quot;validation&quot; containing the images splitted.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    initial_parameters : string</span>
+<span class="sd">        the name of the yaml file containing the initial</span>
+<span class="sd">        parameters.</span>
+<span class="sd">    train_size : float, optional</span>
+<span class="sd">        the size of the train when splitting is performed.</span>
+<span class="sd">        By default, the test and the validation will have</span>
+<span class="sd">        the same size.</span>
+<span class="sd">    crop_images : bool, optional</span>
+<span class="sd">        If True, the images to be splitted are taken from</span>
+<span class="sd">        the folder &quot;data/object_detection_data/output_images_cropped&quot;,</span>
+<span class="sd">        otherwise they are taken from &quot;data/raw_data/cars_train_new&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">((</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="p">))</span>
+
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s1">&#39;../&#39;</span> <span class="o">+</span> <span class="n">initial_parameters</span><span class="p">[</span><span class="s1">&#39;data_path&#39;</span><span class="p">])</span>
+    <span class="n">origin_data_path</span> <span class="o">=</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;labels/all_labels_new.csv&#39;</span>
+
+    <span class="c1"># Reading data</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">/</span> <span class="n">origin_data_path</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">crop_images</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;labels/all_labels_new.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Splitting train, validation, test</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test_temp</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test_temp</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">data</span><span class="p">[[</span><span class="s1">&#39;fname&#39;</span><span class="p">]],</span>
+                                                                  <span class="n">data</span><span class="p">[</span><span class="s1">&#39;model_label&#39;</span><span class="p">],</span>
+                                                                  <span class="n">test_size</span><span class="o">=</span><span class="mi">1</span> <span class="o">-</span> <span class="n">train_size</span><span class="p">,</span>
+                                                                  <span class="n">random_state</span><span class="o">=</span><span class="mi">89</span><span class="p">,</span>
+                                                                  <span class="n">stratify</span><span class="o">=</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;model_label&#39;</span><span class="p">]</span>
+                                                                 <span class="p">)</span>
+
+    <span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">test_temp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_test_temp</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_test_temp</span><span class="p">),</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">X_test</span><span class="p">,</span> <span class="n">X_validation</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_validation</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">test_temp</span><span class="p">[[</span><span class="s1">&#39;fname&#39;</span><span class="p">]],</span>
+                                                                    <span class="n">test_temp</span><span class="p">[</span><span class="s1">&#39;model_label&#39;</span><span class="p">],</span>
+                                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+                                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">89</span><span class="p">,</span>
+                                                                    <span class="n">stratify</span><span class="o">=</span><span class="n">test_temp</span><span class="p">[</span><span class="s1">&#39;model_label&#39;</span><span class="p">]</span>
+                                                                    <span class="p">)</span>
+
+    <span class="n">validation</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_validation</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_validation</span><span class="p">),</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_test</span><span class="p">),</span> <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">data</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;fname&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">train</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;fname&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">validation</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;fname&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">test</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;fname&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Testing that the split has been executed correctly</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">train</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">validation</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+
+    <span class="c1"># Writing boxes data and class names data into csv files and writing a csv for each of train, validation and test</span>
+    <span class="n">train</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;labels/train_labels.csv&#39;</span><span class="p">)</span>
+    <span class="n">validation</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;labels/validation_labels.csv&#39;</span><span class="p">)</span>
+    <span class="n">test</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;labels/test_labels.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Sending images to train, validation and test folders</span>
+    <span class="n">indexes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;train&#39;</span><span class="p">:</span> <span class="n">train</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;validation&#39;</span><span class="p">:</span> <span class="n">validation</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="s1">&#39;test&#39;</span><span class="p">:</span> <span class="n">test</span><span class="o">.</span><span class="n">index</span><span class="p">}</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;raw_data/cars_train_new&#39;</span>
+    <span class="k">if</span> <span class="n">crop_images</span><span class="p">:</span>
+        <span class="n">src</span> <span class="o">=</span> <span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="s1">&#39;object_detection_data/output_images_cropped&#39;</span>
+
+    <span class="n">length_all_folders</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">indexes</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">dest</span> <span class="o">=</span> <span class="n">file_path</span> <span class="o">/</span> <span class="n">data_path</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">dest</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">dest</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">file_name</span> <span class="ow">in</span> <span class="n">indexes</span><span class="p">[</span><span class="n">index</span><span class="p">]:</span>
+            <span class="n">full_file_name</span> <span class="o">=</span> <span class="n">src</span> <span class="o">/</span> <span class="n">file_name</span>
+            <span class="k">if</span> <span class="n">full_file_name</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">full_file_name</span><span class="p">,</span> <span class="n">dest</span><span class="p">)</span>
+
+        <span class="n">length_folder</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">dest</span><span class="p">))</span>
+        <span class="n">length_all_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">length_folder</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">sum</span><span class="p">(</span><span class="n">length_all_folders</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Edoardo Manieri, Edoardo Pericoli, Valentina Parietti, Martina Cioffi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

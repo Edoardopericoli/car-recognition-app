@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CarModelClassifier &mdash; CarModelClassifier 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to CarModelClassifier’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> CarModelClassifier
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">CarModelClassifier</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#project-organization">Project Organization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flow-of-training-explanation">Flow of training explanation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-model">Using the model</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#training">Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#evaluation">Evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#prediction">Prediction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-the-tests">Running the tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">CarModelClassifier</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>CarModelClassifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/README.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="carmodelclassifier">
+<h1>CarModelClassifier<a class="headerlink" href="#carmodelclassifier" title="Permalink to this headline">¶</a></h1>
+<p>This is a project of the <em>Deep Learning for Computer Vision</em> course held by Professor
+<strong>Gaia Rubera</strong> and <strong>Francesco Grossetti</strong> at Bocconi university.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>This project allows to predict the model, the brand and the year of a car based
+on an image of that. It is organized in 3 main files to be run by the user, 5 folders
+for the code and 1 folder for the data. All the detailed info about the code and the functions
+can be found in the folder <em>“docs”</em>.</p>
+</div>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>The main requirement to satisfy is to have a folder called <em>“data”</em> inside
+the main folder. In this folder some of the data are necessary for all the project
+while some others are created by the scripts. The required root data are the following:</p>
+<ol class="simple">
+<li><p><strong>raw_data</strong>:</p>
+<ul class="simple">
+<li><p><strong>train_cars_new</strong>: All the train images must be in this folder</p></li>
+<li><p><strong>YOLO_weights</strong>: This contains the weights for object detection</p></li>
+</ul>
+</li>
+<li><p><strong>labels</strong>:</p>
+<ul class="simple">
+<li><p><strong>all_labels_new.csv</strong>: This file should contain for each image name the real class</p></li>
+<li><p><strong>models_info_new.csv</strong>: This file combines each class with the model features, that is:
+<em>model</em>, <em>brand</em> and <em>year</em>.</p></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="project-organization">
+<h2>Project Organization<a class="headerlink" href="#project-organization" title="Permalink to this headline">¶</a></h2>
+<p>The code is organized in the following 5 folders:</p>
+<ol class="simple">
+<li><p><strong>CarModelClassifier</strong>: This folder contains all the modules and the related
+functions to perform the main tasks of the project.</p>
+<ul class="simple">
+<li><p><strong>estimation.py</strong>: In this file there are the functions for the model prediction and evaluation.</p></li>
+<li><p><strong>models.py</strong>: This file contains an abstract class which identifies how the class of each new model
+should be set. Furthermore it contains two main models used to do image classification.</p></li>
+<li><p><strong>pipeline.py</strong>: This file contains the main function <em>“run”</em> which defines the flow of the train.</p></li>
+<li><p><strong>splitter.py</strong>: This file contains the function for the splitting of the data in train, test and validation.</p></li>
+<li><p><strong>utils.py</strong>: Here are all the functions required in the different scripts.</p></li>
+<li><p><strong>yolo.py</strong>: This script is necessary in the case an object location of the car and a subsequent
+cropping of the car is required.</p></li>
+</ul>
+</li>
+<li><p><strong>config</strong>: This folder contains the configuration files necessary to modify the main global parameters
+for each model. Having configuration files allows not to modify the scripts directly every time it is necessary
+to change some global parameters like the number of epochs or the size of the images.</p></li>
+<li><p><strong>docs</strong>: This folder contains all the useful files necessary to create the documentation of the code</p></li>
+<li><p><strong>guess_make</strong>: Here you can find all the material needed to create a graphical interface for the model
+prediction.</p></li>
+<li><p><strong>tests</strong>: Here are the tests of some functions of the project.</p></li>
+</ol>
+<div class="section" id="flow-of-training-explanation">
+<h3>Flow of training explanation<a class="headerlink" href="#flow-of-training-explanation" title="Permalink to this headline">¶</a></h3>
+<p>Here the main process of the project is explained in details. The steps are the following:</p>
+<ol class="simple">
+<li><p>Initialized the following parameters:</p>
+<ul class="simple">
+<li><p><strong>–params_file</strong>: This parameter lets the user specify the name of the configuration file,
+that must be placed in the folder <strong>config</strong>. The file to be passed must be a yaml file containing
+the following parameters:</p>
+<ul>
+<li><p><strong>seed</strong></p></li>
+<li><p><strong>train_batch_size</strong></p></li>
+<li><p><strong>validation_batch_size</strong></p></li>
+<li><p><strong>test_batch_size</strong></p></li>
+<li><p><strong>epochs</strong></p></li>
+<li><p><strong>IMG_HEIGHT</strong></p></li>
+<li><p><strong>IMG_WIDTH</strong></p></li>
+<li><p><strong>data_path</strong></p></li>
+</ul>
+</li>
+<li><p><strong>–username</strong>: This will be the name of the folder in which important data, like the
+model weights and architecture, will be saved for future usage.</p></li>
+<li><p><strong>–shows_only_summary</strong>: This is a boolean parameter which allows the user to decide whether to train the model or
+just to show the summary of the architecture to see the number of the parameters that will be trained. If True, the
+script stops right after having shown the model summary.</p></li>
+<li><p><strong>–net</strong>: This allows the user to specify which model architectures among the ones
+present in <em>“CarModelClassifier/models.py”</em>. The possible values are:</p>
+<ul>
+<li><p><strong>effnetb1</strong></p></li>
+<li><p><strong>effnetb7</strong></p></li>
+<li><p><strong>prototype</strong></p></li>
+</ul>
+</li>
+<li><p><strong>–bounding_cpu</strong>: A boolean parameter needed if the user wants to limit the cpu usage
+for the process of training.</p></li>
+<li><p><strong>–split_data</strong>: This parameter allows the user to decide whether to perform the splitting of the data</p></li>
+<li><p><strong>–crop_images</strong>: If True the model performs object detection on the images, first locating the car
+and then cropping the image in such a way the new image will be only the box containing the car.</p></li>
+</ul>
+</li>
+<li><p>Once the parameters are defined the file <strong>train_main.py</strong> calls the function <em>“run”</em>
+in the module <strong>pipeline.py</strong>.</p></li>
+<li><p>Checking whether to crop images using the script <strong>yolo.py</strong>. If True, the function <em>“crop”</em> gets
+the yolo weights from the folder raw_data and performs object detection on the images. Then it crops
+the images and put them in a folder called <em>object_detection_data</em> inside the data folder.</p></li>
+<li><p>Checking whether to split the data using the script <strong>splitter.py</strong>. If True the splitting is performed
+using the function <em>“split”</em>. If the parameter <strong>crop_images</strong> is True, then the split is performed
+using the images in the folder <em>“data/object_detection_data/output_images_cropped”</em>, otherwise using the
+folder <em>“data/raw_data/cars_train_new”</em>. The splitting is performed in the following way:</p>
+<ol class="simple">
+<li><p>The splitting is performed in a stratified fashion using the file <em>“data/labels/all_labels_new.csv”</em>.
+From this file 3 new csv files are created in the same folder:
+<em>train_labels.csv</em>, <em>test_labels.csv</em>, <em>validation_labels.csv</em>. Then, according to these 3 files
+the images in the initial folder are splitted in 3 new folders inside the <strong>data</strong> folders:
+<strong>train</strong>, <strong>test</strong>, <strong>validation</strong>.</p></li>
+</ol>
+</li>
+<li><p>Checking whether to limit the cpu usage.</p></li>
+<li><p>Initializing the images using the keras generators.</p></li>
+<li><p>Initializing and training the pre-specified model.</p></li>
+<li><p>Saving the results for feature prediction, evaluation and to have an History of the models run.
+The function used to save the results uses the <em>username</em> pre-specified to create a folder having
+the same name inside the folder <em>“data/models”</em>. The name of the new created folder
+will be a combination of the username and number, so that if you have more models having the
+same username, they will be saved with the same name and a chronological number at the end
+to avoid the risk of overwriting existing folders. Inside this folder the function creates 4 files:</p>
+<ul class="simple">
+<li><p><strong>model.h5</strong>: These are the weights after the training of the model.</p></li>
+<li><p><strong>architecture.yml</strong>: This is the architecture of the model.</p></li>
+<li><p><strong>evaluation.csv</strong>: This is a csv file containing the loss and the accuracy in train and in validation
+for each epoch. This file is essential to crate plots from which one can see at which epoch the model starts
+overfitting.</p></li>
+<li><p><strong>initial_parameters.yml</strong>: This is the configuration file passed as a parameter.
+This allows the user to understand which were the values of the global parameters for each model.</p></li>
+</ul>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="using-the-model">
+<h2>Using the model<a class="headerlink" href="#using-the-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="training">
+<h3>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h3>
+<p>To perform the train of the model:</p>
+<ol class="simple">
+<li><p>Make sure you have satisfied the prerequisites.</p></li>
+<li><p>Launch from a terminal the script <strong>train_main.py</strong> specifying the following parameters:</p>
+<ul class="simple">
+<li><p><strong>–params_file</strong>: This parameter lets the user specify the name of the configuration file,
+that must be placed in the folder <strong>config</strong>. The file to be passed must be a yaml file containing
+the following parameters:</p>
+<ul>
+<li><p><strong>seed</strong></p></li>
+<li><p><strong>train_batch_size</strong></p></li>
+<li><p><strong>validation_batch_size</strong></p></li>
+<li><p><strong>test_batch_size</strong></p></li>
+<li><p><strong>epochs</strong></p></li>
+<li><p><strong>IMG_HEIGHT</strong></p></li>
+<li><p><strong>IMG_WIDTH</strong></p></li>
+<li><p><strong>data_path</strong></p></li>
+</ul>
+</li>
+<li><p><strong>–username</strong>: This will be the name of the folder in which important data, like the
+model weights and architecture, will be saved for future usage.</p></li>
+<li><p><strong>–shows_only_summary</strong>: This is a boolean parameter which allows the user to decide whether to train the model or
+just to show the summary of the architecture to see the number of the parameters that will be trained. If True, the
+script stops right after having shown the model summary.</p></li>
+<li><p><strong>–net</strong>: This allows the user to specify which model architectures among the ones
+present in <em>“CarModelClassifier/models.py”</em>. The possible values are:</p>
+<ul>
+<li><p><strong>effnetb1</strong></p></li>
+<li><p><strong>effnetb7</strong></p></li>
+<li><p><strong>prototype</strong></p></li>
+</ul>
+</li>
+<li><p><strong>–bounding_cpu</strong>: A boolean parameter needed if the user wants to limit the cpu usage
+for the process of training.</p></li>
+<li><p><strong>–split_data</strong>: This parameter allows the user to decide whether to perform the splitting of the data</p></li>
+<li><p><strong>–crop_images</strong>: If True the model performs object detection on the images, first locating the car
+and then cropping the image in such a way the new image will be only the box containing the car.</p></li>
+</ul>
+</li>
+</ol>
+</div>
+<div class="section" id="evaluation">
+<h3>Evaluation<a class="headerlink" href="#evaluation" title="Permalink to this headline">¶</a></h3>
+<p>To perform the evaluation of the model, that is to evaluate the accuracy on new images:</p>
+<ol class="simple">
+<li><p>Make sure to have the following data:</p>
+<ul class="simple">
+<li><p>The folder <em>“data/models/final_model”</em> and inside the files:</p>
+<ul>
+<li><p><strong>model.h5</strong></p></li>
+<li><p><strong>initial_parameters.yml</strong></p></li>
+</ul>
+</li>
+<li><p>If evaluating on test_data:</p>
+<ul>
+<li><p><em>“data/test”</em> containing the images.</p></li>
+<li><p><em>“data/labels/test_labels.csv”</em> containing for each image name the related class.</p></li>
+</ul>
+</li>
+<li><p>If evaluating on new_data:</p>
+<ul>
+<li><p>The folder <em>“custom_evaluaton”</em> containing:</p>
+<ul>
+<li><p><em>“images”</em> containing the new images.</p></li>
+<li><p><em>“test_labels.csv”</em> containing for each new image name the related class</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Launch from a terminal the script <strong>evaluation_main.py</strong> specifying the following parameters:
+*   <strong>–custom_images</strong>: If True the evaluation will be performed using new images in the folder
+<em>“custom_evaluation”</em>, otherwise the test data will be used.
+*   <strong>–test</strong>: This parameter is True only when performing a test with pytest. Hence it should be
+False when performing prediction on new images.</p></li>
+</ol>
+</div>
+<div class="section" id="prediction">
+<h3>Prediction<a class="headerlink" href="#prediction" title="Permalink to this headline">¶</a></h3>
+<p>To perform the prediction on new images:</p>
+<ol class="simple">
+<li><p>Make sure to have the following data:</p>
+<ul class="simple">
+<li><p>The folder <em>“data/models/final_model”</em> and inside the files:</p>
+<ul>
+<li><p><strong>model.h5</strong></p></li>
+<li><p><strong>initial_parameters.yml</strong></p></li>
+</ul>
+</li>
+<li><p>The file <em>“models_info.csv”</em> inside the folder <em>“data/labels”</em>.</p></li>
+<li><p>The folder <em>“custom_evaluaton”</em> containing:
+*   <em>“images”</em> containing the new images.
+*   <em>“test_labels.csv”</em> containing for each new image name the related class</p></li>
+</ul>
+</li>
+<li><p>Launch from a terminal the script <strong>prediction_main.py</strong> specifying the following parameters:
+*   <strong>–test</strong>: This parameter is True only when performing a test with pytest. Hence it should be
+False when performing prediction on new images.</p></li>
+</ol>
+</div>
+</div>
+<div class="section" id="running-the-tests">
+<h2>Running the tests<a class="headerlink" href="#running-the-tests" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Martina Cioffi</strong> - https://github.com/martinacioffi</p></li>
+<li><p><strong>Edoardo Manieri</strong> - https://github.com/edoardomanieri</p></li>
+<li><p><strong>Valentina Parietti</strong> - https://github.com/ValentinaParietti</p></li>
+<li><p><strong>Edoardo Pericoli</strong> - https://github.com/Edoardopericoli</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to CarModelClassifier’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Edoardo Manieri, Edoardo Pericoli, Valentina Parietti, Martina Cioffi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
