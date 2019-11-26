@@ -4,12 +4,23 @@
 This project allows to predict the model, the brand and the year of a car based
 on an image of that. It is organized in 3 main files to be run by the user, 5 folders
 for the code and 1 folder for the data. All the detailed info about the code and the functions
-can be found in the website: .
+can be found in the _docs/docs.pdf_ file.
 
+## Installation
+To install all the requirement run the following command:
 
+```
+pip install -r requirements.txt
+```
+
+To install the package go to the root directoory and run the following command:
+
+```
+pip install .
+```
 
 ## Prerequisites
-The main requirement to satisfy is to download the _"data"_ folder from this link:   
+The main requirement to satisfy is to download the _data_ folder from this link:   
 and put in inside the main folder.
 The downloaded folder contains the following data:
 1.  __raw_data__:
@@ -21,18 +32,13 @@ The downloaded folder contains the following data:
     _model_, _brand_ and _year_.
 3. __models__: All the models already trained in a h5 format with all the parameters used for training. This folder is optional since a new train
     will update its content.
-3. __train__: Train images used for the last training. This folder is optional since a new train
+4. __train__: Train images used for the last training. This folder is optional since a new train
     will update its content.
-4. __validation__: Validation images used for the last training. This folder is optional since a new train
+5. __validation__: Validation images used for the last training. This folder is optional since a new train
     will update its content.
-4. __test__: Test images. Useful for final evaluation of the model. This folder is optional since a new train
+6. __test__: Test images. Useful for final evaluation of the model. This folder is optional since a new train
     will update its content.
 
-For the source code all the requirements can be found on the requirements.txt file. You can install them as follows:
-
-```
-pip install -r requirements.txt
-```
 
 ## Project Organization
 The code is organized in the following 5 folders:
@@ -40,8 +46,8 @@ The code is organized in the following 5 folders:
 functions to perform the main tasks of the project.
     *   __estimation.py__: In this file there are the functions for the model prediction and evaluation.
     *   __models.py__: This file contains an abstract class which identifies how the class of each new model
-    should be set. Furthermore it contains two main models used to do image classification.
-    *   __pipeline.py__: This file contains the main function _"run"_ which defines the flow of the train.
+    should be set. It also contains the implementation of the models used in this project. Moreover it is possible to define custom models by implementing the Net interface.
+    *   __pipeline.py__: This file contains the main function _run_ which defines the flow of the train.
     *   __splitter.py__: This file contains the function for the splitting of the data in train, test and validation.
     *   __utils.py__: Here are all the functions required in the different scripts.
     *   __yolo.py__: This script is necessary in the case an object location of the car and a subsequent
@@ -57,53 +63,26 @@ prediction.
 
 ### Flow of training explanation
 Here the main process of the project is explained in details. The steps are the following:
-1.  Initialized the following parameters:
-    *   __--params_file__: This parameter lets the user specify the name of the configuration file,
-    that must be placed in the folder __config__. The file to be passed must be a yaml file containing
-    the following parameters:
-        *   __seed__
-        *   __train_batch_size__
-        *   __validation_batch_size__
-        *   __test_batch_size__
-        *   __epochs__
-        *   __IMG_HEIGHT__
-        *   __IMG_WIDTH__
-        *   __data_path__
-    *   __--username__: This will be the name of the folder in which important data, like the 
-     model weights and architecture, will be saved for future usage.
-    *   __--shows_only_summary__: This is a boolean parameter which allows the user to decide whether to train the model or
-    just to show the summary of the architecture to see the number of the parameters that will be trained. If True, the
-    script stops right after having shown the model summary.
-    *   __--net__: This allows the user to specify which model architectures among the ones 
-    present in _"CarModelClassifier/models.py"_. The possible values are:
-        *   __effnetb1__
-        *   __effnetb7__
-        *   __prototype__
-    *   __--bounding_cpu__: A boolean parameter needed if the user wants to limit the cpu usage 
-     for the process of training.
-    *   __--split_data__: This parameter allows the user to decide whether to perform the splitting of the data
-    *   __--crop_images__: If True the model performs object detection on the images, first locating the car
-    and then cropping the image in such a way the new image will be only the box containing the car. 
-2.  Once the parameters are defined the file __train_main.py__ calls the function _"run"_ 
+1.  Once the parameters described in [Training section](#Training) are defined, the file __train_main.py__ calls the function _run_ 
 in the module __pipeline.py__. 
-3.  Checking whether to crop images using the script __yolo.py__. If True, the function _"crop"_ gets
+2.  Checking whether to crop images using the script __yolo.py__. If True, the function _crop_ gets
 the yolo weights from the folder raw_data and performs object detection on the images. Then it crops
 the images and put them in a folder called _object_detection_data_ inside the data folder.
-4.  Checking whether to split the data using the script __splitter.py__. If True the splitting is performed
-using the function _"split"_. If the parameter __crop_images__ is True, then the split is performed
-using the images in the folder _"data/object_detection_data/output_images_cropped"_, otherwise using the
-folder _"data/raw_data/cars_train_new"_. The splitting is performed in the following way:
-    1.  The splitting is performed in a stratified fashion using the file _"data/labels/all_labels_new.csv"_.
+3.  Checking whether to split the data using the script __splitter.py__. If True the splitting is performed
+using the function _split_. If the parameter __crop_images__ is True, then the split is performed
+using the images in the folder _data/object_detection_data/output_images_cropped_, otherwise using the
+folder _data/raw_data/cars_train_new_. The splitting is performed in the following way:
+    1.  The splitting is performed in a stratified fashion using the file _data/labels/all_labels_new.csv_.
     From this file 3 new csv files are created in the same folder:
      _train_labels.csv_, _test_labels.csv_, _validation_labels.csv_. Then, according to these 3 files
      the images in the initial folder are splitted in 3 new folders inside the __data__ folders:
      __train__, __test__, __validation__. 
-5.  Checking whether to limit the cpu usage.
-6.  Initializing the images using the keras generators.
-7.  Initializing and training the pre-specified model.
-8.  Saving the results for feature prediction, evaluation and to have an History of the models run.
+4.  Checking whether to limit the cpu usage.
+5.  Initializing the images using the keras generators.
+6.  Initializing and training the pre-specified model.
+7.  Saving the results for feature prediction, evaluation and to have an History of the models run.
 The function used to save the results uses the _username_ pre-specified to create a folder having 
-the same name inside the folder _"data/models"_. The name of the new created folder
+the same name inside the folder _data/models_. The name of the new created folder
 will be a combination of the username and number, so that if you have more models having the 
 same username, they will be saved with the same name and a chronological number at the end
 to avoid the risk of overwriting existing folders. Inside this folder the function creates 4 files:
@@ -115,7 +94,7 @@ to avoid the risk of overwriting existing folders. Inside this folder the functi
     *   __initial_parameters.yml__: This is the configuration file passed as a parameter.
         This allows the user to understand which were the values of the global parameters for each model.  
 
-## Using the model
+## Usage
 ### Training
 
 To perform the train of the model run the following command:
@@ -149,7 +128,7 @@ python3 train_main.py --username <trial> --params_file <initial_parameters.yml> 
     just to show the summary of the architecture to see the number of the parameters that will be trained. If True, the
     script stops right after having shown the model summary.
     *   __net__: This allows the user to specify which model architectures among the ones 
-    present in _"CarModelClassifier/models.py"_. The possible values are:
+    present in _CarModelClassifier/models.py_. The possible values are:
         *   __effnetb1__
         *   __effnetb7__
         *   __prototype__
@@ -173,19 +152,19 @@ python3 evaluation_main.py custom_images True
 ```
 
 1.  Make sure to have the following data:
-    *   The folder _"data/models/final_model"_ and inside the files: 
+    *   The folder _data/models/final_model_ and inside the files: 
         *   __model.h5__ 
         *   __initial_parameters.yml__
     *   If evaluating on test_data:
-        *   _"data/test"_ containing the images.
-        *   _"data/labels/test_labels.csv"_ containing for each image name the related class.
+        *   _data/test_ containing the images.
+        *   _data/labels/test_labels.csv_ containing for each image name the related class.
     *   If evaluating on new_data:
-        *   The folder _"custom_evaluaton"_ containing:
-            *   _"images"_ containing the new images.
-            *   _"test_labels.csv"_ containing for each new image name the related class
+        *   The folder _custom_evaluaton_ containing:
+            *   _images_ containing the new images.
+            *   _test_labels.csv_ containing for each new image name the related class
 2.   Launch from a terminal the script __evaluation_main.py__ specifying the following parameters:
         *   __custom_images__: If True the evaluation will be performed using new images in the folder
-        _"custom_evaluation"_, otherwise the test data will be used.
+        _custom_evaluation_, otherwise the test data will be used.
         *   __test__: This parameter is True only when performing a test with pytest. Hence it should be
         False when performing prediction on new images.
 
@@ -197,13 +176,13 @@ python3 prediction_main.py
 ```
 
 1.  Make sure to have the following data:
-    *   The folder _"data/models/final_model"_ and inside the files: 
+    *   The folder _data/models/final_model_ and inside the files: 
         *   __model.h5__ 
         *   __initial_parameters.yml__
-    *   The file _"models_info_new.csv"_ inside the folder _"data/labels"_.
-    *   The folder _"custom_evaluaton"_ containing:
-            *   _"images"_ containing the new images.
-            *   _"test_labels.csv"_ containing for each new image name the related class
+    *   The file _models_info_new.csv_ inside the folder _data/labels_.
+    *   The folder _custom_evaluaton_ containing:
+            *   _images_ containing the new images.
+            *   _test_labels.csv_ containing for each new image name the related class
 2.   Launch from a terminal the script __prediction_main.py__ specifying the following parameters:
         *   __test__: This parameter is True only when performing a test with pytest. Hence it should be
         False when performing prediction on new images.

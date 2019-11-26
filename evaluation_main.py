@@ -1,7 +1,9 @@
 from CarModelClassifier.estimation import evaluation
 import click
+import warnings
 
-
+# After making sure they don't represent a problem
+warnings.filterwarnings("ignore")
 @click.command()
 @click.option('--custom_images',
               default=False,

@@ -3,8 +3,10 @@ import os
 from pathlib import Path
 from CarModelClassifier import pipeline
 from CarModelClassifier import models
+import warnings
 
-
+# After making sure they don't represent a problem
+warnings.filterwarnings("ignore")
 @click.command()
 @click.option('--params_file',
               default=r"initial_parameters.yml",
