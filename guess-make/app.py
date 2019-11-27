@@ -13,7 +13,7 @@ from CarModelClassifier.estimation import prediction
 
 
 def create_app(foo='static'):
-    app = Flask(_name_)
+    app = Flask(__name__)
     STATIC_FOLDER = foo
     DATA_FOLDER = os.path.join(STATIC_FOLDER, 'images')
     app.config['SECRET_KEY'] = 'very hard to guess string'
@@ -114,5 +114,5 @@ def guess():
     return render_template('guess.html', form=form, img_path=img_path)
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run()

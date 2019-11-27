@@ -187,7 +187,16 @@ python3 prediction_main.py
 2.   Launch from a terminal the script __prediction_main.py__ specifying the following parameters:
         *   __test__: This parameter is True only when performing a test with pytest. Hence it should be
         False when performing prediction on new images.
-    
+
+## WebApp
+We provided this project with a Web Application that runs locally for presentation purposes. The implementation is available on the _guess-make_ folder. To execute locally this application __go inside the _guess-make_ folder__ and run the following command:
+
+```
+python3 app.py -path static
+```
+
+This application will give you the possibility to guess the type and brand of a car and challenge our model. You can try to beat it but it will not be easy!
+
 ## Running the tests
 To test the most important modules of the project run the following command:
 
