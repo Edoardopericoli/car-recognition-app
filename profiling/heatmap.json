@@ -1,0 +1,3165 @@
+{
+  "h": {
+    "objectName": "train_main.py",
+    "runTime": 5.914519548416138,
+    "heatmaps": [
+      {
+        "name": "/home/3084469/CV/Car_prediction/train_main.py",
+        "heatmap": {
+          "1": 4.9114227294921875e-05,
+          "2": 1.6689300537109375e-06,
+          "3": 1.9073486328125e-06,
+          "4": 3.5762786865234375e-06,
+          "5": 4.76837158203125e-06,
+          "8": 2.6226043701171875e-05,
+          "9": 1.430511474609375e-06,
+          "10": 4.76837158203125e-07,
+          "11": 4.76837158203125e-06,
+          "12": 7.152557373046875e-07,
+          "13": 4.76837158203125e-07,
+          "14": 2.86102294921875e-06,
+          "15": 4.76837158203125e-07,
+          "17": 1.9073486328125e-06,
+          "18": 4.0531158447265625e-06,
+          "19": 4.76837158203125e-07,
+          "20": 7.152557373046875e-07,
+          "21": 3.0994415283203125e-06,
+          "22": 4.76837158203125e-07,
+          "23": 4.76837158203125e-07,
+          "24": 3.0994415283203125e-06,
+          "25": 9.5367431640625e-07,
+          "26": 7.152557373046875e-07,
+          "27": 3.337860107421875e-06,
+          "28": 4.76837158203125e-07,
+          "29": 7.152557373046875e-07,
+          "30": 0.0009937286376953125,
+          "54": 7.152557373046875e-07,
+          "55": 0.001993417739868164,
+          "35": 1.1920928955078125e-06,
+          "37": 9.5367431640625e-07,
+          "39": 9.5367431640625e-07,
+          "40": 1.9073486328125e-06,
+          "42": 0.00020265579223632812,
+          "43": 0.00013256072998046875,
+          "45": 1.1920928955078125e-06,
+          "46": 9.5367431640625e-07,
+          "47": 7.152557373046875e-07,
+          "48": 7.152557373046875e-07,
+          "49": 7.152557373046875e-07,
+          "50": 7.152557373046875e-07,
+          "51": 5.4836273193359375e-06
+        },
+        "executionCount": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "8": 1,
+          "9": 1,
+          "10": 1,
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "17": 1,
+          "18": 1,
+          "19": 1,
+          "20": 1,
+          "21": 1,
+          "22": 1,
+          "23": 1,
+          "24": 1,
+          "25": 1,
+          "26": 1,
+          "27": 1,
+          "28": 1,
+          "29": 1,
+          "30": 1,
+          "54": 1,
+          "55": 1,
+          "35": 1,
+          "37": 1,
+          "39": 1,
+          "40": 1,
+          "42": 1,
+          "43": 1,
+          "45": 1,
+          "46": 1,
+          "47": 1,
+          "48": 1,
+          "49": 1,
+          "50": 1,
+          "51": 1
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "import click"
+          ],
+          [
+            "line",
+            2,
+            "import os"
+          ],
+          [
+            "line",
+            3,
+            "from pathlib import Path"
+          ],
+          [
+            "line",
+            4,
+            "from CarModelClassifier import pipeline"
+          ],
+          [
+            "line",
+            5,
+            "from CarModelClassifier import models"
+          ],
+          [
+            "line",
+            6,
+            ""
+          ],
+          [
+            "line",
+            7,
+            ""
+          ],
+          [
+            "line",
+            8,
+            "@click.command()"
+          ],
+          [
+            "line",
+            9,
+            "@click.option('--params_file',"
+          ],
+          [
+            "line",
+            10,
+            "              default=r\"initial_parameters.yml\","
+          ],
+          [
+            "line",
+            11,
+            "              help='config file containing initial parameters', type=str)"
+          ],
+          [
+            "line",
+            12,
+            "@click.option('--username', default=r\"trial\","
+          ],
+          [
+            "line",
+            13,
+            "              help='username to be used for model saving',"
+          ],
+          [
+            "line",
+            14,
+            "              type=str)"
+          ],
+          [
+            "line",
+            15,
+            "@click.option('--shows_only_summary', default=False,"
+          ],
+          [
+            "line",
+            16,
+            "              help='if True the program stops after having shown \\"
+          ],
+          [
+            "line",
+            17,
+            "                    the model summary',"
+          ],
+          [
+            "line",
+            18,
+            "              type=bool)"
+          ],
+          [
+            "line",
+            19,
+            "@click.option('--net', default='effnetb1',"
+          ],
+          [
+            "line",
+            20,
+            "              help='the model you want to use',"
+          ],
+          [
+            "line",
+            21,
+            "              type=str)"
+          ],
+          [
+            "line",
+            22,
+            "@click.option('--bounding_cpu', default=False,"
+          ],
+          [
+            "line",
+            23,
+            "              help='if True the program will use 8 threads',"
+          ],
+          [
+            "line",
+            24,
+            "              type=bool)"
+          ],
+          [
+            "line",
+            25,
+            "@click.option('--split_data', default=True,"
+          ],
+          [
+            "line",
+            26,
+            "              help='if True data will be splitted accordingly',"
+          ],
+          [
+            "line",
+            27,
+            "              type=bool)"
+          ],
+          [
+            "line",
+            28,
+            "@click.option('--crop_images', default=False,"
+          ],
+          [
+            "line",
+            29,
+            "              help='if True detects car and crops the image',"
+          ],
+          [
+            "line",
+            30,
+            "              type=bool)"
+          ],
+          [
+            "line",
+            31,
+            "def main(params_file, username, shows_only_summary, net,"
+          ],
+          [
+            "line",
+            32,
+            "         bounding_cpu, split_data,"
+          ],
+          [
+            "line",
+            33,
+            "         crop_images):"
+          ],
+          [
+            "line",
+            34,
+            ""
+          ],
+          [
+            "line",
+            35,
+            "    if net == 'effnetb1':"
+          ],
+          [
+            "line",
+            36,
+            "        net = models.EffnetB1"
+          ],
+          [
+            "line",
+            37,
+            "    elif net == 'effnetb7':"
+          ],
+          [
+            "line",
+            38,
+            "        net = models.EffnetB7"
+          ],
+          [
+            "line",
+            39,
+            "    elif net == 'prototype':"
+          ],
+          [
+            "line",
+            40,
+            "        net = models.Prototype"
+          ],
+          [
+            "line",
+            41,
+            ""
+          ],
+          [
+            "line",
+            42,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))))"
+          ],
+          [
+            "line",
+            43,
+            "    initial_parameters_path = file_path / 'config' / params_file"
+          ],
+          [
+            "line",
+            44,
+            ""
+          ],
+          [
+            "line",
+            45,
+            "    pipeline.run(initial_parameters_path,"
+          ],
+          [
+            "line",
+            46,
+            "                 username,"
+          ],
+          [
+            "line",
+            47,
+            "                 shows_only_summary,"
+          ],
+          [
+            "line",
+            48,
+            "                 bounding_cpu=bounding_cpu,"
+          ],
+          [
+            "line",
+            49,
+            "                 net=net,"
+          ],
+          [
+            "line",
+            50,
+            "                 split_data=split_data,"
+          ],
+          [
+            "line",
+            51,
+            "                 crop_images=crop_images)"
+          ],
+          [
+            "line",
+            52,
+            ""
+          ],
+          [
+            "line",
+            53,
+            ""
+          ],
+          [
+            "line",
+            54,
+            "if __name__ == \"__main__\":"
+          ],
+          [
+            "line",
+            55,
+            "    main()"
+          ],
+          [
+            "line",
+            56,
+            ""
+          ]
+        ],
+        "runTime": 0.0034575462341308594
+      },
+      {
+        "name": "/home/3084469/CV/Car_prediction/CarModelClassifier/pipeline.py",
+        "heatmap": {
+          "1": 6.198883056640625e-06,
+          "2": 6.198883056640625e-06,
+          "3": 2.384185791015625e-06,
+          "6": 4.76837158203125e-07,
+          "7": 4.76837158203125e-07,
+          "8": 4.76837158203125e-07,
+          "9": 1.5497207641601562e-05,
+          "35": 4.0531158447265625e-06,
+          "36": 5.7220458984375e-06,
+          "38": 1.9073486328125e-06,
+          "40": 1.9073486328125e-06,
+          "41": 0.0005471706390380859,
+          "42": 3.337860107421875e-06,
+          "43": 1.1682510375976562e-05,
+          "44": 0.0006325244903564453,
+          "46": 1.9073486328125e-06,
+          "49": 4.76837158203125e-06,
+          "50": 2.384185791015625e-06,
+          "52": 0.00028061866760253906,
+          "53": 7.62939453125e-06,
+          "54": 7.3909759521484375e-06,
+          "56": 3.814697265625e-06,
+          "57": 1.9073486328125e-06,
+          "58": 1.430511474609375e-06,
+          "59": 1.0251998901367188e-05,
+          "61": 3.337860107421875e-06,
+          "62": 1.430511474609375e-06,
+          "63": 1.6689300537109375e-06,
+          "64": 1.430511474609375e-06,
+          "65": 1.6689300537109375e-06,
+          "66": 3.0994415283203125e-06,
+          "68": 0.0004482269287109375,
+          "70": 4.76837158203125e-06,
+          "71": 1.9073486328125e-06,
+          "72": 0.0020751953125,
+          "74": 1.1920928955078125e-06,
+          "77": 2.86102294921875e-06,
+          "78": 3.0994415283203125e-06,
+          "80": 4.267692565917969e-05,
+          "81": 0.002990245819091797
+        },
+        "executionCount": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1,
+          "35": 1,
+          "36": 1,
+          "38": 1,
+          "40": 1,
+          "41": 1,
+          "42": 1,
+          "43": 1,
+          "44": 1,
+          "46": 1,
+          "49": 1,
+          "50": 1,
+          "52": 1,
+          "53": 1,
+          "54": 1,
+          "56": 1,
+          "57": 1,
+          "58": 1,
+          "59": 1,
+          "61": 1,
+          "62": 1,
+          "63": 1,
+          "64": 1,
+          "65": 1,
+          "66": 1,
+          "68": 1,
+          "70": 1,
+          "71": 1,
+          "72": 1,
+          "74": 1,
+          "77": 1,
+          "78": 1,
+          "80": 1,
+          "81": 1
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "from CarModelClassifier import utils, splitter, yolo"
+          ],
+          [
+            "line",
+            2,
+            "from CarModelClassifier.models import EffnetB1"
+          ],
+          [
+            "line",
+            3,
+            "import logging"
+          ],
+          [
+            "line",
+            4,
+            ""
+          ],
+          [
+            "line",
+            5,
+            ""
+          ],
+          [
+            "line",
+            6,
+            "def run(initial_parameters_path=\"./config/initial_parameters.yml\","
+          ],
+          [
+            "line",
+            7,
+            "        username=\"trial\", shows_only_summary=False, net=EffnetB1,"
+          ],
+          [
+            "line",
+            8,
+            "        bounding_cpu=False, split_data=True,"
+          ],
+          [
+            "line",
+            9,
+            "        crop_images=False):"
+          ],
+          [
+            "line",
+            10,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            11,
+            "    Perform all the steps for training and saving the model."
+          ],
+          [
+            "line",
+            12,
+            ""
+          ],
+          [
+            "line",
+            13,
+            "    Parameters"
+          ],
+          [
+            "line",
+            14,
+            "    ----------"
+          ],
+          [
+            "line",
+            15,
+            "    initial_parameters_path : string, optional"
+          ],
+          [
+            "line",
+            16,
+            "        the name of the yaml file containing the initial"
+          ],
+          [
+            "line",
+            17,
+            "        parameters."
+          ],
+          [
+            "line",
+            18,
+            "    username : string, optional"
+          ],
+          [
+            "line",
+            19,
+            "        the name used to save the model in the folder"
+          ],
+          [
+            "line",
+            20,
+            "        \"data/models\"."
+          ],
+          [
+            "line",
+            21,
+            "    shows_only_summary : bool, optional"
+          ],
+          [
+            "line",
+            22,
+            "        if True the script exits after having shown"
+          ],
+          [
+            "line",
+            23,
+            "        the summary."
+          ],
+          [
+            "line",
+            24,
+            "    net : net, optional"
+          ],
+          [
+            "line",
+            25,
+            "        specify the architecture to be used"
+          ],
+          [
+            "line",
+            26,
+            "    bounding_cpu : bool, optional"
+          ],
+          [
+            "line",
+            27,
+            "        if True, it limits the cpu usage"
+          ],
+          [
+            "line",
+            28,
+            "    split_data : bool, optional"
+          ],
+          [
+            "line",
+            29,
+            "        if True perform splitting"
+          ],
+          [
+            "line",
+            30,
+            "    crop_images : bool, optional"
+          ],
+          [
+            "line",
+            31,
+            "        if True, perform object detection and"
+          ],
+          [
+            "line",
+            32,
+            "        cropping of images"
+          ],
+          [
+            "line",
+            33,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            34,
+            ""
+          ],
+          [
+            "line",
+            35,
+            "    utils.setting_log()"
+          ],
+          [
+            "line",
+            36,
+            "    initial_parameters = utils.load_parameters(initial_parameters_path)"
+          ],
+          [
+            "line",
+            37,
+            ""
+          ],
+          [
+            "line",
+            38,
+            "    if crop_images:"
+          ],
+          [
+            "line",
+            39,
+            "        yolo.crop()"
+          ],
+          [
+            "line",
+            40,
+            "    if split_data:"
+          ],
+          [
+            "line",
+            41,
+            "        logging.info('Starting splitting and preparing processes')"
+          ],
+          [
+            "line",
+            42,
+            "        splitter.split(initial_parameters,"
+          ],
+          [
+            "line",
+            43,
+            "                       crop_images=crop_images)"
+          ],
+          [
+            "line",
+            44,
+            "        logging.info('Splitting ended successfully')"
+          ],
+          [
+            "line",
+            45,
+            ""
+          ],
+          [
+            "line",
+            46,
+            "    if bounding_cpu:"
+          ],
+          [
+            "line",
+            47,
+            "        utils.bound_cpu(n_threads=8)"
+          ],
+          [
+            "line",
+            48,
+            ""
+          ],
+          [
+            "line",
+            49,
+            "    train_path = \"../\" + initial_parameters['data_path'] + \"/train/\""
+          ],
+          [
+            "line",
+            50,
+            "    validation_path = \"../\" + initial_parameters['data_path'] + \"/validation/\""
+          ],
+          [
+            "line",
+            51,
+            ""
+          ],
+          [
+            "line",
+            52,
+            "    logging.info('Starting the process')"
+          ],
+          [
+            "line",
+            53,
+            "    train_df, validation_df = utils.load_labels_dfs(initial_parameters)"
+          ],
+          [
+            "line",
+            54,
+            "    train_image_generator, validation_image_generator = utils.get_image_generators()"
+          ],
+          [
+            "line",
+            55,
+            ""
+          ],
+          [
+            "line",
+            56,
+            "    train_generator = utils.get_generator(train_image_generator,"
+          ],
+          [
+            "line",
+            57,
+            "                                          train_df, train_path,"
+          ],
+          [
+            "line",
+            58,
+            "                                          initial_parameters,"
+          ],
+          [
+            "line",
+            59,
+            "                                          train=True)"
+          ],
+          [
+            "line",
+            60,
+            ""
+          ],
+          [
+            "line",
+            61,
+            "    validation_generator = utils.get_generator("
+          ],
+          [
+            "line",
+            62,
+            "                                       validation_image_generator,"
+          ],
+          [
+            "line",
+            63,
+            "                                       validation_df,"
+          ],
+          [
+            "line",
+            64,
+            "                                       validation_path,"
+          ],
+          [
+            "line",
+            65,
+            "                                       initial_parameters,"
+          ],
+          [
+            "line",
+            66,
+            "                                       train=False)"
+          ],
+          [
+            "line",
+            67,
+            ""
+          ],
+          [
+            "line",
+            68,
+            "    logging.info('Transforming data using ImageDataGenerator')"
+          ],
+          [
+            "line",
+            69,
+            ""
+          ],
+          [
+            "line",
+            70,
+            "    model_net = net(train_generator, initial_parameters)"
+          ],
+          [
+            "line",
+            71,
+            "    model = model_net.model"
+          ],
+          [
+            "line",
+            72,
+            "    model.summary()"
+          ],
+          [
+            "line",
+            73,
+            ""
+          ],
+          [
+            "line",
+            74,
+            "    if shows_only_summary:"
+          ],
+          [
+            "line",
+            75,
+            "        return"
+          ],
+          [
+            "line",
+            76,
+            ""
+          ],
+          [
+            "line",
+            77,
+            "    history = utils.train_model(train_generator, validation_generator,"
+          ],
+          [
+            "line",
+            78,
+            "                                initial_parameters, train_df, model)"
+          ],
+          [
+            "line",
+            79,
+            ""
+          ],
+          [
+            "line",
+            80,
+            "    utils.save_model_info(username, model, initial_parameters, history)"
+          ],
+          [
+            "line",
+            81,
+            "    logging.info('Process finished')"
+          ],
+          [
+            "line",
+            82,
+            ""
+          ]
+        ],
+        "runTime": 0.007144927978515625
+      },
+      {
+        "name": "/home/3084469/CV/Car_prediction/CarModelClassifier/utils.py",
+        "heatmap": {
+          "6": 7.152557373046875e-07,
+          "7": 2.86102294921875e-06,
+          "8": 2.6226043701171875e-06,
+          "9": 7.3909759521484375e-06,
+          "10": 3.5762786865234375e-06,
+          "11": 1.9073486328125e-06,
+          "12": 2.86102294921875e-06,
+          "13": 1.9073486328125e-06,
+          "14": 2.1457672119140625e-06,
+          "15": 2.384185791015625e-06,
+          "16": 3.0994415283203125e-06,
+          "17": 3.337860107421875e-06,
+          "20": 4.291534423828125e-06,
+          "29": 2.1457672119140625e-06,
+          "44": 3.814697265625e-06,
+          "63": 1.9073486328125e-06,
+          "88": 2.1457672119140625e-06,
+          "107": 2.6226043701171875e-06,
+          "151": 2.384185791015625e-06,
+          "190": 4.0531158447265625e-06,
+          "251": 3.337860107421875e-06,
+          "291": 2.1457672119140625e-06,
+          "310": 7.152557373046875e-07,
+          "327": 5.245208740234375e-06,
+          "330": 4.76837158203125e-07,
+          "331": 3.647804260253906e-05,
+          "24": 2.8371810913085938e-05,
+          "25": 4.291534423828125e-06,
+          "26": 1.0251998901367188e-05,
+          "58": 9.179115295410156e-05,
+          "59": 0.011901617050170898,
+          "60": 8.58306884765625e-06,
+          "77": 0.0001659393310546875,
+          "78": 0.0004868507385253906,
+          "79": 0.0004210472106933594,
+          "80": 0.0001704692840576172,
+          "81": 3.719329833984375e-05,
+          "82": 1.1920928955078125e-06,
+          "83": 0.01298069953918457,
+          "84": 0.00417637825012207,
+          "85": 6.67572021484375e-06,
+          "97": 1.1920928955078125e-06,
+          "98": 9.298324584960938e-06,
+          "99": 7.152557373046875e-07,
+          "100": 7.152557373046875e-07,
+          "101": 0.0015940666198730469,
+          "102": 0.0029921531677246094,
+          "103": 5.4836273193359375e-06,
+          "130": 2.6226043701171875e-06,
+          "131": 1.9073486328125e-06,
+          "135": 0.00042939186096191406,
+          "136": 0.00016641616821289062,
+          "137": 4.5299530029296875e-06,
+          "138": 2.1457672119140625e-06,
+          "139": 1.6689300537109375e-06,
+          "140": 1.9073486328125e-06,
+          "141": 2.1457672119140625e-06,
+          "142": 1.6689300537109375e-06,
+          "143": 2.6226043701171875e-06,
+          "144": 1.9073486328125e-06,
+          "145": 2.6226043701171875e-06,
+          "146": 0.0011932849884033203,
+          "148": 1.5735626220703125e-05,
+          "133": 2.1457672119140625e-06,
+          "174": 2.1457672119140625e-06,
+          "175": 2.47955322265625e-05,
+          "176": 7.152557373046875e-07,
+          "177": 9.059906005859375e-06,
+          "178": 5.0067901611328125e-06,
+          "179": 9.5367431640625e-07,
+          "180": 1.430511474609375e-06,
+          "182": 9.5367431640625e-07,
+          "183": 9.5367431640625e-07,
+          "184": 1.1920928955078125e-06,
+          "185": 7.152557373046875e-07,
+          "186": 0.0003876686096191406,
+          "187": 9.441375732421875e-05,
+          "306": 2.4557113647460938e-05,
+          "206": 0.0034487247467041016,
+          "207": 0.0007166862487792969,
+          "208": 0.001138448715209961,
+          "210": 0.06406784057617188,
+          "211": 6.318092346191406e-05,
+          "213": 6.4373016357421875e-06,
+          "231": 1.1920928955078125e-05,
+          "233": 1.3589859008789062e-05,
+          "234": 4.291534423828125e-06,
+          "235": 0.0022153854370117188,
+          "236": 0.000240325927734375,
+          "237": 0.017862558364868164,
+          "239": 0.00011944770812988281,
+          "240": 0.00010824203491210938,
+          "241": 0.0005507469177246094,
+          "242": 0.001466989517211914,
+          "244": 0.00020170211791992188,
+          "245": 0.0003933906555175781,
+          "246": 0.026453256607055664,
+          "248": 0.00018978118896484375,
+          "307": 1.239776611328125e-05,
+          "264": 0.0002086162567138672,
+          "265": 0.00018715858459472656,
+          "266": 0.0203855037689209,
+          "267": 3.600120544433594e-05,
+          "268": 9.5367431640625e-06,
+          "269": 5.0067901611328125e-06,
+          "271": 4.291534423828125e-06,
+          "272": 4.291534423828125e-06,
+          "274": 2.3126602172851562e-05,
+          "275": 3.790855407714844e-05,
+          "276": 3.337860107421875e-06,
+          "277": 4.76837158203125e-06,
+          "278": 5.0067901611328125e-06,
+          "280": 6.67572021484375e-06,
+          "281": 4.291534423828125e-06,
+          "282": 0.0008647441864013672,
+          "283": 0.0002319812774658203,
+          "284": 0.002129077911376953,
+          "285": 4.0531158447265625e-05,
+          "286": 1.9788742065429688e-05,
+          "287": 0.0008270740509033203,
+          "288": 0.00013375282287597656
+        },
+        "executionCount": {
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1,
+          "10": 1,
+          "11": 1,
+          "12": 1,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 1,
+          "20": 1,
+          "29": 1,
+          "44": 1,
+          "63": 1,
+          "88": 1,
+          "107": 1,
+          "151": 1,
+          "190": 1,
+          "251": 1,
+          "291": 1,
+          "310": 1,
+          "327": 2,
+          "330": 1,
+          "331": 1,
+          "24": 1,
+          "25": 1,
+          "26": 1,
+          "58": 1,
+          "59": 1,
+          "60": 1,
+          "77": 1,
+          "78": 1,
+          "79": 1,
+          "80": 1,
+          "81": 1,
+          "82": 1,
+          "83": 1,
+          "84": 1,
+          "85": 1,
+          "97": 1,
+          "98": 1,
+          "99": 1,
+          "100": 1,
+          "101": 1,
+          "102": 1,
+          "103": 1,
+          "130": 2,
+          "131": 1,
+          "135": 2,
+          "136": 2,
+          "137": 2,
+          "138": 2,
+          "139": 2,
+          "140": 2,
+          "141": 2,
+          "142": 2,
+          "143": 2,
+          "144": 2,
+          "145": 2,
+          "146": 2,
+          "148": 2,
+          "133": 1,
+          "174": 1,
+          "175": 1,
+          "176": 1,
+          "177": 1,
+          "178": 1,
+          "179": 1,
+          "180": 1,
+          "182": 1,
+          "183": 1,
+          "184": 1,
+          "185": 1,
+          "186": 1,
+          "187": 1,
+          "306": 1,
+          "206": 1,
+          "207": 1,
+          "208": 1,
+          "210": 8,
+          "211": 8,
+          "213": 1,
+          "231": 1,
+          "233": 1,
+          "234": 1,
+          "235": 1,
+          "236": 1,
+          "237": 1,
+          "239": 1,
+          "240": 1,
+          "241": 1,
+          "242": 1,
+          "244": 1,
+          "245": 1,
+          "246": 1,
+          "248": 1,
+          "307": 1,
+          "264": 1,
+          "265": 1,
+          "266": 9,
+          "267": 9,
+          "268": 1,
+          "269": 1,
+          "271": 1,
+          "272": 1,
+          "274": 1,
+          "275": 4,
+          "276": 1,
+          "277": 1,
+          "278": 1,
+          "280": 1,
+          "281": 1,
+          "282": 1,
+          "283": 1,
+          "284": 1,
+          "285": 1,
+          "286": 1,
+          "287": 3,
+          "288": 2
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "\"\"\""
+          ],
+          [
+            "line",
+            2,
+            "Utils module."
+          ],
+          [
+            "line",
+            3,
+            ""
+          ],
+          [
+            "line",
+            4,
+            "List of functions"
+          ],
+          [
+            "line",
+            5,
+            "-----------------"
+          ],
+          [
+            "line",
+            6,
+            "\"\"\""
+          ],
+          [
+            "line",
+            7,
+            "import logging"
+          ],
+          [
+            "line",
+            8,
+            "import numpy as np"
+          ],
+          [
+            "line",
+            9,
+            "import pandas as pd"
+          ],
+          [
+            "line",
+            10,
+            "import yaml"
+          ],
+          [
+            "line",
+            11,
+            "import os"
+          ],
+          [
+            "line",
+            12,
+            "import csv"
+          ],
+          [
+            "line",
+            13,
+            "from keras import backend as K"
+          ],
+          [
+            "line",
+            14,
+            "from keras import layers"
+          ],
+          [
+            "line",
+            15,
+            "from keras.preprocessing.image import ImageDataGenerator"
+          ],
+          [
+            "line",
+            16,
+            "from pathlib import Path"
+          ],
+          [
+            "line",
+            17,
+            "from math import ceil"
+          ],
+          [
+            "line",
+            18,
+            ""
+          ],
+          [
+            "line",
+            19,
+            ""
+          ],
+          [
+            "line",
+            20,
+            "def setting_log():"
+          ],
+          [
+            "line",
+            21,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            22,
+            "    Set basic log configuration."
+          ],
+          [
+            "line",
+            23,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            24,
+            "    logging.basicConfig()"
+          ],
+          [
+            "line",
+            25,
+            "    logger = logging.getLogger()"
+          ],
+          [
+            "line",
+            26,
+            "    logger.setLevel(logging.INFO)"
+          ],
+          [
+            "line",
+            27,
+            ""
+          ],
+          [
+            "line",
+            28,
+            ""
+          ],
+          [
+            "line",
+            29,
+            "def bound_cpu(n_threads=8):"
+          ],
+          [
+            "skip",
+            14
+          ],
+          [
+            "line",
+            44,
+            "def load_parameters(parameters_path):"
+          ],
+          [
+            "skip",
+            13
+          ],
+          [
+            "line",
+            58,
+            "    with open(parameters_path) as f:"
+          ],
+          [
+            "line",
+            59,
+            "        initial_parameters = yaml.load(f)"
+          ],
+          [
+            "line",
+            60,
+            "    return initial_parameters"
+          ],
+          [
+            "line",
+            61,
+            ""
+          ],
+          [
+            "line",
+            62,
+            ""
+          ],
+          [
+            "line",
+            63,
+            "def load_labels_dfs(initial_parameters):"
+          ],
+          [
+            "skip",
+            13
+          ],
+          [
+            "line",
+            77,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\\\', '/'))"
+          ],
+          [
+            "line",
+            78,
+            "    train_df = pd.read_csv(file_path / \"..\" / initial_parameters['data_path'] / \"labels/train_labels.csv\")"
+          ],
+          [
+            "line",
+            79,
+            "    validation_df = pd.read_csv(file_path / \"..\" / initial_parameters['data_path'] / \"labels/validation_labels.csv\")"
+          ],
+          [
+            "line",
+            80,
+            "    train_df.reset_index(inplace=True)"
+          ],
+          [
+            "line",
+            81,
+            "    validation_df.reset_index(inplace=True)"
+          ],
+          [
+            "line",
+            82,
+            "    target_variable = 'model_label'"
+          ],
+          [
+            "line",
+            83,
+            "    train_df[target_variable] = train_df[target_variable].astype('str')"
+          ],
+          [
+            "line",
+            84,
+            "    validation_df[target_variable] = validation_df[target_variable].astype('str')"
+          ],
+          [
+            "line",
+            85,
+            "    return train_df, validation_df"
+          ],
+          [
+            "line",
+            86,
+            ""
+          ],
+          [
+            "line",
+            87,
+            ""
+          ],
+          [
+            "line",
+            88,
+            "def get_image_generators():"
+          ],
+          [
+            "line",
+            89,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            90,
+            "    Create image generators for train and validation."
+          ],
+          [
+            "line",
+            91,
+            "    "
+          ],
+          [
+            "line",
+            92,
+            "    Returns"
+          ],
+          [
+            "line",
+            93,
+            "    -------"
+          ],
+          [
+            "line",
+            94,
+            "    ImageDataGenerators"
+          ],
+          [
+            "line",
+            95,
+            "        ImageDataGenerator for train and validation."
+          ],
+          [
+            "line",
+            96,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            97,
+            "    train_image_generator = ImageDataGenerator("
+          ],
+          [
+            "line",
+            98,
+            "                            rescale=1. / 255,"
+          ],
+          [
+            "line",
+            99,
+            "                            zoom_range=0.2,"
+          ],
+          [
+            "line",
+            100,
+            "                            rotation_range=5,"
+          ],
+          [
+            "line",
+            101,
+            "                            horizontal_flip=True)"
+          ],
+          [
+            "line",
+            102,
+            "    validation_image_generator = ImageDataGenerator(rescale=1. / 255)"
+          ],
+          [
+            "line",
+            103,
+            "    return train_image_generator, validation_image_generator"
+          ],
+          [
+            "line",
+            104,
+            ""
+          ],
+          [
+            "line",
+            105,
+            ""
+          ],
+          [
+            "line",
+            106,
+            "def get_generator(imagedatagenerator, labels_df, directory,"
+          ],
+          [
+            "line",
+            107,
+            "                  initial_parameters, train=True):"
+          ],
+          [
+            "skip",
+            22
+          ],
+          [
+            "line",
+            130,
+            "    if train:"
+          ],
+          [
+            "line",
+            131,
+            "        batch_size = initial_parameters['train_batch_size']"
+          ],
+          [
+            "line",
+            132,
+            "    else:"
+          ],
+          [
+            "line",
+            133,
+            "        batch_size = initial_parameters['validation_batch_size']"
+          ],
+          [
+            "line",
+            134,
+            ""
+          ],
+          [
+            "line",
+            135,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\\\', '/'))"
+          ],
+          [
+            "line",
+            136,
+            "    directory = file_path / directory"
+          ],
+          [
+            "line",
+            137,
+            "    generator = imagedatagenerator.flow_from_dataframe("
+          ],
+          [
+            "line",
+            138,
+            "        dataframe=labels_df,"
+          ],
+          [
+            "line",
+            139,
+            "        directory=directory,"
+          ],
+          [
+            "line",
+            140,
+            "        x_col='fname',"
+          ],
+          [
+            "line",
+            141,
+            "        y_col='model_label',"
+          ],
+          [
+            "line",
+            142,
+            "        batch_size=batch_size,"
+          ],
+          [
+            "line",
+            143,
+            "        seed=initial_parameters['seed'],"
+          ],
+          [
+            "line",
+            144,
+            "        class_mode=\"categorical\","
+          ],
+          [
+            "line",
+            145,
+            "        target_size=(initial_parameters['IMG_HEIGHT'],"
+          ],
+          [
+            "line",
+            146,
+            "                     initial_parameters['IMG_WIDTH']),"
+          ],
+          [
+            "line",
+            147,
+            "    )"
+          ],
+          [
+            "line",
+            148,
+            "    return generator"
+          ],
+          [
+            "line",
+            149,
+            ""
+          ],
+          [
+            "line",
+            150,
+            ""
+          ],
+          [
+            "line",
+            151,
+            "def train_model(train_generator, validation_generator, initial_parameters,"
+          ],
+          [
+            "skip",
+            22
+          ],
+          [
+            "line",
+            174,
+            "    history = model.fit_generator(generator=train_generator,"
+          ],
+          [
+            "line",
+            175,
+            "                                  steps_per_epoch=ceil(len(train_df) /"
+          ],
+          [
+            "line",
+            176,
+            "                                                       initial_parameters"
+          ],
+          [
+            "line",
+            177,
+            "                                                       ['train_batch_size']),"
+          ],
+          [
+            "line",
+            178,
+            "                                  validation_steps=ceil(len(train_df) /"
+          ],
+          [
+            "line",
+            179,
+            "                                                        initial_parameters"
+          ],
+          [
+            "line",
+            180,
+            "                                                        ['validation_batch_size']"
+          ],
+          [
+            "line",
+            181,
+            "                                                        ),"
+          ],
+          [
+            "line",
+            182,
+            "                                  validation_data=validation_generator,"
+          ],
+          [
+            "line",
+            183,
+            "                                  epochs=initial_parameters['epochs'],"
+          ],
+          [
+            "line",
+            184,
+            "                                  workers=8,"
+          ],
+          [
+            "line",
+            185,
+            "                                  max_queue_size=32,"
+          ],
+          [
+            "line",
+            186,
+            "                                  verbose=1)"
+          ],
+          [
+            "line",
+            187,
+            "    return history"
+          ],
+          [
+            "line",
+            188,
+            ""
+          ],
+          [
+            "line",
+            189,
+            ""
+          ],
+          [
+            "line",
+            190,
+            "def save_model_architecture(username, model, initial_parameters):"
+          ],
+          [
+            "skip",
+            15
+          ],
+          [
+            "line",
+            206,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\\\','/'))"
+          ],
+          [
+            "line",
+            207,
+            "    path = file_path / '..' / initial_parameters['data_path'] / 'models'"
+          ],
+          [
+            "line",
+            208,
+            "    if not path.is_dir():"
+          ],
+          [
+            "line",
+            209,
+            "        path.mkdir()"
+          ],
+          [
+            "line",
+            210,
+            "    model_names = [str(name) for name in path.glob('**/' + username + '*')]"
+          ],
+          [
+            "line",
+            211,
+            "    model_names = [int(i.split('_')[-1]) for i in model_names]"
+          ],
+          [
+            "line",
+            212,
+            ""
+          ],
+          [
+            "line",
+            213,
+            "    if len(model_names) == 0:"
+          ],
+          [
+            "skip",
+            17
+          ],
+          [
+            "line",
+            231,
+            "        model_name = username + '_' + str(max(model_names)+1)"
+          ],
+          [
+            "line",
+            232,
+            ""
+          ],
+          [
+            "line",
+            233,
+            "        logging.info('Saving: model, initial parameters and \\"
+          ],
+          [
+            "line",
+            234,
+            "                      architecture into {model_directory}'.format("
+          ],
+          [
+            "line",
+            235,
+            "                      model_directory=path / model_name))"
+          ],
+          [
+            "line",
+            236,
+            "        path = path / model_name"
+          ],
+          [
+            "line",
+            237,
+            "        path.mkdir()"
+          ],
+          [
+            "line",
+            238,
+            "        # Saving architecture"
+          ],
+          [
+            "line",
+            239,
+            "        yaml_string = model.to_yaml()"
+          ],
+          [
+            "line",
+            240,
+            "        with open(path / 'architecture.yml',"
+          ],
+          [
+            "line",
+            241,
+            "                  'w') as outfile:"
+          ],
+          [
+            "line",
+            242,
+            "            outfile.write(yaml_string)"
+          ],
+          [
+            "line",
+            243,
+            "        # Saving global parameters"
+          ],
+          [
+            "line",
+            244,
+            "        with open(path / 'initial_parameters.yml',"
+          ],
+          [
+            "line",
+            245,
+            "                  'w') as outfile:"
+          ],
+          [
+            "line",
+            246,
+            "            yaml.dump(initial_parameters, outfile, default_flow_style=False)"
+          ],
+          [
+            "line",
+            247,
+            "        # Saving estimator"
+          ],
+          [
+            "line",
+            248,
+            "        model.save(str(path / 'model.h5'))"
+          ],
+          [
+            "line",
+            249,
+            ""
+          ],
+          [
+            "line",
+            250,
+            ""
+          ],
+          [
+            "line",
+            251,
+            "def save_model_performance(username, history, initial_parameters):"
+          ],
+          [
+            "skip",
+            12
+          ],
+          [
+            "line",
+            264,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\\\', '/'))"
+          ],
+          [
+            "line",
+            265,
+            "    path = file_path / '..' / initial_parameters['data_path'] / 'models'"
+          ],
+          [
+            "line",
+            266,
+            "    model_names = [str(name) for name in path.glob('**/' + username + '*')]"
+          ],
+          [
+            "line",
+            267,
+            "    model_names = [int(i.split('_')[-1]) for i in model_names]"
+          ],
+          [
+            "line",
+            268,
+            "    train_accuracy = history.history[list(history.history.keys())[0]]"
+          ],
+          [
+            "line",
+            269,
+            "    validation_accuracy = history.history[list(history.history.keys())[1]]"
+          ],
+          [
+            "line",
+            270,
+            ""
+          ],
+          [
+            "line",
+            271,
+            "    train_loss = history.history[list(history.history.keys())[2]]"
+          ],
+          [
+            "line",
+            272,
+            "    validation_loss = history.history[list(history.history.keys())[3]]"
+          ],
+          [
+            "line",
+            273,
+            ""
+          ],
+          [
+            "line",
+            274,
+            "    list_epochs = np.arange(1, initial_parameters['epochs'] + 1)"
+          ],
+          [
+            "line",
+            275,
+            "    list_epochs = [str(epoch) for epoch in list_epochs]"
+          ],
+          [
+            "line",
+            276,
+            "    rows = zip(list_epochs, train_accuracy, validation_accuracy,"
+          ],
+          [
+            "line",
+            277,
+            "               train_loss, validation_loss)"
+          ],
+          [
+            "line",
+            278,
+            "    headers = ['Epoch'] + list(history.history.keys())"
+          ],
+          [
+            "line",
+            279,
+            ""
+          ],
+          [
+            "line",
+            280,
+            "    model_name = username + '_' + str(max(model_names))"
+          ],
+          [
+            "line",
+            281,
+            "    logging.info('Saving: model performance into {model_directory}'.format("
+          ],
+          [
+            "line",
+            282,
+            "        model_directory=path / model_name))"
+          ],
+          [
+            "line",
+            283,
+            "    with open(path / model_name / 'evaluation.csv',"
+          ],
+          [
+            "line",
+            284,
+            "              'w') as outfile:"
+          ],
+          [
+            "line",
+            285,
+            "        writer = csv.writer(outfile, delimiter='|')"
+          ],
+          [
+            "line",
+            286,
+            "        writer.writerow(headers)"
+          ],
+          [
+            "line",
+            287,
+            "        for row in rows:"
+          ],
+          [
+            "line",
+            288,
+            "            writer.writerow(row)"
+          ],
+          [
+            "line",
+            289,
+            ""
+          ],
+          [
+            "line",
+            290,
+            ""
+          ],
+          [
+            "line",
+            291,
+            "def save_model_info(username, model, initial_parameters, history):"
+          ],
+          [
+            "skip",
+            14
+          ],
+          [
+            "line",
+            306,
+            "    save_model_architecture(username, model, initial_parameters)"
+          ],
+          [
+            "line",
+            307,
+            "    save_model_performance(username, history, initial_parameters)"
+          ],
+          [
+            "line",
+            308,
+            ""
+          ],
+          [
+            "line",
+            309,
+            ""
+          ],
+          [
+            "line",
+            310,
+            "def swish(x):"
+          ],
+          [
+            "skip",
+            16
+          ],
+          [
+            "line",
+            327,
+            "class FixedDropout(layers.Dropout):"
+          ],
+          [
+            "line",
+            328,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            329,
+            "    Fixed Dropout Layer"
+          ],
+          [
+            "line",
+            330,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            331,
+            "    def _get_noise_shape(self, inputs):"
+          ],
+          [
+            "line",
+            332,
+            "        if self.noise_shape is None:"
+          ],
+          [
+            "line",
+            333,
+            "            return self.noise_shape"
+          ],
+          [
+            "line",
+            334,
+            ""
+          ],
+          [
+            "line",
+            335,
+            "        symbolic_shape = K.shape(inputs)"
+          ],
+          [
+            "line",
+            336,
+            "        noise_shape = [symbolic_shape[axis] if shape is None else shape"
+          ],
+          [
+            "line",
+            337,
+            "                       for axis, shape in enumerate(self.noise_shape)]"
+          ],
+          [
+            "line",
+            338,
+            "        return tuple(noise_shape)"
+          ],
+          [
+            "line",
+            339,
+            ""
+          ]
+        ],
+        "runTime": 0.18204665184020996
+      },
+      {
+        "name": "/home/3084469/CV/Car_prediction/CarModelClassifier/splitter.py",
+        "heatmap": {
+          "1": 2.1457672119140625e-06,
+          "2": 1.6689300537109375e-06,
+          "3": 2.6226043701171875e-06,
+          "4": 2.1457672119140625e-06,
+          "5": 5.9604644775390625e-06,
+          "8": 2.2649765014648438e-05,
+          "35": 0.00016760826110839844,
+          "37": 5.698204040527344e-05,
+          "38": 6.532669067382812e-05,
+          "41": 0.00041222572326660156,
+          "43": 3.5762786865234375e-06,
+          "47": 0.0006849765777587891,
+          "48": 0.0006198883056640625,
+          "49": 4.0531158447265625e-06,
+          "50": 3.337860107421875e-06,
+          "51": 0.0008375644683837891,
+          "54": 0.00011754035949707031,
+          "55": 0.00010156631469726562,
+          "57": 0.0003933906555175781,
+          "58": 0.0002181529998779297,
+          "59": 2.86102294921875e-06,
+          "60": 2.384185791015625e-06,
+          "61": 0.0005176067352294922,
+          "64": 0.00011515617370605469,
+          "65": 0.00012803077697753906,
+          "67": 0.0007469654083251953,
+          "68": 0.0004642009735107422,
+          "69": 0.0004248619079589844,
+          "70": 0.00042247772216796875,
+          "73": 1.811981201171875e-05,
+          "76": 0.00020456314086914062,
+          "77": 0.00022864341735839844,
+          "78": 0.00019931793212890625,
+          "81": 8.821487426757812e-06,
+          "83": 0.0002040863037109375,
+          "84": 2.86102294921875e-06,
+          "87": 3.5762786865234375e-06,
+          "88": 1.430511474609375e-05,
+          "89": 0.0008928775787353516,
+          "90": 0.0002696514129638672,
+          "91": 1.001805305480957,
+          "92": 0.00555419921875,
+          "93": 0.03049612045288086,
+          "94": 0.774773120880127,
+          "95": 0.30686187744140625,
+          "96": 3.5733089447021484,
+          "98": 0.007951498031616211,
+          "99": 1.9073486328125e-05,
+          "101": 0.0018260478973388672
+        },
+        "executionCount": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "8": 1,
+          "35": 1,
+          "37": 1,
+          "38": 1,
+          "41": 1,
+          "43": 1,
+          "47": 1,
+          "48": 1,
+          "49": 1,
+          "50": 1,
+          "51": 1,
+          "54": 1,
+          "55": 1,
+          "57": 1,
+          "58": 1,
+          "59": 1,
+          "60": 1,
+          "61": 1,
+          "64": 1,
+          "65": 1,
+          "67": 1,
+          "68": 1,
+          "69": 1,
+          "70": 1,
+          "73": 1,
+          "76": 1,
+          "77": 1,
+          "78": 1,
+          "81": 1,
+          "83": 1,
+          "84": 1,
+          "87": 1,
+          "88": 4,
+          "89": 3,
+          "90": 3,
+          "91": 3,
+          "92": 3,
+          "93": 9602,
+          "94": 9599,
+          "95": 9599,
+          "96": 9599,
+          "98": 3,
+          "99": 3,
+          "101": 1
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "import pandas as pd"
+          ],
+          [
+            "line",
+            2,
+            "from sklearn.model_selection import train_test_split"
+          ],
+          [
+            "line",
+            3,
+            "import os"
+          ],
+          [
+            "line",
+            4,
+            "import shutil"
+          ],
+          [
+            "line",
+            5,
+            "from pathlib import Path"
+          ],
+          [
+            "line",
+            6,
+            ""
+          ],
+          [
+            "line",
+            7,
+            ""
+          ],
+          [
+            "line",
+            8,
+            "def split(initial_parameters, train_size=0.8, crop_images=False):"
+          ],
+          [
+            "skip",
+            26
+          ],
+          [
+            "line",
+            35,
+            "    file_path = Path((os.path.dirname(os.path.abspath(__file__))).replace('\\\\', '/'))"
+          ],
+          [
+            "line",
+            36,
+            ""
+          ],
+          [
+            "line",
+            37,
+            "    data_path = Path('../' + initial_parameters['data_path'])"
+          ],
+          [
+            "line",
+            38,
+            "    origin_data_path = data_path / 'labels/all_labels_new.csv'"
+          ],
+          [
+            "line",
+            39,
+            ""
+          ],
+          [
+            "line",
+            40,
+            "    # Reading data"
+          ],
+          [
+            "line",
+            41,
+            "    data = pd.read_csv(file_path / origin_data_path)"
+          ],
+          [
+            "line",
+            42,
+            ""
+          ],
+          [
+            "line",
+            43,
+            "    if crop_images:"
+          ],
+          [
+            "line",
+            44,
+            "        data = pd.read_csv(file_path / data_path / 'labels/all_labels_new.csv')"
+          ],
+          [
+            "line",
+            45,
+            ""
+          ],
+          [
+            "line",
+            46,
+            "    # Splitting train, validation, test"
+          ],
+          [
+            "line",
+            47,
+            "    X_train, X_test_temp, y_train, y_test_temp = train_test_split(data[['fname']],"
+          ],
+          [
+            "line",
+            48,
+            "                                                                  data['model_label'],"
+          ],
+          [
+            "line",
+            49,
+            "                                                                  test_size=1 - train_size,"
+          ],
+          [
+            "line",
+            50,
+            "                                                                  random_state=89,"
+          ],
+          [
+            "line",
+            51,
+            "                                                                  stratify=data['model_label']"
+          ],
+          [
+            "line",
+            52,
+            "                                                                 )"
+          ],
+          [
+            "line",
+            53,
+            ""
+          ],
+          [
+            "line",
+            54,
+            "    train = pd.DataFrame(X_train).merge(pd.DataFrame(y_train), left_index=True, right_index=True)"
+          ],
+          [
+            "line",
+            55,
+            "    test_temp = pd.DataFrame(X_test_temp).merge(pd.DataFrame(y_test_temp), left_index=True, right_index=True)"
+          ],
+          [
+            "line",
+            56,
+            ""
+          ],
+          [
+            "line",
+            57,
+            "    X_test, X_validation, y_test, y_validation = train_test_split(test_temp[['fname']],"
+          ],
+          [
+            "line",
+            58,
+            "                                                                    test_temp['model_label'],"
+          ],
+          [
+            "line",
+            59,
+            "                                                                    test_size=0.5,"
+          ],
+          [
+            "line",
+            60,
+            "                                                                    random_state=89,"
+          ],
+          [
+            "line",
+            61,
+            "                                                                    stratify=test_temp['model_label']"
+          ],
+          [
+            "line",
+            62,
+            "                                                                    )"
+          ],
+          [
+            "line",
+            63,
+            ""
+          ],
+          [
+            "line",
+            64,
+            "    validation = pd.DataFrame(X_validation).merge(pd.DataFrame(y_validation), left_index=True, right_index=True)"
+          ],
+          [
+            "line",
+            65,
+            "    test = pd.DataFrame(X_test).merge(pd.DataFrame(y_test), left_index=True, right_index=True)"
+          ],
+          [
+            "line",
+            66,
+            ""
+          ],
+          [
+            "line",
+            67,
+            "    data.set_index('fname', inplace=True)"
+          ],
+          [
+            "line",
+            68,
+            "    train.set_index('fname', inplace=True)"
+          ],
+          [
+            "line",
+            69,
+            "    validation.set_index('fname', inplace=True)"
+          ],
+          [
+            "line",
+            70,
+            "    test.set_index('fname', inplace=True)"
+          ],
+          [
+            "line",
+            71,
+            ""
+          ],
+          [
+            "line",
+            72,
+            "    # Testing that the split has been executed correctly"
+          ],
+          [
+            "line",
+            73,
+            "    assert len(data) == len(train) + len(validation) + len(test)"
+          ],
+          [
+            "line",
+            74,
+            ""
+          ],
+          [
+            "line",
+            75,
+            "    # Writing boxes data and class names data into csv files and writing a csv for each of train, validation and test"
+          ],
+          [
+            "line",
+            76,
+            "    train.to_csv(file_path / data_path / 'labels/train_labels.csv')"
+          ],
+          [
+            "line",
+            77,
+            "    validation.to_csv(file_path / data_path / 'labels/validation_labels.csv')"
+          ],
+          [
+            "line",
+            78,
+            "    test.to_csv(file_path / data_path / 'labels/test_labels.csv')"
+          ],
+          [
+            "line",
+            79,
+            ""
+          ],
+          [
+            "line",
+            80,
+            "    # Sending images to train, validation and test folders"
+          ],
+          [
+            "line",
+            81,
+            "    indexes = {'train': train.index, 'validation': validation.index, 'test': test.index}"
+          ],
+          [
+            "line",
+            82,
+            ""
+          ],
+          [
+            "line",
+            83,
+            "    src = file_path / data_path / 'raw_data/cars_train_new'"
+          ],
+          [
+            "line",
+            84,
+            "    if crop_images:"
+          ],
+          [
+            "line",
+            85,
+            "        src = file_path / data_path / 'object_detection_data/output_images_cropped'"
+          ],
+          [
+            "line",
+            86,
+            ""
+          ],
+          [
+            "line",
+            87,
+            "    length_all_folders = []"
+          ],
+          [
+            "line",
+            88,
+            "    for index in indexes.keys():"
+          ],
+          [
+            "line",
+            89,
+            "        dest = file_path / data_path / str(index)"
+          ],
+          [
+            "line",
+            90,
+            "        if os.path.exists(dest):"
+          ],
+          [
+            "line",
+            91,
+            "            shutil.rmtree(dest, ignore_errors=True)"
+          ],
+          [
+            "line",
+            92,
+            "        os.mkdir(dest)"
+          ],
+          [
+            "line",
+            93,
+            "        for file_name in indexes[index]:"
+          ],
+          [
+            "line",
+            94,
+            "            full_file_name = src / file_name"
+          ],
+          [
+            "line",
+            95,
+            "            if full_file_name.is_file():"
+          ],
+          [
+            "line",
+            96,
+            "                shutil.copy(full_file_name, dest)"
+          ],
+          [
+            "line",
+            97,
+            ""
+          ],
+          [
+            "line",
+            98,
+            "        length_folder = len(os.listdir(dest))"
+          ],
+          [
+            "line",
+            99,
+            "        length_all_folders.append(length_folder)"
+          ],
+          [
+            "line",
+            100,
+            ""
+          ],
+          [
+            "line",
+            101,
+            "    assert len(data) == sum(length_all_folders)"
+          ],
+          [
+            "line",
+            102,
+            ""
+          ]
+        ],
+        "runTime": 5.711190938949585
+      },
+      {
+        "name": "/home/3084469/CV/Car_prediction/CarModelClassifier/yolo.py",
+        "heatmap": {
+          "1": 1.6689300537109375e-06,
+          "2": 2.384185791015625e-06,
+          "3": 3.5762786865234375e-06,
+          "4": 1.9073486328125e-06,
+          "5": 1.9073486328125e-06,
+          "6": 1.6689300537109375e-06,
+          "9": 5.9604644775390625e-06
+        },
+        "executionCount": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "9": 1
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "from imageai.Detection import ObjectDetection"
+          ],
+          [
+            "line",
+            2,
+            "from PIL import Image"
+          ],
+          [
+            "line",
+            3,
+            "import shutil"
+          ],
+          [
+            "line",
+            4,
+            "import os"
+          ],
+          [
+            "line",
+            5,
+            "import re"
+          ],
+          [
+            "line",
+            6,
+            "import logging"
+          ],
+          [
+            "line",
+            7,
+            ""
+          ],
+          [
+            "line",
+            8,
+            ""
+          ],
+          [
+            "line",
+            9,
+            "def crop(sample=False):"
+          ],
+          [
+            "skip",
+            95
+          ]
+        ],
+        "runTime": 1.9073486328125e-05
+      },
+      {
+        "name": "/home/3084469/CV/Car_prediction/CarModelClassifier/models.py",
+        "heatmap": {
+          "1": 3.5762786865234375e-06,
+          "2": 3.0994415283203125e-06,
+          "3": 2.384185791015625e-06,
+          "4": 1.9073486328125e-06,
+          "5": 3.5762786865234375e-06,
+          "6": 3.0994415283203125e-06,
+          "7": 2.6226043701171875e-06,
+          "10": 4.76837158203125e-06,
+          "13": 4.76837158203125e-07,
+          "15": 8.96453857421875e-05,
+          "20": 2.86102294921875e-06,
+          "23": 7.152557373046875e-07,
+          "24": 1.430511474609375e-06,
+          "32": 9.5367431640625e-07,
+          "44": 1.430511474609375e-06,
+          "62": 9.107589721679688e-05,
+          "86": 2.6226043701171875e-06,
+          "89": 9.5367431640625e-07,
+          "90": 7.152557373046875e-07,
+          "98": 7.581710815429688e-05,
+          "116": 2.1457672119140625e-06,
+          "119": 4.76837158203125e-07,
+          "121": 9.5367431640625e-07,
+          "129": 7.152557373046875e-07,
+          "141": 9.5367431640625e-07,
+          "159": 8.606910705566406e-05,
+          "91": 1.1920928955078125e-06,
+          "94": 1.6689300537109375e-06,
+          "95": 7.152557373046875e-07,
+          "96": 2.86102294921875e-06,
+          "99": 1.430511474609375e-06,
+          "100": 8.344650268554688e-06,
+          "101": 0.005430936813354492,
+          "102": 0.00032806396484375,
+          "103": 0.0006604194641113281,
+          "104": 0.0008563995361328125,
+          "105": 0.00016045570373535156,
+          "106": 0.0006721019744873047,
+          "107": 0.0019176006317138672,
+          "110": 1.9073486328125e-06,
+          "111": 4.76837158203125e-07,
+          "112": 0.00022220611572265625,
+          "113": 8.58306884765625e-06
+        },
+        "executionCount": {
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "10": 2,
+          "13": 1,
+          "15": 1,
+          "20": 2,
+          "23": 1,
+          "24": 1,
+          "32": 1,
+          "44": 1,
+          "62": 1,
+          "86": 2,
+          "89": 1,
+          "90": 1,
+          "98": 1,
+          "116": 2,
+          "119": 1,
+          "121": 1,
+          "129": 1,
+          "141": 1,
+          "159": 1,
+          "91": 1,
+          "94": 1,
+          "95": 1,
+          "96": 1,
+          "99": 1,
+          "100": 1,
+          "101": 1,
+          "102": 1,
+          "103": 1,
+          "104": 1,
+          "105": 1,
+          "106": 1,
+          "107": 1,
+          "110": 1,
+          "111": 1,
+          "112": 1,
+          "113": 1
+        },
+        "srcCode": [
+          [
+            "line",
+            1,
+            "from keras import optimizers"
+          ],
+          [
+            "line",
+            2,
+            "from keras.layers import GlobalAveragePooling2D, BatchNormalization"
+          ],
+          [
+            "line",
+            3,
+            "from keras import Model"
+          ],
+          [
+            "line",
+            4,
+            "import efficientnet.keras as efn"
+          ],
+          [
+            "line",
+            5,
+            "from keras.layers import Dense, Flatten, Dropout, Conv2D, MaxPooling2D"
+          ],
+          [
+            "line",
+            6,
+            "from keras.models import Sequential"
+          ],
+          [
+            "line",
+            7,
+            "import abc"
+          ],
+          [
+            "line",
+            8,
+            ""
+          ],
+          [
+            "line",
+            9,
+            ""
+          ],
+          [
+            "line",
+            10,
+            "class Net(metaclass=abc.ABCMeta):"
+          ],
+          [
+            "line",
+            11,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            12,
+            "    Abstract class that is the super class of all models  "
+          ],
+          [
+            "line",
+            13,
+            "    \"\"\" "
+          ],
+          [
+            "line",
+            14,
+            ""
+          ],
+          [
+            "line",
+            15,
+            "    @abc.abstractmethod"
+          ],
+          [
+            "line",
+            16,
+            "    def setup_model(self):"
+          ],
+          [
+            "line",
+            17,
+            "        return"
+          ],
+          [
+            "line",
+            18,
+            ""
+          ],
+          [
+            "line",
+            19,
+            ""
+          ],
+          [
+            "line",
+            20,
+            "class EffnetB1(Net):"
+          ],
+          [
+            "line",
+            21,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            22,
+            "    Efficient Net Version B1 implementation"
+          ],
+          [
+            "line",
+            23,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            24,
+            "    def __init__(self, train_generator, initial_parameters=None):"
+          ],
+          [
+            "line",
+            25,
+            "        if initial_parameters is None:"
+          ],
+          [
+            "line",
+            26,
+            "            self.initial_parameters = {}"
+          ],
+          [
+            "line",
+            27,
+            "        else:"
+          ],
+          [
+            "line",
+            28,
+            "            self.initial_parameters = initial_parameters"
+          ],
+          [
+            "line",
+            29,
+            "        self.train_generator = train_generator"
+          ],
+          [
+            "line",
+            30,
+            "        self.model = self.setup_model()"
+          ],
+          [
+            "line",
+            31,
+            ""
+          ],
+          [
+            "line",
+            32,
+            "    def setup_model(self):"
+          ],
+          [
+            "skip",
+            11
+          ],
+          [
+            "line",
+            44,
+            "    def _setup_base_model(self):"
+          ],
+          [
+            "skip",
+            17
+          ],
+          [
+            "line",
+            62,
+            "    def _setup_final_layers(self, base_model):"
+          ],
+          [
+            "skip",
+            23
+          ],
+          [
+            "line",
+            86,
+            "class Prototype(Net):"
+          ],
+          [
+            "line",
+            87,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            88,
+            "    Basic model used for baseline and test purposes."
+          ],
+          [
+            "line",
+            89,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            90,
+            "    def __init__(self, train_generator, initial_parameters=None):"
+          ],
+          [
+            "line",
+            91,
+            "        if initial_parameters is None:"
+          ],
+          [
+            "line",
+            92,
+            "            self.initial_parameters = {}"
+          ],
+          [
+            "line",
+            93,
+            "        else:"
+          ],
+          [
+            "line",
+            94,
+            "            self.initial_parameters = initial_parameters"
+          ],
+          [
+            "line",
+            95,
+            "        self.train_generator = train_generator"
+          ],
+          [
+            "line",
+            96,
+            "        self.model = self.setup_model()"
+          ],
+          [
+            "line",
+            97,
+            ""
+          ],
+          [
+            "line",
+            98,
+            "    def setup_model(self):"
+          ],
+          [
+            "line",
+            99,
+            "        model = Sequential(["
+          ],
+          [
+            "line",
+            100,
+            "            Conv2D(5, 4, activation='relu', input_shape=(self.initial_parameters['IMG_HEIGHT'],"
+          ],
+          [
+            "line",
+            101,
+            "                                                         self.initial_parameters['IMG_WIDTH'], 3)),"
+          ],
+          [
+            "line",
+            102,
+            "            MaxPooling2D((8, 8)),"
+          ],
+          [
+            "line",
+            103,
+            "            Dropout(0.1, seed=self.initial_parameters['seed']),"
+          ],
+          [
+            "line",
+            104,
+            "            Conv2D(5, 4, padding='same', activation='relu'),"
+          ],
+          [
+            "line",
+            105,
+            "            Flatten(),"
+          ],
+          [
+            "line",
+            106,
+            "            Dense(50, activation='relu'),"
+          ],
+          [
+            "line",
+            107,
+            "            Dense(len(self.train_generator.class_indices), activation='softmax')"
+          ],
+          [
+            "line",
+            108,
+            "            ])"
+          ],
+          [
+            "line",
+            109,
+            ""
+          ],
+          [
+            "line",
+            110,
+            "        model.compile(optimizer='adam',"
+          ],
+          [
+            "line",
+            111,
+            "                      loss='categorical_crossentropy',"
+          ],
+          [
+            "line",
+            112,
+            "                      metrics=['accuracy'])"
+          ],
+          [
+            "line",
+            113,
+            "        return model"
+          ],
+          [
+            "line",
+            114,
+            ""
+          ],
+          [
+            "line",
+            115,
+            ""
+          ],
+          [
+            "line",
+            116,
+            "class EffnetB7(Net):"
+          ],
+          [
+            "line",
+            117,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            118,
+            "    Efficient Net Version B7 implementation"
+          ],
+          [
+            "line",
+            119,
+            "    \"\"\""
+          ],
+          [
+            "line",
+            120,
+            ""
+          ],
+          [
+            "line",
+            121,
+            "    def __init__(self, train_generator, initial_parameters=None):"
+          ],
+          [
+            "line",
+            122,
+            "        if initial_parameters is None:"
+          ],
+          [
+            "line",
+            123,
+            "            self.initial_parameters = {}"
+          ],
+          [
+            "line",
+            124,
+            "        else:"
+          ],
+          [
+            "line",
+            125,
+            "            self.initial_parameters = initial_parameters"
+          ],
+          [
+            "line",
+            126,
+            "        self.train_generator = train_generator"
+          ],
+          [
+            "line",
+            127,
+            "        self.model = self.setup_model()"
+          ],
+          [
+            "line",
+            128,
+            ""
+          ],
+          [
+            "line",
+            129,
+            "    def setup_model(self):"
+          ],
+          [
+            "skip",
+            11
+          ],
+          [
+            "line",
+            141,
+            "    def _setup_base_model(self):"
+          ],
+          [
+            "skip",
+            17
+          ],
+          [
+            "line",
+            159,
+            "    def _setup_final_layers(self, base_model):"
+          ],
+          [
+            "skip",
+            22
+          ]
+        ],
+        "runTime": 0.010660409927368164
+      }
+    ]
+  },
+  "version": "0.37.6"
+}

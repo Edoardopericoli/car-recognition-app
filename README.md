@@ -1,13 +1,13 @@
 # CarModelClassifier
 
 ## Getting Started
-This project allows to predict the model, the brand and the year of a car based
-on an image of that. It is organized in 3 main files to be run by the user, 5 folders
+The first part of the project allows to predict the model, the brand and the year of a car based
+on an image. The second part of the project is about generating new car images using an alternative generator architecture (StyleGAN) for GANs. It is organized in 3 main files to be run by the user, 5 folders
 for the code and 1 folder for the data. All the detailed info about the code and the functions
-can be found in the _docs/docs.pdf_ file.
+can be found in the _docs/docs.pdf_ file. The results obtained can be visualized on the _Report\_Cars_ Jupyter Notebook. 
 
 ## Installation
-To install all the requirement run the following command:
+To install all the requirements run the following command:
 
 ```
 pip install -r requirements.txt
@@ -26,6 +26,7 @@ The downloaded folder contains the following data:
 1.  __raw_data__:
     *  __train_cars_new__: All the train images must be in this folder
     * __YOLO_weights__: This contains the weights for object detection
+    * __StyleGAN__: This contains the train images to generate car images with StyleGAN
 2.  __labels__:
     *   __all_labels_new.csv__: This file should contain for each image name the real class
     * __models_info_new.csv__: This file combines each class with the model features, that is:
@@ -194,6 +195,22 @@ To test the most important modules of the project run the following command:
 pytest
 ```
 
+It is also available a complete report of the profiling of the training on the prototype model. The file in the folder _profilin_ contain all the information and can be visualized with the following commands:
+
+Memory:
+```
+vprof --input-file profiling/memory.json
+```
+
+Profiler:
+```
+vprof --input-file profiling/profiler.json
+```
+
+Heatmap:
+```
+vprof --input-file profiling/heatmap.json
+```
 
 ## Authors
 *   __Martina Cioffi__ - https://github.com/martinacioffi
