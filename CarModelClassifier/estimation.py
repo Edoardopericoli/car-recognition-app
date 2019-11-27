@@ -150,7 +150,7 @@ def prediction(test=False):
 
     output_df = pd.DataFrame({'filename': filenames, 'class': classes})
     labels_df = pd.read_csv(labels_info_path)
-    output_df = output_df.merge(labels_df, left_on='class', right_on='label') \
+    output_df = output_df.merge(labels_df, left_on='class', right_on='model_label') \
                          .drop(columns=['class'])
     return output_df
 

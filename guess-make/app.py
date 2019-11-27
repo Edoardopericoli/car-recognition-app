@@ -12,14 +12,13 @@ from CarModelClassifier.estimation import prediction
 
 
 STATIC_FOLDER = 'static'
-# STATIC_FOLDER = '/Car_Prediction/tests/test_images'
 DATA_FOLDER = os.path.join(STATIC_FOLDER, 'images')
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'very hard to guess string'
 app.config['BOOTSTRAP_SERVE_LOCAL'] = True
 app.config['UPLOAD_FOLDER'] = DATA_FOLDER
-
+out_df = prediction()
 bootstrap = Bootstrap(app)
 
 choices = [('Audi A3 Cabriolet', 'Audi A3 Cabriolet'), ('Audi Q5', 'Audi Q5'),
@@ -50,9 +49,9 @@ class PastebinEntry(FlaskForm):
                        )
     submit = SubmitField(u'Submit')
 
-# TODO change number of zfill cuz our images have one more leading zero
+
 def get_path(r):
-    image_name = f'{str(r).zfill(5)}.jpg'
+    image_name = f'{str(r).zfill(6)}.jpg'
     img_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name)
     return img_path, image_name
 
@@ -63,8 +62,8 @@ def get_make(r):
     label_df = pd.read_csv("../custom_evaluation/test_labels.csv")
     info_df = pd.read_csv("../data/labels/models_info_new.csv")
     total_df = label_df.merge(info_df, on=['model_label'])
-    brand = total_df[total_df['fname'] == img].brand
-    model = total_df[total_df['fname'] == img].model
+    brand = total_df.loc[total_df['fname'] == img, :].reset_index()['brand'][0]
+    model = total_df.loc[total_df['fname'] == img, :].reset_index()['model'][0]
     res = str(brand) + " " + str(model)
     return res
 
@@ -72,7 +71,7 @@ def get_make(r):
 @app.route('/')
 def index():
     label_df = pd.read_csv("../custom_evaluation/test_labels.csv")
-    r = random.randint(0, len(label_df))  # TODO change this to randint(0, len(labels))
+    r = random.randint(1, len(label_df))
     img_path, image_name = get_path(r)
     session['img_path'] = img_path
     session['image_name'] = image_name
@@ -88,9 +87,8 @@ def guess():
     image_name = session['image_name']
     result = str(session['make'])
     form = PastebinEntry()
-    out_df = prediction()
-    brand = out_df[out_df.fname == image_name].brand
-    model = out_df[out_df.fname == image_name].model
+    brand = out_df.loc[out_df.filename == image_name, :].reset_index()['brand'][0]
+    model = out_df.loc[out_df.filename == image_name, :].reset_index()['model'][0]
     predicted_car = f'{brand} {model}'
     if form.validate_on_submit():
         answer = str(form.make.data)

@@ -159,12 +159,12 @@ class EffnetB7(Net):
     def _setup_final_layers(self, base_model):
         """
         Build the last layers
-        
+
         Parameters
         ----------
         base_model : Net
             Model composed by Efficient Net layers
-        
+
         Returns
         -------
         Net
