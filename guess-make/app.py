@@ -8,18 +8,28 @@ from flask_wtf import FlaskForm
 from wtforms import SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_bootstrap import Bootstrap
+from argparse import ArgumentParser
 from CarModelClassifier.estimation import prediction
 
 
-STATIC_FOLDER = 'static'
-DATA_FOLDER = os.path.join(STATIC_FOLDER, 'images')
+def create_app(foo='static'):
+    app = Flask(__name__)
+    STATIC_FOLDER = foo
+    DATA_FOLDER = os.path.join(STATIC_FOLDER, 'images')
+    app.config['SECRET_KEY'] = 'very hard to guess string'
+    app.config['BOOTSTRAP_SERVE_LOCAL'] = True
+    app.config['PIC_FOLDER'] = os.path.join('static', 'images')
+    app.config['UPLOAD_FOLDER'] = DATA_FOLDER
+    bootstrap = Bootstrap(app)
+    return STATIC_FOLDER, DATA_FOLDER, app
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'very hard to guess string'
-app.config['BOOTSTRAP_SERVE_LOCAL'] = True
-app.config['UPLOAD_FOLDER'] = DATA_FOLDER
+
 out_df = prediction()
-bootstrap = Bootstrap(app)
+parser = ArgumentParser()
+parser.add_argument('-path')
+args = parser.parse_args()
+foo = args.path
+STATIC_FOLDER, DATA_FOLDER, app = create_app(foo)
 
 choices = [('Audi A3 Cabriolet', 'Audi A3 Cabriolet'), ('Audi Q5', 'Audi Q5'),
            ('BMW Series 1 Coupe', 'BMW Series 1 Coupe'), ('BMW Z4 Roadster', 'BMW Z4 Roadster'),
@@ -52,7 +62,7 @@ class PastebinEntry(FlaskForm):
 
 def get_path(r):
     image_name = f'{str(r).zfill(6)}.jpg'
-    img_path = os.path.join(app.config['UPLOAD_FOLDER'], image_name)
+    img_path = str(os.path.join(app.config['PIC_FOLDER'], image_name))
     return img_path, image_name
 
 
