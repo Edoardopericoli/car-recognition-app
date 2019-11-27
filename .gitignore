@@ -111,4 +111,3 @@ venv.bak/
 # model_scripts
 model_scripts/
 tests/data_test/models/
-custom_evaluation/
